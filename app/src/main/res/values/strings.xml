@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">PortoneSdk</string>
+    <string-array name="payment_methods_array">
+        <item>CARD</item>
+        <item>VIRTUAL_ACCOUNT</item>
+        <item>TRANSFER</item>
+        <item>MOBILE</item>
+        <item>GIFT_CERTIFICATE</item>
+        <item>EASY_PAY</item>
+    </string-array>
+    <string-array name="cash_receipt_type_array">
+        <item>PERSONAL</item>
+        <item>CORPORATE</item>
+        <item>ANONYMOUS</item>
+    </string-array>
+    <string-array name="easy_pay_provider_array">
+        <item>PAYCO</item>
+        <item>SAMSUNGPAY</item>
+        <item>SSGPAY</item>
+        <item>KAKAOPAY</item>
+        <item>NAVERPAY</item>
+        <item>LPAY</item>
+        <item>TOSSPAY</item>
+        <item>LGPAY</item>
+        <item>APPLEPAY</item>
+    </string-array>
+    <string-array name="gift_certificate_type_array">
+        <item>CULTURELAND</item>
+        <item>BOOKNLIFE</item>
+        <item>SMART_MUNSANG</item>
+        <item>CULTURE_GIFT</item>
+    </string-array>
+    <string-array name="carrier_array">
+        <item>SKT</item>
+        <item>KT</item>
+        <item>LGU</item>
+        <item>HELLO</item>
+        <item>KCT</item>
+        <item>SK7</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sample_json"> {
+    \"storeId\": \"store-9a843a46-6b68-45d6-96ac-64fe100c9a0c\",
+    \"paymentId\": \"testm0dfrzrk\",
+        \"orderName\": \"portone-internal-test-qa\",
+    \"totalAmount\": 100,
+    \"currency\": \"KRW\",
+    \"channelKey\": \"channel-key-2106879a-bbab-48d3-b3e1-ef42961c1f19\",
+    \"payMethod\": \"CARD\"
+  }
+    </string>
+</resources>

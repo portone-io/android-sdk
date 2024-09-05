@@ -3,9 +3,11 @@ package io.portone.sdk.android
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.registerForActivityResult
 import androidx.fragment.app.Fragment
 
 interface Sdk {
@@ -13,17 +15,34 @@ interface Sdk {
         activity: ComponentActivity,
         callback: PaymentCallback
     ): ActivityResultLauncher<Intent>
+
     fun registerForPaymentActivity(
         fragment: Fragment,
         callback: PaymentCallback
     ): ActivityResultLauncher<Intent>
+
     fun requestPayment(
         activity: ComponentActivity,
         request: PaymentRequest,
         resultLauncher: ActivityResultLauncher<Intent>,
     )
-//    TODO
-//    fun requestIssueBillingKey(request: IssueBillingKeyRequest)
+
+    fun registerForIssueBillingKeyActivity(
+        activity: ComponentActivity,
+        callback: IssueBillingKeyCallback
+    ): ActivityResultLauncher<Intent>
+
+    fun registerForIssueBillingKeyActivity(
+        fragment: Fragment,
+        callback: IssueBillingKeyCallback
+    ): ActivityResultLauncher<Intent>
+
+
+    fun requestIssueBillingKey(
+        activity: ComponentActivity,
+        request: IssueBillingKeyRequest,
+        resultLauncher: ActivityResultLauncher<Intent>,
+    )
 //
 //    fun requestIssueBillingKeyAndPay(request: IssueBillingKeyAndPayRequest)
 //
@@ -55,17 +74,72 @@ object PortOne : Sdk {
         activity: ComponentActivity,
         callback: PaymentCallback
     ): ActivityResultLauncher<Intent> {
+        return registerForActivity(
+            activity,
+            callback
+        )
+    }
+
+    override fun registerForPaymentActivity(
+        fragment: Fragment,
+        callback: PaymentCallback
+    ): ActivityResultLauncher<Intent> {
+        return registerForActivity(
+            fragment,
+            callback
+        )
+    }
+
+    override fun requestIssueBillingKey(
+        activity: ComponentActivity,
+        request: IssueBillingKeyRequest,
+        resultLauncher: ActivityResultLauncher<Intent>
+    ) {
+        val bundle = Bundle()
+        bundle.putParcelable(REQUEST, request)
+        resultLauncher.launch(
+            Intent(
+                activity,
+                IssueBillingKeyActivity::class.java
+            ).putExtras(bundle)
+        )
+    }
+
+    override fun registerForIssueBillingKeyActivity(
+        activity: ComponentActivity,
+        callback: IssueBillingKeyCallback
+    ): ActivityResultLauncher<Intent> {
+        return registerForActivity(
+            activity,
+            callback
+        )
+    }
+
+    override fun registerForIssueBillingKeyActivity(
+        fragment: Fragment,
+        callback: IssueBillingKeyCallback
+    ): ActivityResultLauncher<Intent> {
+        return registerForActivity(
+            fragment,
+            callback
+        )
+    }
+
+    private inline fun <reified S : Parcelable, reified F : Parcelable, C : Callback<S, F>> registerForActivity(
+        activity: ComponentActivity,
+        callback: C
+    ): ActivityResultLauncher<Intent> {
         return activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             when (result.resultCode) {
                 SUCCESS_CODE -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         result.data?.getParcelableExtra(
                             RESPONSE,
-                            PaymentResponse.Success::class.java
+                            S::class.java
                         )
                             ?.let { callback.onSuccess(it) }
                     } else {
-                        result.data?.getParcelableExtra<PaymentResponse.Success>(RESPONSE)
+                        result.data?.getParcelableExtra<S>(RESPONSE)
                             ?.let { callback.onSuccess(it) }
                     }
                 }
@@ -74,11 +148,11 @@ object PortOne : Sdk {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         result.data?.getParcelableExtra(
                             RESPONSE,
-                            PaymentResponse.Fail::class.java
+                            F::class.java
                         )
                             ?.let { callback.onFail(it) }
                     } else {
-                        result.data?.getParcelableExtra<PaymentResponse.Fail>(RESPONSE)
+                        result.data?.getParcelableExtra<F>(RESPONSE)
                             ?.let { callback.onFail(it) }
                     }
                 }
@@ -86,9 +160,10 @@ object PortOne : Sdk {
 
         }
     }
-    override fun registerForPaymentActivity(
+
+    private inline fun <reified S : Parcelable, reified F : Parcelable, C : Callback<S, F>> registerForActivity(
         fragment: Fragment,
-        callback: PaymentCallback
+        callback: C
     ): ActivityResultLauncher<Intent> {
         return fragment.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             when (result.resultCode) {
@@ -96,11 +171,11 @@ object PortOne : Sdk {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         result.data?.getParcelableExtra(
                             RESPONSE,
-                            PaymentResponse.Success::class.java
+                            S::class.java
                         )
                             ?.let { callback.onSuccess(it) }
                     } else {
-                        result.data?.getParcelableExtra<PaymentResponse.Success>(RESPONSE)
+                        result.data?.getParcelableExtra<S>(RESPONSE)
                             ?.let { callback.onSuccess(it) }
                     }
                 }
@@ -109,11 +184,11 @@ object PortOne : Sdk {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         result.data?.getParcelableExtra(
                             RESPONSE,
-                            PaymentResponse.Fail::class.java
+                            F::class.java
                         )
                             ?.let { callback.onFail(it) }
                     } else {
-                        result.data?.getParcelableExtra<PaymentResponse.Fail>(RESPONSE)
+                        result.data?.getParcelableExtra<F>(RESPONSE)
                             ?.let { callback.onFail(it) }
                     }
                 }
@@ -121,5 +196,6 @@ object PortOne : Sdk {
 
         }
     }
+
 
 }

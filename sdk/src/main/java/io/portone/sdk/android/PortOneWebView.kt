@@ -98,6 +98,80 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
         }
     }
 
+    fun requestIssueBillingKey(
+        issueBillingKeyRequest: IssueBillingKeyRequest,
+        issueBillingKeyCallback: IssueBillingKeyCallback
+    ) {
+        loadUrl("file:///android_asset/browser_sdk.html")
+
+        addJavascriptInterface(object : IssueBillingKeyJavascriptInterface {
+            @JavascriptInterface
+            override fun fail(
+                transactionType: String?,
+                billingKey: String?,
+                code: String,
+                message: String
+            ) {
+                val fail = IssueBillingKeyResponse.Fail(
+                    transactionType?.let { TransactionType.valueOf(it) },
+                    billingKey,
+                    code,
+                    message
+                )
+                issueBillingKeyCallback.onFail(fail)
+            }
+        }, interfaceName)
+
+        webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                view?.evaluateJavascript(
+                    StringBuilder().append("javascript:PortOne.requestIssueBillingKey(")
+                        .append("${encodingformat.encodeToString(issueBillingKeyRequest)})")
+                        .append(".catch(function(error){")
+                        .append("Portone.fail(error.transactionType, error.billingKey, error.code, error.message)")
+                        .append("})")
+                        .toString(),
+                    null
+                )
+            }
+
+            override fun shouldOverrideUrlLoading(
+                view: WebView?,
+                request: WebResourceRequest?
+            ): Boolean {
+                val shouldOverride = if (view != null && request?.url != null) {
+                    val url = request.url
+                    when (url.scheme) {
+                        "intent" -> {
+                            view.context.startSchemeIntent(url.toString())
+                        }
+
+                        "portone" -> {
+                            when (val result = handleIssueBillingKeyResponse(url)) {
+                                is IssueBillingKeyResponse.Fail -> issueBillingKeyCallback.onFail(
+                                    result
+                                )
+
+                                is IssueBillingKeyResponse.Success -> issueBillingKeyCallback.onSuccess(
+                                    result
+                                )
+                            }
+                            true
+                        }
+
+                        else -> {
+                            false
+                        }
+                    }
+
+                } else super.shouldOverrideUrlLoading(view, request)
+                return shouldOverride
+
+            }
+
+        }
+    }
     private fun handlePaymentResponse(responseUrl: Uri): PaymentResponse {
         return if (responseUrl.getQueryParameter(PaymentResponse.CODE) != null) {
             PaymentResponse.Fail(
@@ -120,6 +194,33 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 ),
                 txId = responseUrl.getQueryParameter(PaymentResponse.TX_ID).orEmpty(),
                 paymentId = responseUrl.getQueryParameter(PaymentResponse.PAYMENT_ID).orEmpty()
+            )
+        }
+
+    }
+
+    private fun handleIssueBillingKeyResponse(responseUrl: Uri): IssueBillingKeyResponse {
+        return if (responseUrl.getQueryParameter(IssueBillingKeyResponse.CODE) != null) {
+            IssueBillingKeyResponse.Fail(
+                transactionType = TransactionType.valueOf(
+                    responseUrl.getQueryParameter(
+                        IssueBillingKeyResponse.TRANSACTION_TYPE
+                    ).orEmpty()
+                ),
+                billingKey = responseUrl.getQueryParameter(IssueBillingKeyResponse.BILLING_KEY)
+                    .orEmpty(),
+                code = responseUrl.getQueryParameter(IssueBillingKeyResponse.CODE).orEmpty(),
+                message = responseUrl.getQueryParameter(IssueBillingKeyResponse.MESSAGE).orEmpty()
+            )
+        } else {
+            IssueBillingKeyResponse.Success(
+                transactionType = TransactionType.valueOf(
+                    responseUrl.getQueryParameter(
+                        IssueBillingKeyResponse.TRANSACTION_TYPE
+                    ).orEmpty()
+                ),
+                billingKey = responseUrl.getQueryParameter(IssueBillingKeyResponse.BILLING_KEY)
+                    .orEmpty(),
             )
         }
 

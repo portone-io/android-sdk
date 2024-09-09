@@ -68,10 +68,13 @@
 
     <application>
         <activity
+            android:name=".issuebillingkeyandpay.IssueBillingKeyAndPayActivity"
+            android:exported="false" />
+        <activity
             android:name=".identityverification.IdentityVerificationActivity"
             android:exported="false" />
         <activity
-            android:name=".billingkey.IssueBillingKeyActivity"
+            android:name=".issuebillingkey.IssueBillingKeyActivity"
             android:exported="false" />
         <activity
             android:name=".payment.PaymentActivity"

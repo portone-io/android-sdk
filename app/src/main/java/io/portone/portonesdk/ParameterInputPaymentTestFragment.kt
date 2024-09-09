@@ -8,9 +8,9 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import io.portone.portonesdk.databinding.FragmentParameterInputPaymentTestBinding
-import io.portone.sdk.PaymentCallback
-import io.portone.sdk.PaymentRequest
-import io.portone.sdk.PaymentResponse
+import io.portone.sdk.payment.PaymentCallback
+import io.portone.sdk.payment.PaymentRequest
+import io.portone.sdk.payment.PaymentResponse
 import io.portone.sdk.PortOne
 import io.portone.sdk.entity.CardCompany
 import io.portone.sdk.entity.Carrier

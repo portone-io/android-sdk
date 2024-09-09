@@ -5,18 +5,16 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import io.portone.portonesdk.databinding.ActivityIssueBillingKeyTestBinding
-import io.portone.sdk.IssueBillingKeyCallback
-import io.portone.sdk.IssueBillingKeyRequest
-import io.portone.sdk.IssueBillingKeyResponse
-import io.portone.sdk.PaymentCallback
-import io.portone.sdk.PaymentRequest
-import io.portone.sdk.PaymentResponse
+import io.portone.sdk.billingkey.IssueBillingKeyCallback
+import io.portone.sdk.billingkey.IssueBillingKeyRequest
+import io.portone.sdk.billingkey.IssueBillingKeyResponse
 import io.portone.sdk.PortOne
 import kotlinx.serialization.json.Json
 
 class IssueBillingKeyTestActivity : BaseActivity<ActivityIssueBillingKeyTestBinding>() {
     private val issueBillingKeyActivityResultLauncher =
-        PortOne.registerForIssueBillingKeyActivity(this, callback = object : IssueBillingKeyCallback {
+        PortOne.registerForIssueBillingKeyActivity(this, callback = object :
+            IssueBillingKeyCallback {
             override fun onSuccess(response: IssueBillingKeyResponse.Success) {
                 AlertDialog.Builder(this@IssueBillingKeyTestActivity)
                     .setTitle("빌링키 발급 성공")

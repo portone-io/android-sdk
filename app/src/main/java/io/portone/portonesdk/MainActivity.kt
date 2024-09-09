@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import io.portone.portonesdk.databinding.ActivityMainBinding
+import io.portone.sdk.issuebillingkeyandpay.IssueBillingKeyAndPayRequest
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,6 +18,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
         binding.btnIdentityVerification.setOnClickListener {
             startActivity(Intent(this@MainActivity,IdentityVerificationTestActivity::class.java))
+        }
+        binding.btnIssueBillingKeyAndPay.setOnClickListener {
+            startActivity(Intent(this@MainActivity,IssueBillingKeyAndPayTestActivity::class.java))
         }
     }
 

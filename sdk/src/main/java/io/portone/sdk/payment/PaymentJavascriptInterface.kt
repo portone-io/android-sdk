@@ -1,4 +1,4 @@
-package io.portone.sdk
+package io.portone.sdk.payment
 
 interface PaymentJavascriptInterface {
     fun fail(

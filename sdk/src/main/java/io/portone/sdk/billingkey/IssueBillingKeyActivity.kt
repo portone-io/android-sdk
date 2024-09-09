@@ -1,9 +1,13 @@
-package io.portone.sdk
+package io.portone.sdk.billingkey
 
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import io.portone.sdk.PortOne
+import io.portone.sdk.PortOneWebView
+import io.portone.sdk.R
+import io.portone.sdk.identityverification.IdentityVerificationBypass
 
 class IssueBillingKeyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

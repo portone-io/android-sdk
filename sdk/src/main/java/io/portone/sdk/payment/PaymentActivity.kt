@@ -1,10 +1,13 @@
-package io.portone.sdk
+package io.portone.sdk.payment
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import io.portone.sdk.PortOne
+import io.portone.sdk.PortOneWebView
+import io.portone.sdk.R
 
 @SuppressLint("SetJavaScriptEnabled")
 class PaymentActivity : AppCompatActivity() {

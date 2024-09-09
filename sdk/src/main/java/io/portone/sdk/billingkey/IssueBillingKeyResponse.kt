@@ -1,6 +1,7 @@
-package io.portone.sdk
+package io.portone.sdk.billingkey
 
 import android.os.Parcelable
+import io.portone.sdk.TransactionType
 import kotlinx.parcelize.Parcelize
 
 

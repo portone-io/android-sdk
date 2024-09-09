@@ -1,4 +1,4 @@
-package io.portone.sdk
+package io.portone.sdk.billingkey
 
 interface IssueBillingKeyJavascriptInterface {
     fun fail(

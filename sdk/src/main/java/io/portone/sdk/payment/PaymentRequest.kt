@@ -1,6 +1,7 @@
-package io.portone.sdk
+package io.portone.sdk.payment
 
 import android.os.Parcelable
+import io.portone.sdk.PortOne
 import io.portone.sdk.entity.Address
 import io.portone.sdk.entity.Country
 import io.portone.sdk.entity.Currency

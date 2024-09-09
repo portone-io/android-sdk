@@ -1,6 +1,7 @@
-package io.portone.sdk
+package io.portone.sdk.billingkey
 
 import android.os.Parcelable
+import io.portone.sdk.PortOne
 import io.portone.sdk.entity.BillingKeyMethod
 import io.portone.sdk.entity.Currency
 import io.portone.sdk.entity.Customer
@@ -11,6 +12,7 @@ import io.portone.sdk.entity.ProductType
 import io.portone.sdk.entity.WindowType
 import io.portone.sdk.entity.paymentmethod.Card
 import io.portone.sdk.entity.paymentmethod.Mobile
+import io.portone.sdk.identityverification.IdentityVerificationBypass
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 

@@ -172,6 +172,81 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
 
         }
     }
+
+    fun requestIdentityVerification(
+        identityVerificationRequest: IdentityVerificationRequest,
+        identityVerificationCallback: IdentityVerificationCallback
+    ) {
+        loadUrl("file:///android_asset/browser_sdk.html")
+
+        addJavascriptInterface(object : IdentityVerificationJavascriptInterface {
+            @JavascriptInterface
+            override fun fail(
+                transactionType: String?,
+                identityVerificationTxId: String?,
+                code: String,
+                message: String
+            ) {
+                val fail = IdentityVerificationResponse.Fail(
+                    transactionType?.let { TransactionType.valueOf(it) },
+                    identityVerificationTxId,
+                    code,
+                    message
+                )
+                identityVerificationCallback.onFail(fail)
+            }
+        }, interfaceName)
+
+        webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                view?.evaluateJavascript(
+                    StringBuilder().append("javascript:PortOne.requestIdentityVerification(")
+                        .append("${encodingformat.encodeToString(identityVerificationRequest)})")
+                        .append(".catch(function(error){")
+                        .append("Portone.fail(error.transactionType, error.identityVerificationTxId, error.code, error.message)")
+                        .append("})")
+                        .toString(),
+                    null
+                )
+            }
+
+            override fun shouldOverrideUrlLoading(
+                view: WebView?,
+                request: WebResourceRequest?
+            ): Boolean {
+                val shouldOverride = if (view != null && request?.url != null) {
+                    val url = request.url
+                    when (url.scheme) {
+                        "intent" -> {
+                            view.context.startSchemeIntent(url.toString())
+                        }
+
+                        "portone" -> {
+                            when (val result = handleIdentityVerificationResponse(url)) {
+                                is IdentityVerificationResponse.Fail -> identityVerificationCallback.onFail(
+                                    result
+                                )
+
+                                is IdentityVerificationResponse.Success -> identityVerificationCallback.onSuccess(
+                                    result
+                                )
+                            }
+                            true
+                        }
+
+                        else -> {
+                            false
+                        }
+                    }
+
+                } else super.shouldOverrideUrlLoading(view, request)
+                return shouldOverride
+
+            }
+
+        }
+    }
     private fun handlePaymentResponse(responseUrl: Uri): PaymentResponse {
         return if (responseUrl.getQueryParameter(PaymentResponse.CODE) != null) {
             PaymentResponse.Fail(
@@ -220,6 +295,40 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                     ).orEmpty()
                 ),
                 billingKey = responseUrl.getQueryParameter(IssueBillingKeyResponse.BILLING_KEY)
+                    .orEmpty(),
+            )
+        }
+
+    }
+
+    private fun handleIdentityVerificationResponse(responseUrl: Uri): IdentityVerificationResponse {
+        return if (responseUrl.getQueryParameter(IdentityVerificationResponse.CODE) != null) {
+            IdentityVerificationResponse.Fail(
+                transactionType = TransactionType.valueOf(
+                    responseUrl.getQueryParameter(
+                        IssueBillingKeyResponse.TRANSACTION_TYPE
+                    ).orEmpty()
+                ),
+                identityVerificationTxId = responseUrl.getQueryParameter(
+                    IdentityVerificationResponse.IDENTITY_VERIFICATION_TX_ID
+                )
+                    .orEmpty(),
+                code = responseUrl.getQueryParameter(IdentityVerificationResponse.CODE).orEmpty(),
+                message = responseUrl.getQueryParameter(IdentityVerificationResponse.MESSAGE)
+                    .orEmpty()
+            )
+        } else {
+            IdentityVerificationResponse.Success(
+                transactionType = TransactionType.valueOf(
+                    responseUrl.getQueryParameter(
+                        IdentityVerificationResponse.TRANSACTION_TYPE
+                    ).orEmpty()
+                ),
+                identityVerificationTxId = responseUrl.getQueryParameter(
+                    IdentityVerificationResponse.IDENTITY_VERIFICATION_TX_ID
+                )
+                    .orEmpty(),
+                identityVerificationId = responseUrl.getQueryParameter(IdentityVerificationResponse.IDENTITY_VERIFICATION_ID)
                     .orEmpty(),
             )
         }

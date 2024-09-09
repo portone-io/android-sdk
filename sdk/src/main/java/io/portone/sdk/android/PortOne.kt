@@ -7,8 +7,16 @@ import android.os.Parcelable
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.registerForActivityResult
 import androidx.fragment.app.Fragment
+import io.portone.sdk.billingkey.IssueBillingKeyActivity
+import io.portone.sdk.billingkey.IssueBillingKeyCallback
+import io.portone.sdk.billingkey.IssueBillingKeyRequest
+import io.portone.sdk.identityverification.IdentityVerificationActivity
+import io.portone.sdk.identityverification.IdentityVerificationCallback
+import io.portone.sdk.identityverification.IdentityVerificationRequest
+import io.portone.sdk.payment.PaymentActivity
+import io.portone.sdk.payment.PaymentCallback
+import io.portone.sdk.payment.PaymentRequest
 
 interface Sdk {
     fun registerForPaymentActivity(
@@ -41,6 +49,22 @@ interface Sdk {
     fun requestIssueBillingKey(
         activity: ComponentActivity,
         request: IssueBillingKeyRequest,
+        resultLauncher: ActivityResultLauncher<Intent>,
+    )
+    fun registerForIdentityVerificationActivity(
+        activity: ComponentActivity,
+        callback: IdentityVerificationCallback
+    ): ActivityResultLauncher<Intent>
+
+    fun registerForIdentityVerificationActivity(
+        fragment: Fragment,
+        callback: IdentityVerificationCallback
+    ): ActivityResultLauncher<Intent>
+
+
+    fun requestIdentityVerification(
+        activity: ComponentActivity,
+        request: IdentityVerificationRequest,
         resultLauncher: ActivityResultLauncher<Intent>,
     )
 //
@@ -124,6 +148,39 @@ object PortOne : Sdk {
             callback
         )
     }
+
+    override fun registerForIdentityVerificationActivity(
+        activity: ComponentActivity,
+        callback: IdentityVerificationCallback
+    ): ActivityResultLauncher<Intent> {
+        return registerForActivity(
+            activity,
+            callback
+        )    }
+
+    override fun registerForIdentityVerificationActivity(
+        fragment: Fragment,
+        callback: IdentityVerificationCallback
+    ): ActivityResultLauncher<Intent> {
+        return registerForActivity(
+            fragment,
+            callback
+        )
+    }
+
+    override fun requestIdentityVerification(
+        activity: ComponentActivity,
+        request: IdentityVerificationRequest,
+        resultLauncher: ActivityResultLauncher<Intent>
+    ) {
+        val bundle = Bundle()
+        bundle.putParcelable(REQUEST, request)
+        resultLauncher.launch(
+            Intent(
+                activity,
+                IdentityVerificationActivity::class.java
+            ).putExtras(bundle)
+        )    }
 
     private inline fun <reified S : Parcelable, reified F : Parcelable, C : Callback<S, F>> registerForActivity(
         activity: ComponentActivity,

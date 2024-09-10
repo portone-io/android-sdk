@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "io.portone.sdk"
+    namespace = "io.portone.sdk.android"
     compileSdk = 34
 
     defaultConfig {

@@ -8,29 +8,30 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import io.portone.portonesdk.databinding.FragmentParameterInputPaymentTestBinding
-import io.portone.sdk.PaymentCallback
-import io.portone.sdk.PaymentRequest
-import io.portone.sdk.PaymentResponse
-import io.portone.sdk.PortOne
-import io.portone.sdk.entity.CardCompany
-import io.portone.sdk.entity.Carrier
-import io.portone.sdk.entity.CashReceiptType
-import io.portone.sdk.entity.Currency
-import io.portone.sdk.entity.Customer
-import io.portone.sdk.entity.EasyPayProvider
-import io.portone.sdk.entity.GiftCertificateType
-import io.portone.sdk.entity.PayMethod
-import io.portone.sdk.entity.paymentmethod.Card
-import io.portone.sdk.entity.paymentmethod.EasyPay
-import io.portone.sdk.entity.paymentmethod.GiftCertificate
-import io.portone.sdk.entity.paymentmethod.Mobile
-import io.portone.sdk.entity.paymentmethod.Transfer
-import io.portone.sdk.entity.paymentmethod.VirtualAccount
+import io.portone.sdk.android.PaymentCallback
+import io.portone.sdk.android.PaymentRequest
+import io.portone.sdk.android.PaymentResponse
+import io.portone.sdk.android.PortOne
+import io.portone.sdk.android.entity.CardCompany
+import io.portone.sdk.android.entity.Carrier
+import io.portone.sdk.android.entity.CashReceiptType
+import io.portone.sdk.android.entity.Currency
+import io.portone.sdk.android.entity.Customer
+import io.portone.sdk.android.entity.EasyPayProvider
+import io.portone.sdk.android.entity.GiftCertificateType
+import io.portone.sdk.android.entity.PayMethod
+import io.portone.sdk.android.entity.paymentmethod.Card
+import io.portone.sdk.android.entity.paymentmethod.EasyPay
+import io.portone.sdk.android.entity.paymentmethod.GiftCertificate
+import io.portone.sdk.android.entity.paymentmethod.Mobile
+import io.portone.sdk.android.entity.paymentmethod.Transfer
+import io.portone.sdk.android.entity.paymentmethod.VirtualAccount
 import java.util.UUID
 
 class ParameterInputPaymentTestFragment : BaseFragment<FragmentParameterInputPaymentTestBinding>() {
     private val paymentActivityResultLauncher =
-        PortOne.registerForPaymentActivity(this, callback = object : PaymentCallback {
+        PortOne.registerForPaymentActivity(this, callback = object :
+            PaymentCallback {
             override fun onSuccess(response: PaymentResponse.Success) {
                 AlertDialog.Builder(requireActivity())
                     .setTitle("결제 성공")

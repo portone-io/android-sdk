@@ -7,15 +7,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import io.portone.portonesdk.databinding.FragmentJsonInputPaymentTestBinding
-import io.portone.sdk.PaymentCallback
-import io.portone.sdk.PaymentRequest
-import io.portone.sdk.PaymentResponse
-import io.portone.sdk.PortOne
+import io.portone.sdk.android.PaymentCallback
+import io.portone.sdk.android.PaymentRequest
+import io.portone.sdk.android.PaymentResponse
+import io.portone.sdk.android.PortOne
 import kotlinx.serialization.json.Json
 
 class JsonInputPaymentTestFragment : BaseFragment<FragmentJsonInputPaymentTestBinding>() {
     private val paymentActivityResultLauncher =
-        PortOne.registerForPaymentActivity(this, callback = object : PaymentCallback {
+        PortOne.registerForPaymentActivity(this, callback = object :
+            PaymentCallback {
             override fun onSuccess(response: PaymentResponse.Success) {
                 AlertDialog.Builder(requireActivity())
                     .setTitle("결제 성공")

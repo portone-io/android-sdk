@@ -16,11 +16,9 @@ import io.portone.sdk.android.type.StoreDetails
 import io.portone.sdk.android.type.WindowType
 import io.portone.sdk.android.type.paymentmethod.PaymentMethod
 import io.portone.sdk.android.request.type.paymentmethod.PaymentMethod as RequestPaymentMethod
-import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
 @Serializable
-@Parcelize
 internal data class PaymentRequest(
     val storeId: String, // 스토어 아이디
     val paymentId: String, // 주문 번호
@@ -58,4 +56,4 @@ internal data class PaymentRequest(
     val mobile: PaymentMethod.Mobile? = null,
     val giftCertificate: PaymentMethod.GiftCertificate? = null,
     val easyPay: PaymentMethod.EasyPay? = null,
-) : Parcelable
+)

@@ -5,15 +5,14 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".payment.PaymentActivity">
+    tools:context=".identityverification.IdentityVerificationActivity">
 
     <io.portone.sdk.android.PortOneWebView
-        android:id="@+id/web_view_payment"
+        android:id="@+id/web_view_identity_verification"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

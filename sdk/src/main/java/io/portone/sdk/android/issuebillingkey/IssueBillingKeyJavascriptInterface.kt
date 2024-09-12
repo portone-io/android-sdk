@@ -1,4 +1,4 @@
-package io.portone.sdk.android
+package io.portone.sdk.android.issuebillingkey
 
 interface IssueBillingKeyJavascriptInterface {
     fun fail(

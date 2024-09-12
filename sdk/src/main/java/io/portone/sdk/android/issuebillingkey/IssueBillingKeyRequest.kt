@@ -1,4 +1,4 @@
-package io.portone.sdk.android
+package io.portone.sdk.android.issuebillingkey
 
 import android.os.Parcelable
 import io.portone.sdk.android.request.type.billingkey.IssueBillingKeyMethod

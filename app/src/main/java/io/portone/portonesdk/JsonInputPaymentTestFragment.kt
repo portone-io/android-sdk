@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import io.portone.portonesdk.databinding.FragmentJsonInputPaymentTestBinding
-import io.portone.sdk.android.PaymentCallback
-import io.portone.sdk.android.PaymentRequest
-import io.portone.sdk.android.PaymentResponse
+import io.portone.sdk.android.payment.PaymentCallback
+import io.portone.sdk.android.payment.PaymentRequest
+import io.portone.sdk.android.payment.PaymentResponse
 import io.portone.sdk.android.PortOne
 import kotlinx.serialization.json.Json
 

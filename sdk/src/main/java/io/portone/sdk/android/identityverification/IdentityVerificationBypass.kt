@@ -1,4 +1,4 @@
-package io.portone.sdk.identityverification
+package io.portone.sdk.android.identityverification
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

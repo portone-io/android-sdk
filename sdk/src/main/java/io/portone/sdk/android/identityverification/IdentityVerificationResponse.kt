@@ -1,7 +1,7 @@
-package io.portone.sdk.identityverification
+package io.portone.sdk.android.identityverification
 
 import android.os.Parcelable
-import io.portone.sdk.TransactionType
+import io.portone.sdk.android.TransactionType
 import kotlinx.parcelize.Parcelize
 
 

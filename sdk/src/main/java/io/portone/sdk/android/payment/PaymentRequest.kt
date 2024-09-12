@@ -1,4 +1,4 @@
-package io.portone.sdk.android
+package io.portone.sdk.android.payment
 
 import android.os.Parcelable
 import io.portone.sdk.android.type.Amount
@@ -9,12 +9,12 @@ import io.portone.sdk.android.type.Customer
 import io.portone.sdk.android.type.Locale
 import io.portone.sdk.android.type.OfferPeriod
 import io.portone.sdk.android.type.PayMethod
+import io.portone.sdk.android.type.PaymentMethod
 import io.portone.sdk.android.type.PgProvider
 import io.portone.sdk.android.type.Product
 import io.portone.sdk.android.type.ProductType
 import io.portone.sdk.android.type.StoreDetails
 import io.portone.sdk.android.type.WindowType
-import io.portone.sdk.android.type.paymentmethod.PaymentMethod
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

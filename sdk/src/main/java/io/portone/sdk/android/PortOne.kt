@@ -8,15 +8,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import io.portone.sdk.billingkey.IssueBillingKeyActivity
-import io.portone.sdk.billingkey.IssueBillingKeyCallback
-import io.portone.sdk.billingkey.IssueBillingKeyRequest
-import io.portone.sdk.identityverification.IdentityVerificationActivity
-import io.portone.sdk.identityverification.IdentityVerificationCallback
-import io.portone.sdk.identityverification.IdentityVerificationRequest
-import io.portone.sdk.payment.PaymentActivity
-import io.portone.sdk.payment.PaymentCallback
-import io.portone.sdk.payment.PaymentRequest
+import io.portone.sdk.android.identityverification.IdentityVerificationActivity
+import io.portone.sdk.android.identityverification.IdentityVerificationCallback
+import io.portone.sdk.android.identityverification.IdentityVerificationRequest
+import io.portone.sdk.android.issuebillingkey.IssueBillingKeyActivity
+import io.portone.sdk.android.issuebillingkey.IssueBillingKeyCallback
+import io.portone.sdk.android.issuebillingkey.IssueBillingKeyRequest
+import io.portone.sdk.android.payment.PaymentActivity
+import io.portone.sdk.android.payment.PaymentCallback
+import io.portone.sdk.android.payment.PaymentRequest
 
 interface Sdk {
     fun registerForPaymentActivity(
@@ -156,7 +156,8 @@ object PortOne : Sdk {
         return registerForActivity(
             activity,
             callback
-        )    }
+        )
+    }
 
     override fun registerForIdentityVerificationActivity(
         fragment: Fragment,

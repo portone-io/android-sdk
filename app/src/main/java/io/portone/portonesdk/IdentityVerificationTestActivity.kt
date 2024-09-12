@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import io.portone.portonesdk.databinding.ActivityIdentityVerificationTestBinding
-import io.portone.sdk.PortOne
-import io.portone.sdk.identityverification.IdentityVerificationCallback
-import io.portone.sdk.identityverification.IdentityVerificationRequest
-import io.portone.sdk.identityverification.IdentityVerificationResponse
+import io.portone.sdk.android.PortOne
+import io.portone.sdk.android.identityverification.IdentityVerificationCallback
+import io.portone.sdk.android.identityverification.IdentityVerificationRequest
+import io.portone.sdk.android.identityverification.IdentityVerificationResponse
 import kotlinx.serialization.json.Json
 
 class IdentityVerificationTestActivity : BaseActivity<ActivityIdentityVerificationTestBinding>() {

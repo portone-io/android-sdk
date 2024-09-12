@@ -1,6 +1,7 @@
-package io.portone.sdk.android
+package io.portone.sdk.android.payment
 
 import android.os.Parcelable
+import io.portone.sdk.android.TransactionType
 import kotlinx.parcelize.Parcelize
 
 

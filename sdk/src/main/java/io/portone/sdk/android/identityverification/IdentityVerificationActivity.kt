@@ -1,18 +1,12 @@
-package io.portone.sdk.identityverification
+package io.portone.sdk.android.identityverification
 
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import io.portone.sdk.PortOne
-import io.portone.sdk.PortOneWebView
-import io.portone.sdk.R
-import io.portone.sdk.billingkey.IssueBillingKeyCallback
-import io.portone.sdk.billingkey.IssueBillingKeyRequest
-import io.portone.sdk.billingkey.IssueBillingKeyResponse
+import io.portone.sdk.android.PortOne
+import io.portone.sdk.android.PortOneWebView
+import io.portone.sdk.android.R
 
 class IdentityVerificationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

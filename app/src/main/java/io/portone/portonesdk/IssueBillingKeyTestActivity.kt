@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import io.portone.portonesdk.databinding.ActivityIssueBillingKeyTestBinding
-import io.portone.sdk.android.IssueBillingKeyCallback
-import io.portone.sdk.android.IssueBillingKeyRequest
-import io.portone.sdk.android.IssueBillingKeyResponse
+import io.portone.sdk.android.issuebillingkey.IssueBillingKeyCallback
+import io.portone.sdk.android.issuebillingkey.IssueBillingKeyRequest
+import io.portone.sdk.android.issuebillingkey.IssueBillingKeyResponse
 import io.portone.sdk.android.PortOne
 import kotlinx.serialization.json.Json
 

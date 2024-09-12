@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".identityverification.IdentityVerificationActivity">
 
-    <io.portone.sdk.PortOneWebView
+    <io.portone.sdk.android.PortOneWebView
         android:id="@+id/web_view_identity_verification"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

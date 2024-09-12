@@ -1,4 +1,6 @@
-package io.portone.sdk.android
+package io.portone.sdk.android.issuebillingkey
+
+import io.portone.sdk.android.Callback
 
 interface IssueBillingKeyCallback :
     Callback<IssueBillingKeyResponse.Success, IssueBillingKeyResponse.Fail> {

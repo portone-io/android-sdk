@@ -1,10 +1,10 @@
-package io.portone.sdk.identityverification
+package io.portone.sdk.android.identityverification
 
 import android.os.Parcelable
-import io.portone.sdk.PortOne
-import io.portone.sdk.entity.Customer
-import io.portone.sdk.entity.PgProvider
-import io.portone.sdk.entity.WindowType
+import io.portone.sdk.android.PortOne
+import io.portone.sdk.android.type.Customer
+import io.portone.sdk.android.type.PgProvider
+import io.portone.sdk.android.type.WindowType
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 

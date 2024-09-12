@@ -1,4 +1,4 @@
-package io.portone.sdk.identityverification
+package io.portone.sdk.android.identityverification
 
 interface IdentityVerificationJavascriptInterface {
     fun fail(

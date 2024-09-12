@@ -22,7 +22,7 @@ data class OfferPeriod(
         @Contextual val to: Instant?
     ) : Parcelable
 
-    fun toRequest(): OfferPeriod {
+    internal fun toRequest(): OfferPeriod {
         return OfferPeriod(
             range = OfferPeriod.Range(
                 from = range?.from?.truncatedTo(ChronoUnit.SECONDS).toString(),

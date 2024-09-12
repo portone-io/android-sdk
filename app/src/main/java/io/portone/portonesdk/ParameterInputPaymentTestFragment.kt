@@ -20,7 +20,7 @@ import io.portone.sdk.android.type.Currency
 import io.portone.sdk.android.type.Customer
 import io.portone.sdk.android.type.EasyPayProvider
 import io.portone.sdk.android.type.GiftCertificateType
-import io.portone.sdk.android.type.paymentmethod.PaymentMethod
+import io.portone.sdk.android.type.PaymentMethod
 import java.util.UUID
 
 class ParameterInputPaymentTestFragment : BaseFragment<FragmentParameterInputPaymentTestBinding>() {

@@ -1,6 +1,5 @@
 package io.portone.sdk.android.request
 
-import android.os.Parcelable
 import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.request.type.Address
 import io.portone.sdk.android.type.Country
@@ -14,7 +13,7 @@ import io.portone.sdk.android.type.Product
 import io.portone.sdk.android.type.ProductType
 import io.portone.sdk.android.type.StoreDetails
 import io.portone.sdk.android.type.WindowType
-import io.portone.sdk.android.type.paymentmethod.PaymentMethod
+import io.portone.sdk.android.type.PaymentMethod
 import io.portone.sdk.android.request.type.paymentmethod.PaymentMethod as RequestPaymentMethod
 import kotlinx.serialization.Serializable
 

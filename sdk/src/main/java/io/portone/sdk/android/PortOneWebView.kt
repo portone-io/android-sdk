@@ -214,7 +214,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 super.onPageFinished(view, url)
                 view?.evaluateJavascript(
                     StringBuilder().append("javascript:PortOne.requestIdentityVerification(")
-                        .append("${encodingformat.encodeToString(identityVerificationRequest)})")
+                        .append("${encodingformat.encodeToString(identityVerificationRequest.toInternal())})")
                         .append(".catch(function(error){")
                         .append("Portone.fail(error.transactionType, error.identityVerificationTxId, error.code, error.message)")
                         .append("})")

@@ -12,20 +12,15 @@ import io.portone.sdk.android.PaymentCallback
 import io.portone.sdk.android.PaymentRequest
 import io.portone.sdk.android.PaymentResponse
 import io.portone.sdk.android.PortOne
-import io.portone.sdk.android.entity.CardCompany
-import io.portone.sdk.android.entity.Carrier
-import io.portone.sdk.android.entity.CashReceiptType
-import io.portone.sdk.android.entity.Currency
-import io.portone.sdk.android.entity.Customer
-import io.portone.sdk.android.entity.EasyPayProvider
-import io.portone.sdk.android.entity.GiftCertificateType
-import io.portone.sdk.android.entity.PayMethod
-import io.portone.sdk.android.entity.paymentmethod.Card
-import io.portone.sdk.android.entity.paymentmethod.EasyPay
-import io.portone.sdk.android.entity.paymentmethod.GiftCertificate
-import io.portone.sdk.android.entity.paymentmethod.Mobile
-import io.portone.sdk.android.entity.paymentmethod.Transfer
-import io.portone.sdk.android.entity.paymentmethod.VirtualAccount
+import io.portone.sdk.android.type.Amount
+import io.portone.sdk.android.type.CardCompany
+import io.portone.sdk.android.type.Carrier
+import io.portone.sdk.android.type.CashReceiptType
+import io.portone.sdk.android.type.Currency
+import io.portone.sdk.android.type.Customer
+import io.portone.sdk.android.type.EasyPayProvider
+import io.portone.sdk.android.type.GiftCertificateType
+import io.portone.sdk.android.type.paymentmethod.PaymentMethod
 import java.util.UUID
 
 class ParameterInputPaymentTestFragment : BaseFragment<FragmentParameterInputPaymentTestBinding>() {
@@ -76,13 +71,14 @@ class ParameterInputPaymentTestFragment : BaseFragment<FragmentParameterInputPay
                 paymentId = binding.etPaymentId.text.toString(),
                 orderName = binding.etOrderName.text.toString(),
                 channelKey = binding.etChannelKey.text.toString(),
-                totalAmount = binding.etTotalAmount.text.toString().toInt(),
-                currency = Currency.valueOf(binding.etCurrency.text.toString()),
-                payMethod = PayMethod.valueOf(binding.spinnerPayMethod.selectedItem.toString()),
-                customer = Customer(
-                    fullName = "fewaf"
+                amount = Amount(
+                    total = binding.etTotalAmount.text.toString().toLong(),
+                    currency = Currency.valueOf(binding.etCurrency.text.toString()),
                 ),
-                card = Card(
+                customer = Customer(
+                    name = Customer.Name.Full("test")
+                ),
+                paymentMethod = PaymentMethod.Card(
                     cardCompany = if (!binding.etCardCompany.text?.toString().isNullOrEmpty()) {
                         CardCompany.valueOf(binding.etCardCompany.text.toString())
                     } else null,
@@ -100,15 +96,16 @@ class ParameterInputPaymentTestFragment : BaseFragment<FragmentParameterInputPay
                 paymentId = binding.etPaymentId.text.toString(),
                 orderName = binding.etOrderName.text.toString(),
                 channelKey = binding.etChannelKey.text.toString(),
-                totalAmount = binding.etTotalAmount.text.toString().toInt(),
-                currency = Currency.valueOf(binding.etCurrency.text.toString()),
-                payMethod = PayMethod.valueOf(binding.spinnerPayMethod.selectedItem.toString()),
-                customer = Customer(
-                    fullName = "fewaf"
+                amount = Amount(
+                    total = binding.etTotalAmount.text.toString().toLong(),
+                    currency = Currency.valueOf(binding.etCurrency.text.toString()),
                 ),
-                virtualAccount = VirtualAccount(
+                customer = Customer(
+                    name = Customer.Name.Full("fewaf")
+                ),
+                paymentMethod = PaymentMethod.VirtualAccount(
                     cashReceiptType = CashReceiptType.valueOf(binding.spinnerCashReceiptType.selectedItem.toString()),
-                    accountExpiry = VirtualAccount.AccountExpiry.ValidHours(1)
+                    accountExpiry = PaymentMethod.VirtualAccount.AccountExpiry.ValidHours(1)
                 )
             )
 
@@ -117,13 +114,14 @@ class ParameterInputPaymentTestFragment : BaseFragment<FragmentParameterInputPay
                 paymentId = binding.etPaymentId.text.toString(),
                 orderName = binding.etOrderName.text.toString(),
                 channelKey = binding.etChannelKey.text.toString(),
-                totalAmount = binding.etTotalAmount.text.toString().toInt(),
-                currency = Currency.valueOf(binding.etCurrency.text.toString()),
-                payMethod = PayMethod.valueOf(binding.spinnerPayMethod.selectedItem.toString()),
-                customer = Customer(
-                    fullName = "fewaf"
+                amount = Amount(
+                    total = binding.etTotalAmount.text.toString().toLong(),
+                    currency = Currency.valueOf(binding.etCurrency.text.toString()),
                 ),
-                transfer = Transfer(
+                customer = Customer(
+                    name = Customer.Name.Full("test")
+                ),
+                paymentMethod = PaymentMethod.Transfer(
                     cashReceiptType = null,
                     customerIdentifier = null,
                     bankCode = null,
@@ -135,13 +133,14 @@ class ParameterInputPaymentTestFragment : BaseFragment<FragmentParameterInputPay
                 paymentId = binding.etPaymentId.text.toString(),
                 orderName = binding.etOrderName.text.toString(),
                 channelKey = binding.etChannelKey.text.toString(),
-                totalAmount = binding.etTotalAmount.text.toString().toInt(),
-                currency = Currency.valueOf(binding.etCurrency.text.toString()),
-                payMethod = PayMethod.valueOf(binding.spinnerPayMethod.selectedItem.toString()),
-                customer = Customer(
-                    fullName = "fewaf"
+                amount = Amount(
+                    total = binding.etTotalAmount.text.toString().toLong(),
+                    currency = Currency.valueOf(binding.etCurrency.text.toString()),
                 ),
-                mobile = Mobile(
+                customer = Customer(
+                    name = Customer.Name.Full("test")
+                ),
+                paymentMethod = PaymentMethod.Mobile(
                     carrier = Carrier.valueOf(binding.spinnerCarrier.selectedItem.toString()),
                     availableCarriers = null
                 )
@@ -152,13 +151,14 @@ class ParameterInputPaymentTestFragment : BaseFragment<FragmentParameterInputPay
                 paymentId = binding.etPaymentId.text.toString(),
                 orderName = binding.etOrderName.text.toString(),
                 channelKey = binding.etChannelKey.text.toString(),
-                totalAmount = binding.etTotalAmount.text.toString().toInt(),
-                currency = Currency.valueOf(binding.etCurrency.text.toString()),
-                payMethod = PayMethod.valueOf(binding.spinnerPayMethod.selectedItem.toString()),
-                customer = Customer(
-                    fullName = "fewaf"
+                amount = Amount(
+                    total = binding.etTotalAmount.text.toString().toLong(),
+                    currency = Currency.valueOf(binding.etCurrency.text.toString()),
                 ),
-                giftCertificate = GiftCertificate(
+                customer = Customer(
+                    name = Customer.Name.Full("test")
+                ),
+                paymentMethod = PaymentMethod.GiftCertificate(
                     giftCertificateType = GiftCertificateType.valueOf(binding.spinnerGiftCertificateType.selectedItem.toString()),
                 ),
             )
@@ -169,15 +169,16 @@ class ParameterInputPaymentTestFragment : BaseFragment<FragmentParameterInputPay
                     paymentId = binding.etPaymentId.text.toString(),
                     orderName = binding.etOrderName.text.toString(),
                     channelKey = binding.etChannelKey.text.toString(),
-                    totalAmount = binding.etTotalAmount.text.toString().toInt(),
-                    currency = Currency.valueOf(binding.etCurrency.text.toString()),
-                    payMethod = PayMethod.valueOf(binding.spinnerPayMethod.selectedItem.toString()),
-                    customer = Customer(
-                        fullName = "fewaf"
+                    amount = Amount(
+                        total = binding.etTotalAmount.text.toString().toLong(),
+                        currency = Currency.valueOf(binding.etCurrency.text.toString()),
                     ),
-                    easyPay = EasyPay(
+                    paymentMethod = PaymentMethod.EasyPay(
                         easyPayProvider = EasyPayProvider.valueOf(binding.spinnerEasyPayProvider.selectedItem.toString())
-                    )
+                    ),
+                    customer = Customer(
+                        name = Customer.Name.Full("test")
+                    ),
                 )
 
             else -> {

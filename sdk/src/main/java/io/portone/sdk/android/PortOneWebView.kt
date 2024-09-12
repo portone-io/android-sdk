@@ -18,6 +18,7 @@ import java.net.URISyntaxException
 class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(context, attrs) {
     // PortOne은 js sdk 인터페이스 object와 이름이 겹쳐 Portone으로 수정
     val interfaceName = "Portone"
+
     init {
         settings.run {
             javaScriptEnabled = true
@@ -28,7 +29,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
         webChromeClient = WebChromeClient()
     }
 
-    fun requestPayment(paymentRequest: PaymentRequest, paymentCallback: _root_ide_package_.io.portone.sdk.android.PaymentCallback) {
+    fun requestPayment(paymentRequest: PaymentRequest, paymentCallback: PaymentCallback) {
         loadUrl("file:///android_asset/browser_sdk.html")
 
         addJavascriptInterface(object : PaymentJavascriptInterface {
@@ -56,7 +57,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 super.onPageFinished(view, url)
                 view?.evaluateJavascript(
                     StringBuilder().append("javascript:PortOne.requestPayment(")
-                        .append("${encodingformat.encodeToString(paymentRequest)})")
+                        .append("${encodingformat.encodeToString(paymentRequest.toInternal())})")
                         .append(".catch(function(error){")
                         .append("Portone.fail(error.transactionType, error.txId, error.paymentId, error.code, error.message)")
                         .append("})")
@@ -75,8 +76,9 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                         "intent" -> {
                             view.context.startSchemeIntent(url.toString())
                         }
+
                         "portone" -> {
-                            when(val result = handlePaymentResponse(url)){
+                            when (val result = handlePaymentResponse(url)) {
                                 is PaymentResponse.Fail -> paymentCallback.onFail(result)
                                 is PaymentResponse.Success -> paymentCallback.onSuccess(result)
                             }
@@ -95,6 +97,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
 
         }
     }
+
     private fun handlePaymentResponse(responseUrl: Uri): PaymentResponse {
         return if (responseUrl.getQueryParameter(PaymentResponse.CODE) != null) {
             PaymentResponse.Fail(
@@ -121,6 +124,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
         }
 
     }
+
     private fun Context.startSchemeIntent(url: String): Boolean {
         val schemeIntent: Intent = try {
             Intent.parseUri(url, Intent.URI_INTENT_SCHEME)

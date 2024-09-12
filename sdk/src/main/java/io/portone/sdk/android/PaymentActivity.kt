@@ -5,6 +5,9 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant as KInstant
+import java.time.Instant
 
 @SuppressLint("SetJavaScriptEnabled")
 class PaymentActivity : AppCompatActivity() {
@@ -17,6 +20,10 @@ class PaymentActivity : AppCompatActivity() {
             intent.getParcelableExtra(PortOne.REQUEST)
 
         }
+        Clock.System.now()
+        Instant.now()
+        KInstant.DISTANT_PAST
+        KInstant.fromEpochSeconds(1000,1)
         val webView = findViewById<PortOneWebView>(R.id.web_view_payment)
         if (paymentRequest != null) {
             webView.requestPayment(paymentRequest, object : PaymentCallback {

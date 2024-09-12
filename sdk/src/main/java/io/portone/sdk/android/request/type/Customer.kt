@@ -1,13 +1,10 @@
 package io.portone.sdk.android.request.type
 
-import android.os.Parcelable
 import io.portone.sdk.android.type.Address
 import io.portone.sdk.android.type.Gender
-import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
 @Serializable
-@Parcelize
 internal data class Customer(
     val customerId: String? = null,
     val fullName: String? = null,
@@ -21,4 +18,4 @@ internal data class Customer(
     val birthYear: String? = null,
     val birthMonth: String? = null,
     val birthDay: String? = null
-) : Parcelable
+)

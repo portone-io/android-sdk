@@ -1,27 +1,24 @@
-package io.portone.sdk
+package io.portone.sdk.android.request
 
-import android.os.Parcelable
+import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.type.BillingKeyMethod
-import io.portone.sdk.entity.Currency
-import io.portone.sdk.entity.Customer
-import io.portone.sdk.entity.Locale
-import io.portone.sdk.entity.OfferPeriod
-import io.portone.sdk.entity.PgProvider
-import io.portone.sdk.entity.ProductType
-import io.portone.sdk.entity.WindowType
-import io.portone.sdk.entity.paymentmethod.Card
-import io.portone.sdk.entity.paymentmethod.Mobile
-import kotlinx.parcelize.Parcelize
+import io.portone.sdk.android.request.type.billingkey.IssueBillingKeyMethod
+import io.portone.sdk.android.type.Currency
+import io.portone.sdk.android.request.type.Customer
+import io.portone.sdk.android.type.Locale
+import io.portone.sdk.android.request.type.OfferPeriod
+import io.portone.sdk.android.type.PgProvider
+import io.portone.sdk.android.type.ProductType
+import io.portone.sdk.android.type.WindowType
 import kotlinx.serialization.Serializable
 
 @Serializable
-@Parcelize
-data class IssueBillingKeyRequest(
+internal data class IssueBillingKeyRequest(
     val storeId: String, // 스토어 아이디
     val issueId: String? = null, // 주문 번호
     val issueName: String? = null, // 주문명
     val displayAmount: Int? = null, //
-    val billingKeyMethod: BillingKeyMethod,
+    val billingKeyMethod: IssueBillingKeyMethod,
     val channelKey: String? = null, // 채널 이름
     val pgProvider: PgProvider? = null, // PG사
     val isTestChannel: Boolean? = null, // 테스트 채널 여부
@@ -37,6 +34,7 @@ data class IssueBillingKeyRequest(
     val offerPeriod: OfferPeriod? = null,
     val productType: ProductType? = null,
     val bypass: String? = null, // TODO 작업 필요
-    val card: Card? = null,
-    val mobile: Mobile? = null,
-) : Parcelable
+    val card: BillingKeyMethod.Card? = null,
+    val mobile: BillingKeyMethod.Mobile? = null,
+    val easyPay: BillingKeyMethod.EasyPay? = null,
+)

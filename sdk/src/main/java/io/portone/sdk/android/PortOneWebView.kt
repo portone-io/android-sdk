@@ -127,7 +127,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 super.onPageFinished(view, url)
                 view?.evaluateJavascript(
                     StringBuilder().append("javascript:PortOne.requestIssueBillingKey(")
-                        .append("${encodingformat.encodeToString(issueBillingKeyRequest)})")
+                        .append("${encodingformat.encodeToString(issueBillingKeyRequest.toInternal())})")
                         .append(".catch(function(error){")
                         .append("Portone.fail(error.transactionType, error.billingKey, error.code, error.message)")
                         .append("})")

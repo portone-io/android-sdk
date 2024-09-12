@@ -1,4 +1,4 @@
-package io.portone.sdk
+package io.portone.sdk.android
 
 import android.content.Intent
 import android.os.Build

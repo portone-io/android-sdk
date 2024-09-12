@@ -1,3 +1,0 @@
-package io.portone.sdk.entity.paymentmethod.issuebillingkey
-
-sealed interface IssueBillingKeyMethod

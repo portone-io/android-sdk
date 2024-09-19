@@ -27,6 +27,8 @@ import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayCallbac
 import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayJavascriptInterface
 import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayRequest
 import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayResponse
+import io.portone.sdk.android.issuebillingkeyui.LoadIssueBillingKeyUIJavascriptInterface
+import io.portone.sdk.android.issuebillingkeyui.LoadIssueBillingKeyUIRequest
 import io.portone.sdk.android.paymentui.LoadPaymentUIJavascriptInterface
 import io.portone.sdk.android.paymentui.LoadPaymentUIRequest
 import kotlinx.serialization.encodeToString
@@ -418,6 +420,94 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                                 )
 
                                 is PaymentResponse.Success -> paymentCallback.onSuccess(
+                                    result
+                                )
+                            }
+                            true
+                        }
+
+                        else -> {
+                            false
+                        }
+                    }
+
+                } else super.shouldOverrideUrlLoading(view, request)
+                return shouldOverride
+
+            }
+
+        }
+    }
+
+    fun loadIssueBillingKeyUI(
+        loadIssueBillingKeyUIRequest: LoadIssueBillingKeyUIRequest,
+        issueBillingKeyCallback: IssueBillingKeyCallback
+    ) {
+        loadUrl("file:///android_asset/browser_sdk_load_ui.html")
+
+        addJavascriptInterface(object : LoadIssueBillingKeyUIJavascriptInterface {
+            @JavascriptInterface
+            override fun fail(
+                transactionType: String?,
+                billingKey: String?,
+                code: String,
+                message: String
+            ) {
+                val fail = IssueBillingKeyResponse.Fail(
+                    transactionType?.let { TransactionType.valueOf(it) },
+                    billingKey,
+                    code,
+                    message
+                )
+                issueBillingKeyCallback.onFail(fail)
+            }
+            @JavascriptInterface
+            override fun success(
+                transactionType: String,
+                billingKey: String,
+            ) {
+                val success = IssueBillingKeyResponse.Success(
+                    transactionType.let { TransactionType.valueOf(it) },
+                    billingKey,
+                )
+                issueBillingKeyCallback.onSuccess(success)
+            }
+        }, interfaceName)
+
+        webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                view?.evaluateJavascript(
+                    StringBuilder().append("javascript:PortOne.loadIssueBillingKeyUI(")
+                        .append("${encodingformat.encodeToString(loadIssueBillingKeyUIRequest.toInternal())},{")
+                        .append("onIssueBillingKeySuccess: (response) => { Portone.success(response.transactionType, response.billingKey) },")
+                        .append("onIssueBillingKeyFail: (error) => { Portone.fail(error.transactionType, error.billingKey, error.code, error.message)}})")
+                        .append(".catch(function(error){")
+                        .append("Portone.fail(error.transactionType, error.billingKey, error.code, error.message)")
+                        .append("})")
+                        .toString(),
+                    null
+                )
+            }
+
+            override fun shouldOverrideUrlLoading(
+                view: WebView?,
+                request: WebResourceRequest?
+            ): Boolean {
+                val shouldOverride = if (view != null && request?.url != null) {
+                    val url = request.url
+                    when (url.scheme) {
+                        "intent" -> {
+                            view.context.startSchemeIntent(url.toString())
+                        }
+
+                        "portone" -> {
+                            when (val result = handleIssueBillingKeyResponse(url)) {
+                                is IssueBillingKeyResponse.Fail -> issueBillingKeyCallback.onFail(
+                                    result
+                                )
+
+                                is IssueBillingKeyResponse.Success -> issueBillingKeyCallback.onSuccess(
                                     result
                                 )
                             }

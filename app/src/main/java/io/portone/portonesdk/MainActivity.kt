@@ -24,6 +24,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.btnLoadPaymentUi.setOnClickListener {
             startActivity(Intent(this@MainActivity, LoadPaymentUITestActivity::class.java))
         }
+        binding.btnLoadIssueBillingKeyUi.setOnClickListener {
+            startActivity(Intent(this@MainActivity, LoadIssueBillingKeyUITestActivity::class.java))
+        }
     }
 
     override fun setViewBinding(inflater: LayoutInflater): ActivityMainBinding {

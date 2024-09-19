@@ -68,6 +68,9 @@
 
     <application>
         <activity
+            android:name=".issuebillingkeyui.LoadIssueBillingKeyUIActivity"
+            android:exported="false" />
+        <activity
             android:name=".paymentui.LoadPaymentUIActivity"
             android:exported="false" />
         <activity

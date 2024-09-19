@@ -36,6 +36,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.material)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(libs.kotlinx.datetime)
     implementation(libs.androidx.core.ktx)

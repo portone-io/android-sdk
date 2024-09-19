@@ -42,7 +42,6 @@ class IssueBillingKeyTestActivity : BaseActivity<ActivityIssueBillingKeyTestBind
                     resultLauncher = issueBillingKeyActivityResultLauncher
                 )
             } catch (e: Exception) {
-                println(e.toString())
                 Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
             }
         }

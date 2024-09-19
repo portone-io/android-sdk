@@ -42,7 +42,6 @@ class IdentityVerificationTestActivity : BaseActivity<ActivityIdentityVerificati
                     resultLauncher = identityVerificationActivityResultLauncher
                 )
             } catch (e: Exception) {
-                println(e.toString())
                 Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
             }
         }

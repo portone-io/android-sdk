@@ -17,6 +17,9 @@ import io.portone.sdk.android.issuebillingkey.IssueBillingKeyRequest
 import io.portone.sdk.android.payment.PaymentActivity
 import io.portone.sdk.android.payment.PaymentCallback
 import io.portone.sdk.android.payment.PaymentRequest
+import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayActivity
+import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayCallback
+import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayRequest
 
 interface Sdk {
     fun registerForPaymentActivity(
@@ -51,6 +54,7 @@ interface Sdk {
         request: IssueBillingKeyRequest,
         resultLauncher: ActivityResultLauncher<Intent>,
     )
+
     fun registerForIdentityVerificationActivity(
         activity: ComponentActivity,
         callback: IdentityVerificationCallback
@@ -67,10 +71,23 @@ interface Sdk {
         request: IdentityVerificationRequest,
         resultLauncher: ActivityResultLauncher<Intent>,
     )
-//
-//    fun requestIssueBillingKeyAndPay(request: IssueBillingKeyAndPayRequest)
-//
-//    fun requestIdentityVerification(request: IdentityVerificationRequest)
+
+    fun registerForIssueBillingKeyAndPay(
+        activity: ComponentActivity,
+        callback: IssueBillingKeyAndPayCallback
+    ): ActivityResultLauncher<Intent>
+
+    fun registerForIssueBillingKeyAndPay(
+        fragment: Fragment,
+        callback: IssueBillingKeyAndPayCallback
+    ): ActivityResultLauncher<Intent>
+
+
+    fun requestIssueBillingKeyAndPay(
+        activity: ComponentActivity,
+        request: IssueBillingKeyAndPayRequest,
+        resultLauncher: ActivityResultLauncher<Intent>,
+    )
 //
 //    fun loadPaymentUI(request: LoadPaymentUIRequest)
 //
@@ -181,7 +198,43 @@ object PortOne : Sdk {
                 activity,
                 IdentityVerificationActivity::class.java
             ).putExtras(bundle)
-        )    }
+        )
+    }
+
+    override fun registerForIssueBillingKeyAndPay(
+        activity: ComponentActivity,
+        callback: IssueBillingKeyAndPayCallback
+    ): ActivityResultLauncher<Intent> {
+        return registerForActivity(
+            activity,
+            callback
+        )
+    }
+
+    override fun registerForIssueBillingKeyAndPay(
+        fragment: Fragment,
+        callback: IssueBillingKeyAndPayCallback
+    ): ActivityResultLauncher<Intent> {
+        return registerForActivity(
+            fragment,
+            callback
+        )
+    }
+
+    override fun requestIssueBillingKeyAndPay(
+        activity: ComponentActivity,
+        request: IssueBillingKeyAndPayRequest,
+        resultLauncher: ActivityResultLauncher<Intent>
+    ) {
+        val bundle = Bundle()
+        bundle.putParcelable(REQUEST, request)
+        resultLauncher.launch(
+            Intent(
+                activity,
+                IssueBillingKeyAndPayActivity::class.java
+            ).putExtras(bundle)
+        )
+    }
 
     private inline fun <reified S : Parcelable, reified F : Parcelable, C : Callback<S, F>> registerForActivity(
         activity: ComponentActivity,

@@ -79,6 +79,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".LoadPaymentUITestActivity"
+            android:exported="false" />
+        <activity
             android:name=".IssueBillingKeyAndPayTestActivity"
             android:exported="false" />
         <activity

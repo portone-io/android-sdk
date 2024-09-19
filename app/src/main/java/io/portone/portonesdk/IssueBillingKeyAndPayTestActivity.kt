@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import io.portone.portonesdk.databinding.ActivityIssueBillingKeyAndPayTestBinding
-import io.portone.sdk.PortOne
-import io.portone.sdk.issuebillingkeyandpay.IssueBillingKeyAndPayCallback
-import io.portone.sdk.issuebillingkeyandpay.IssueBillingKeyAndPayRequest
-import io.portone.sdk.issuebillingkeyandpay.IssueBillingKeyAndPayResponse
+import io.portone.sdk.android.PortOne
+import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayCallback
+import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayRequest
+import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayResponse
+
 import kotlinx.serialization.json.Json
 
 class IssueBillingKeyAndPayTestActivity : BaseActivity<ActivityIssueBillingKeyAndPayTestBinding>() {

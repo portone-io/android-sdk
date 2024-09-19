@@ -20,6 +20,8 @@ import io.portone.sdk.android.payment.PaymentRequest
 import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayActivity
 import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayCallback
 import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayRequest
+import io.portone.sdk.android.paymentui.LoadPaymentUIActivity
+import io.portone.sdk.android.paymentui.LoadPaymentUIRequest
 
 interface Sdk {
     fun registerForPaymentActivity(
@@ -86,6 +88,22 @@ interface Sdk {
     fun requestIssueBillingKeyAndPay(
         activity: ComponentActivity,
         request: IssueBillingKeyAndPayRequest,
+        resultLauncher: ActivityResultLauncher<Intent>,
+    )
+
+    fun registerForLoadPaymentUI(
+        activity: ComponentActivity,
+        callback: PaymentCallback
+    ): ActivityResultLauncher<Intent>
+
+    fun registerForLoadPaymentUI(
+        fragment: Fragment,
+        callback: PaymentCallback
+    ): ActivityResultLauncher<Intent>
+
+    fun loadPaymentUI(
+        activity: ComponentActivity,
+        request: LoadPaymentUIRequest,
         resultLauncher: ActivityResultLauncher<Intent>,
     )
 //
@@ -232,6 +250,41 @@ object PortOne : Sdk {
             Intent(
                 activity,
                 IssueBillingKeyAndPayActivity::class.java
+            ).putExtras(bundle)
+        )
+    }
+
+    override fun registerForLoadPaymentUI(
+        activity: ComponentActivity,
+        callback: PaymentCallback
+    ): ActivityResultLauncher<Intent> {
+        return registerForActivity(
+            activity,
+            callback
+        )
+    }
+
+    override fun registerForLoadPaymentUI(
+        fragment: Fragment,
+        callback: PaymentCallback
+    ): ActivityResultLauncher<Intent> {
+        return registerForActivity(
+            fragment,
+            callback
+        )
+    }
+
+    override fun loadPaymentUI(
+        activity: ComponentActivity,
+        request: LoadPaymentUIRequest,
+        resultLauncher: ActivityResultLauncher<Intent>
+    ) {
+        val bundle = Bundle()
+        bundle.putParcelable(REQUEST, request)
+        resultLauncher.launch(
+            Intent(
+                activity,
+                LoadPaymentUIActivity::class.java
             ).putExtras(bundle)
         )
     }

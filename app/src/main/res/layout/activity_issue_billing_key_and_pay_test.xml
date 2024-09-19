@@ -27,7 +27,6 @@
         android:hint="json을 입력하세요."
         android:gravity="top"
         android:background="@null"
-        android:text="@string/sample_bp_json"
         app:layout_constraintBottom_toTopOf="@+id/btn_issue_billing_key_and_pay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

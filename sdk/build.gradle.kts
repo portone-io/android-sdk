@@ -44,4 +44,5 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.webkit)
 }

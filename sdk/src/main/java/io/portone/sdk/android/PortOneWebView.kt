@@ -11,6 +11,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.webkit.WebViewAssetLoader
 import io.portone.sdk.android.identityverification.IdentityVerificationCallback
 import io.portone.sdk.android.identityverification.IdentityVerificationJavascriptInterface
 import io.portone.sdk.android.identityverification.IdentityVerificationRequest
@@ -19,16 +20,16 @@ import io.portone.sdk.android.issuebillingkey.IssueBillingKeyCallback
 import io.portone.sdk.android.issuebillingkey.IssueBillingKeyJavascriptInterface
 import io.portone.sdk.android.issuebillingkey.IssueBillingKeyRequest
 import io.portone.sdk.android.issuebillingkey.IssueBillingKeyResponse
-import io.portone.sdk.android.payment.PaymentCallback
-import io.portone.sdk.android.payment.PaymentJavascriptInterface
-import io.portone.sdk.android.payment.PaymentRequest
-import io.portone.sdk.android.payment.PaymentResponse
 import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayCallback
 import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayJavascriptInterface
 import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayRequest
 import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayResponse
 import io.portone.sdk.android.issuebillingkeyui.LoadIssueBillingKeyUIJavascriptInterface
 import io.portone.sdk.android.issuebillingkeyui.LoadIssueBillingKeyUIRequest
+import io.portone.sdk.android.payment.PaymentCallback
+import io.portone.sdk.android.payment.PaymentJavascriptInterface
+import io.portone.sdk.android.payment.PaymentRequest
+import io.portone.sdk.android.payment.PaymentResponse
 import io.portone.sdk.android.paymentui.LoadPaymentUIJavascriptInterface
 import io.portone.sdk.android.paymentui.LoadPaymentUIRequest
 import kotlinx.serialization.encodeToString
@@ -37,7 +38,11 @@ import java.net.URISyntaxException
 @SuppressLint("SetJavaScriptEnabled")
 class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(context, attrs) {
     // PortOne은 js sdk 인터페이스 object와 이름이 겹쳐 Portone으로 수정
-    val interfaceName = "Portone"
+    private val interfaceName = "Portone"
+    private val assetLoader = WebViewAssetLoader.Builder()
+        .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(context))
+        .build()
+
 
     init {
         settings.run {
@@ -45,34 +50,12 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
             javaScriptCanOpenWindowsAutomatically = true
             domStorageEnabled = true
         }
-
         webChromeClient = WebChromeClient()
     }
 
     fun requestPayment(paymentRequest: PaymentRequest, paymentCallback: PaymentCallback) {
-        loadUrl("file:///android_asset/browser_sdk.html")
-
-        addJavascriptInterface(object : PaymentJavascriptInterface {
-            @JavascriptInterface
-            override fun fail(
-                transactionType: String?,
-                txId: String?,
-                paymentId: String?,
-                code: String,
-                message: String
-            ) {
-                val fail = PaymentResponse.Fail(
-                    transactionType?.let { TransactionType.valueOf(it) },
-                    txId,
-                    paymentId,
-                    code,
-                    message
-                )
-                paymentCallback.onFail(fail)
-            }
-        }, interfaceName)
-
-        webViewClient = object : WebViewClient() {
+        println(encodingformat.encodeToString(paymentRequest.toInternal()))
+        webViewClient = object : PortOneWebViewClientCompat(assetLoader) {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 view?.evaluateJavascript(
@@ -87,10 +70,10 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
             }
 
             override fun shouldOverrideUrlLoading(
-                view: WebView?,
-                request: WebResourceRequest?
+                view: WebView,
+                request: WebResourceRequest
             ): Boolean {
-                val shouldOverride = if (view != null && request?.url != null) {
+                val shouldOverride = if (request.url != null) {
                     val url = request.url
                     when (url.scheme) {
                         "intent" -> {
@@ -116,33 +99,36 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
             }
 
         }
+
+        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk.html")
+
+        addJavascriptInterface(object : PaymentJavascriptInterface {
+            @JavascriptInterface
+            override fun fail(
+                transactionType: String?,
+                txId: String?,
+                paymentId: String?,
+                code: String,
+                message: String
+            ) {
+                val fail = PaymentResponse.Fail(
+                    transactionType?.let { TransactionType.valueOf(it) },
+                    txId,
+                    paymentId,
+                    code,
+                    message
+                )
+                paymentCallback.onFail(fail)
+            }
+        }, interfaceName)
+
     }
 
     fun requestIssueBillingKey(
         issueBillingKeyRequest: IssueBillingKeyRequest,
         issueBillingKeyCallback: IssueBillingKeyCallback
     ) {
-        loadUrl("file:///android_asset/browser_sdk.html")
-
-        addJavascriptInterface(object : IssueBillingKeyJavascriptInterface {
-            @JavascriptInterface
-            override fun fail(
-                transactionType: String?,
-                billingKey: String?,
-                code: String,
-                message: String
-            ) {
-                val fail = IssueBillingKeyResponse.Fail(
-                    transactionType?.let { TransactionType.valueOf(it) },
-                    billingKey,
-                    code,
-                    message
-                )
-                issueBillingKeyCallback.onFail(fail)
-            }
-        }, interfaceName)
-
-        webViewClient = object : WebViewClient() {
+        webViewClient = object : PortOneWebViewClientCompat(assetLoader) {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 view?.evaluateJavascript(
@@ -157,10 +143,10 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
             }
 
             override fun shouldOverrideUrlLoading(
-                view: WebView?,
-                request: WebResourceRequest?
+                view: WebView,
+                request: WebResourceRequest
             ): Boolean {
-                val shouldOverride = if (view != null && request?.url != null) {
+                val shouldOverride = if (request.url != null) {
                     val url = request.url
                     when (url.scheme) {
                         "intent" -> {
@@ -191,32 +177,32 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
             }
 
         }
+
+        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk.html")
+
+        addJavascriptInterface(object : IssueBillingKeyJavascriptInterface {
+            @JavascriptInterface
+            override fun fail(
+                transactionType: String?,
+                billingKey: String?,
+                code: String,
+                message: String
+            ) {
+                val fail = IssueBillingKeyResponse.Fail(
+                    transactionType?.let { TransactionType.valueOf(it) },
+                    billingKey,
+                    code,
+                    message
+                )
+                issueBillingKeyCallback.onFail(fail)
+            }
+        }, interfaceName)
     }
 
     fun requestIdentityVerification(
         identityVerificationRequest: IdentityVerificationRequest,
         identityVerificationCallback: IdentityVerificationCallback
     ) {
-        loadUrl("file:///android_asset/browser_sdk.html")
-
-        addJavascriptInterface(object : IdentityVerificationJavascriptInterface {
-            @JavascriptInterface
-            override fun fail(
-                transactionType: String?,
-                identityVerificationTxId: String?,
-                code: String,
-                message: String
-            ) {
-                val fail = IdentityVerificationResponse.Fail(
-                    transactionType?.let { TransactionType.valueOf(it) },
-                    identityVerificationTxId,
-                    code,
-                    message
-                )
-                identityVerificationCallback.onFail(fail)
-            }
-        }, interfaceName)
-
         webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
@@ -266,37 +252,32 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
             }
 
         }
+        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk.html")
+
+        addJavascriptInterface(object : IdentityVerificationJavascriptInterface {
+            @JavascriptInterface
+            override fun fail(
+                transactionType: String?,
+                identityVerificationTxId: String?,
+                code: String,
+                message: String
+            ) {
+                val fail = IdentityVerificationResponse.Fail(
+                    transactionType?.let { TransactionType.valueOf(it) },
+                    identityVerificationTxId,
+                    code,
+                    message
+                )
+                identityVerificationCallback.onFail(fail)
+            }
+        }, interfaceName)
     }
 
     fun requestIssueBillingKeyAndPay(
         issueBillingKeyAndPayRequest: IssueBillingKeyAndPayRequest,
         issueBillingKeyAndPayCallback: IssueBillingKeyAndPayCallback
     ) {
-        loadUrl("file:///android_asset/browser_sdk.html")
-
-        addJavascriptInterface(object : IssueBillingKeyAndPayJavascriptInterface {
-            @JavascriptInterface
-            override fun fail(
-                transactionType: String?,
-                txId: String?,
-                paymentId: String?,
-                billingKey: String?,
-                code: String,
-                message: String
-            ) {
-                val fail = IssueBillingKeyAndPayResponse.Fail(
-                    transactionType?.let { TransactionType.valueOf(it) },
-                    txId,
-                    paymentId,
-                    billingKey,
-                    code,
-                    message
-                )
-                issueBillingKeyAndPayCallback.onFail(fail)
-            }
-        }, interfaceName)
-
-        webViewClient = object : WebViewClient() {
+        webViewClient = object : PortOneWebViewClientCompat(assetLoader) {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 view?.evaluateJavascript(
@@ -311,10 +292,10 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
             }
 
             override fun shouldOverrideUrlLoading(
-                view: WebView?,
-                request: WebResourceRequest?
+                view: WebView,
+                request: WebResourceRequest
             ): Boolean {
-                val shouldOverride = if (view != null && request?.url != null) {
+                val shouldOverride = if (request.url != null) {
                     val url = request.url
                     when (url.scheme) {
                         "intent" -> {
@@ -345,48 +326,37 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
             }
 
         }
+
+        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk.html")
+
+        addJavascriptInterface(object : IssueBillingKeyAndPayJavascriptInterface {
+            @JavascriptInterface
+            override fun fail(
+                transactionType: String?,
+                txId: String?,
+                paymentId: String?,
+                billingKey: String?,
+                code: String,
+                message: String
+            ) {
+                val fail = IssueBillingKeyAndPayResponse.Fail(
+                    transactionType?.let { TransactionType.valueOf(it) },
+                    txId,
+                    paymentId,
+                    billingKey,
+                    code,
+                    message
+                )
+                issueBillingKeyAndPayCallback.onFail(fail)
+            }
+        }, interfaceName)
     }
 
     fun loadPaymentUI(
         loadPaymentUIRequest: LoadPaymentUIRequest,
         paymentCallback: PaymentCallback
     ) {
-        loadUrl("file:///android_asset/browser_sdk_load_ui.html")
-
-        addJavascriptInterface(object : LoadPaymentUIJavascriptInterface {
-            @JavascriptInterface
-            override fun fail(
-                transactionType: String?,
-                txId: String?,
-                paymentId: String?,
-                code: String,
-                message: String
-            ) {
-                val fail = PaymentResponse.Fail(
-                    transactionType?.let { TransactionType.valueOf(it) },
-                    txId,
-                    paymentId,
-                    code,
-                    message
-                )
-                paymentCallback.onFail(fail)
-            }
-            @JavascriptInterface
-            override fun success(
-                transactionType: String,
-                txId: String,
-                paymentId: String,
-            ) {
-                val success = PaymentResponse.Success(
-                    transactionType.let { TransactionType.valueOf(it) },
-                    txId,
-                    paymentId,
-                )
-                paymentCallback.onSuccess(success)
-            }
-        }, interfaceName)
-
-        webViewClient = object : WebViewClient() {
+        webViewClient = object : PortOneWebViewClientCompat(assetLoader) {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 view?.evaluateJavascript(
@@ -403,10 +373,10 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
             }
 
             override fun shouldOverrideUrlLoading(
-                view: WebView?,
-                request: WebResourceRequest?
+                view: WebView,
+                request: WebResourceRequest
             ): Boolean {
-                val shouldOverride = if (view != null && request?.url != null) {
+                val shouldOverride = if (request.url != null) {
                     val url = request.url
                     when (url.scheme) {
                         "intent" -> {
@@ -437,44 +407,50 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
             }
 
         }
+
+        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk_load_ui.html")
+
+        addJavascriptInterface(object : LoadPaymentUIJavascriptInterface {
+            @JavascriptInterface
+            override fun fail(
+                transactionType: String?,
+                txId: String?,
+                paymentId: String?,
+                code: String,
+                message: String
+            ) {
+                val fail = PaymentResponse.Fail(
+                    transactionType?.let { TransactionType.valueOf(it) },
+                    txId,
+                    paymentId,
+                    code,
+                    message
+                )
+                paymentCallback.onFail(fail)
+            }
+
+            @JavascriptInterface
+            override fun success(
+                transactionType: String,
+                txId: String,
+                paymentId: String,
+            ) {
+                val success = PaymentResponse.Success(
+                    transactionType.let { TransactionType.valueOf(it) },
+                    txId,
+                    paymentId,
+                )
+                paymentCallback.onSuccess(success)
+            }
+        }, interfaceName)
     }
 
     fun loadIssueBillingKeyUI(
         loadIssueBillingKeyUIRequest: LoadIssueBillingKeyUIRequest,
         issueBillingKeyCallback: IssueBillingKeyCallback
     ) {
-        loadUrl("file:///android_asset/browser_sdk_load_ui.html")
 
-        addJavascriptInterface(object : LoadIssueBillingKeyUIJavascriptInterface {
-            @JavascriptInterface
-            override fun fail(
-                transactionType: String?,
-                billingKey: String?,
-                code: String,
-                message: String
-            ) {
-                val fail = IssueBillingKeyResponse.Fail(
-                    transactionType?.let { TransactionType.valueOf(it) },
-                    billingKey,
-                    code,
-                    message
-                )
-                issueBillingKeyCallback.onFail(fail)
-            }
-            @JavascriptInterface
-            override fun success(
-                transactionType: String,
-                billingKey: String,
-            ) {
-                val success = IssueBillingKeyResponse.Success(
-                    transactionType.let { TransactionType.valueOf(it) },
-                    billingKey,
-                )
-                issueBillingKeyCallback.onSuccess(success)
-            }
-        }, interfaceName)
-
-        webViewClient = object : WebViewClient() {
+        webViewClient = object : PortOneWebViewClientCompat(assetLoader) {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 view?.evaluateJavascript(
@@ -491,10 +467,10 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
             }
 
             override fun shouldOverrideUrlLoading(
-                view: WebView?,
-                request: WebResourceRequest?
+                view: WebView,
+                request: WebResourceRequest
             ): Boolean {
-                val shouldOverride = if (view != null && request?.url != null) {
+                val shouldOverride = if (request.url != null) {
                     val url = request.url
                     when (url.scheme) {
                         "intent" -> {
@@ -525,6 +501,38 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
             }
 
         }
+        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk_load_ui.html")
+
+        addJavascriptInterface(object : LoadIssueBillingKeyUIJavascriptInterface {
+            @JavascriptInterface
+            override fun fail(
+                transactionType: String?,
+                billingKey: String?,
+                code: String,
+                message: String
+            ) {
+                val fail = IssueBillingKeyResponse.Fail(
+                    transactionType?.let { TransactionType.valueOf(it) },
+                    billingKey,
+                    code,
+                    message
+                )
+                issueBillingKeyCallback.onFail(fail)
+            }
+
+            @JavascriptInterface
+            override fun success(
+                transactionType: String,
+                billingKey: String,
+            ) {
+                val success = IssueBillingKeyResponse.Success(
+                    transactionType.let { TransactionType.valueOf(it) },
+                    billingKey,
+                )
+                issueBillingKeyCallback.onSuccess(success)
+            }
+        }, interfaceName)
+
     }
 
     private fun handlePaymentResponse(responseUrl: Uri): PaymentResponse {

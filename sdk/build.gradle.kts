@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
     id(libs.plugins.kotlin.parcelize.get().pluginId)
+    id("maven-publish")
 }
 
 android {
@@ -32,6 +33,19 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+}
+
+publishing {
+    publications {
+        register<MavenPublication>("maven") {
+            groupId = "io.portone.sdk"
+            artifactId = "android"
+            version = project.property("versionName") as String
+            afterEvaluate {
+            from(components["release"])
+                }
+        }
     }
 }
 

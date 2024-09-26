@@ -1,5 +1,6 @@
 [versions]
 agp = "8.5.2"
+androidMavenGradlePlugin = "2.1"
 desugar_jdk_libs = "2.1.2"
 kotlin = "2.0.20"
 coreKtx = "1.13.1"
@@ -9,14 +10,15 @@ espressoCore = "3.6.1"
 appcompat = "1.7.0"
 kotlinxDatetime = "0.6.1"
 material = "1.12.0"
-activity = "1.9.1"
+activity = "1.9.2"
 constraintlayout = "2.1.4"
-navigationFragmentKtx = "2.7.7"
-navigationUiKtx = "2.7.7"
+navigationFragmentKtx = "2.8.1"
+navigationUiKtx = "2.8.1"
 kotlinx-serialization = "1.7.2"
 webkit = "1.12.0"
 
 [libraries]
+android-maven-gradle-plugin = { module = "com.github.dcendents:android-maven-gradle-plugin", version.ref = "androidMavenGradlePlugin" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-webkit = { module = "androidx.webkit:webkit", version.ref = "webkit" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }

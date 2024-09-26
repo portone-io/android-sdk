@@ -21,7 +21,7 @@ data class LoadIssueBillingKeyUIRequest(
     val issueName: String? = null, // 주문명
     val displayAmount: Int? = null,
     val currency: Currency? = null, // 통화
-    val billingKeyMethod: BillingKeyMethod,
+    val method: BillingKeyMethod,
     val channelKey: String? = null, // 채널 이름
     val pgProvider: PgProvider? = null, // PG사
     val isTestChannel: Boolean? = null, // 테스트 채널 여부
@@ -43,7 +43,7 @@ data class LoadIssueBillingKeyUIRequest(
             issueName = issueName,
             displayAmount = displayAmount,
             currency = currency,
-            billingKeyMethod = billingKeyMethod.billingKeyMethod(),
+            billingKeyMethod = method.billingKeyMethod(),
             channelKey = channelKey,
             pgProvider = pgProvider,
             isTestChannel = isTestChannel,

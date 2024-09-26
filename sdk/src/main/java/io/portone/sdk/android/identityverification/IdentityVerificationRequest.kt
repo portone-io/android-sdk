@@ -17,7 +17,7 @@ data class IdentityVerificationRequest(
     val customer: Customer? = null,
     val windowType: WindowType? = null, // 결제창 유형
     val customData: String? = null, // 고객사 Custom Data
-    val bypass: IdentityVerificationBypass? = null,
+    val bypass: String? = null,
 ) : Parcelable {
     internal fun toInternal(): InternalIdentityVerificationRequest =
         InternalIdentityVerificationRequest(

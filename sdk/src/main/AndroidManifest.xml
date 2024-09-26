@@ -24,6 +24,7 @@
         <package android:name="kvp.jjy.MispAndroid320" /> <!-- ISP페이북 -->
         <package android:name="com.kbcard.cxh.appcard" /> <!-- KBPay -->
         <package android:name="com.kbstar.reboot" /> <!-- liiv -->
+        <package android:name="com.kbstar.kbbank" /> <!-- liiv -->
         <package android:name="com.samsung.android.spaylite" /> <!-- 삼성페이니 -->
         <package android:name="com.nhnent.payapp" /> <!-- 페이코 -->
         <package android:name="com.lge.lgpay" /> <!-- 엘지페이 -->
@@ -39,6 +40,7 @@
         <package android:name="com.hyundaicard.appcard" /> <!-- 현대 -->
         <package android:name="nh.smart.nhallonepay" /> <!-- 농협 -->
         <package android:name="nh.smart.card" /> <!-- 농협 -->
+        <package android:name="net.ib.android.smcard" /> <!-- 삼성 모니모 -->
         <package android:name="kr.co.citibank.citimobile" /> <!-- 씨티 -->
         <package android:name="com.wooricard.smartapp" /> <!-- 우리WON카드 -->
         <package android:name="com.wooribank.smart.npib" /> <!-- 우리WON뱅킹 -->

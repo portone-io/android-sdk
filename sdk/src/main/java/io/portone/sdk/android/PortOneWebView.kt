@@ -39,6 +39,8 @@ import java.net.URISyntaxException
 class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(context, attrs) {
     // PortOne은 js sdk 인터페이스 object와 이름이 겹쳐 Portone으로 수정
     private val interfaceName = "Portone"
+    private val defaultUrl = "https://appassets.androidplatform.net/assets/browser_sdk.html"
+    private val loadUIUrl = "https://appassets.androidplatform.net/assets/browser_sdk_load_ui.html"
     private val assetLoader = WebViewAssetLoader.Builder()
         .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(context))
         .build()
@@ -54,19 +56,20 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
     }
 
     fun requestPayment(paymentRequest: PaymentRequest, paymentCallback: PaymentCallback) {
-        println(encodingformat.encodeToString(paymentRequest.toInternal()))
         webViewClient = object : PortOneWebViewClientCompat(assetLoader) {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                view?.evaluateJavascript(
-                    StringBuilder().append("javascript:PortOne.requestPayment(")
-                        .append("${encodingformat.encodeToString(paymentRequest.toInternal())})")
-                        .append(".catch(function(error){")
-                        .append("Portone.fail(error.transactionType, error.txId, error.paymentId, error.code, error.message)")
-                        .append("})")
-                        .toString(),
-                    null
-                )
+                if (url == defaultUrl) {
+                    view?.evaluateJavascript(
+                        StringBuilder().append("javascript:PortOne.requestPayment(")
+                            .append("${encodingformat.encodeToString(paymentRequest.toInternal())})")
+                            .append(".catch(function(error){")
+                            .append("Portone.fail(error.transactionType, error.txId, error.paymentId, error.code, error.message)")
+                            .append("})")
+                            .toString(),
+                        null
+                    )
+                }
             }
 
             override fun shouldOverrideUrlLoading(
@@ -76,6 +79,16 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 val shouldOverride = if (request.url != null) {
                     val url = request.url
                     when (url.scheme) {
+                        "market" -> {
+                            view.context.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    url
+                                )
+                            )
+                            true
+                        }
+
                         "intent" -> {
                             view.context.startSchemeIntent(url.toString())
                         }
@@ -100,8 +113,6 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
 
         }
 
-        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk.html")
-
         addJavascriptInterface(object : PaymentJavascriptInterface {
             @JavascriptInterface
             override fun fail(
@@ -122,6 +133,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
             }
         }, interfaceName)
 
+        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk.html")
     }
 
     fun requestIssueBillingKey(
@@ -131,15 +143,17 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
         webViewClient = object : PortOneWebViewClientCompat(assetLoader) {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                view?.evaluateJavascript(
-                    StringBuilder().append("javascript:PortOne.requestIssueBillingKey(")
-                        .append("${encodingformat.encodeToString(issueBillingKeyRequest.toInternal())})")
-                        .append(".catch(function(error){")
-                        .append("Portone.fail(error.transactionType, error.billingKey, error.code, error.message)")
-                        .append("})")
-                        .toString(),
-                    null
-                )
+                if (url == defaultUrl) {
+                    view?.evaluateJavascript(
+                        StringBuilder().append("javascript:PortOne.requestIssueBillingKey(")
+                            .append("${encodingformat.encodeToString(issueBillingKeyRequest.toInternal())})")
+                            .append(".catch(function(error){")
+                            .append("Portone.fail(error.transactionType, error.billingKey, error.code, error.message)")
+                            .append("})")
+                            .toString(),
+                        null
+                    )
+                }
             }
 
             override fun shouldOverrideUrlLoading(
@@ -149,6 +163,16 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 val shouldOverride = if (request.url != null) {
                     val url = request.url
                     when (url.scheme) {
+                        "market" -> {
+                            view.context.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    url
+                                )
+                            )
+                            true
+                        }
+
                         "intent" -> {
                             view.context.startSchemeIntent(url.toString())
                         }
@@ -178,8 +202,6 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
 
         }
 
-        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk.html")
-
         addJavascriptInterface(object : IssueBillingKeyJavascriptInterface {
             @JavascriptInterface
             override fun fail(
@@ -197,33 +219,47 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 issueBillingKeyCallback.onFail(fail)
             }
         }, interfaceName)
+
+        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk.html")
     }
 
     fun requestIdentityVerification(
         identityVerificationRequest: IdentityVerificationRequest,
         identityVerificationCallback: IdentityVerificationCallback
     ) {
-        webViewClient = object : WebViewClient() {
+        webViewClient = object : PortOneWebViewClientCompat(assetLoader) {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                view?.evaluateJavascript(
-                    StringBuilder().append("javascript:PortOne.requestIdentityVerification(")
-                        .append("${encodingformat.encodeToString(identityVerificationRequest.toInternal())})")
-                        .append(".catch(function(error){")
-                        .append("Portone.fail(error.transactionType, error.identityVerificationTxId, error.code, error.message)")
-                        .append("})")
-                        .toString(),
-                    null
-                )
+                if (url == defaultUrl) {
+                    view?.evaluateJavascript(
+                        StringBuilder().append("javascript:PortOne.requestIdentityVerification(")
+                            .append("${encodingformat.encodeToString(identityVerificationRequest.toInternal())})")
+                            .append(".catch(function(error){")
+                            .append("Portone.fail(error.transactionType, error.identityVerificationTxId, error.code, error.message)")
+                            .append("})")
+                            .toString(),
+                        null
+                    )
+                }
             }
 
             override fun shouldOverrideUrlLoading(
-                view: WebView?,
-                request: WebResourceRequest?
+                view: WebView,
+                request: WebResourceRequest
             ): Boolean {
-                val shouldOverride = if (view != null && request?.url != null) {
+                val shouldOverride = if (request.url != null) {
                     val url = request.url
                     when (url.scheme) {
+                        "market" -> {
+                            view.context.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    url
+                                )
+                            )
+                            true
+                        }
+
                         "intent" -> {
                             view.context.startSchemeIntent(url.toString())
                         }
@@ -252,7 +288,6 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
             }
 
         }
-        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk.html")
 
         addJavascriptInterface(object : IdentityVerificationJavascriptInterface {
             @JavascriptInterface
@@ -271,6 +306,8 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 identityVerificationCallback.onFail(fail)
             }
         }, interfaceName)
+
+        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk.html")
     }
 
     fun requestIssueBillingKeyAndPay(
@@ -280,15 +317,17 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
         webViewClient = object : PortOneWebViewClientCompat(assetLoader) {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                view?.evaluateJavascript(
-                    StringBuilder().append("javascript:PortOne.requestIssueBillingKeyAndPay(")
-                        .append("${encodingformat.encodeToString(issueBillingKeyAndPayRequest.toInternal())})")
-                        .append(".catch(function(error){")
-                        .append("Portone.fail(error.transactionType, error.txId, error.paymentId, error.billingKey, error.code, error.message)")
-                        .append("})")
-                        .toString(),
-                    null
-                )
+                if (url == defaultUrl) {
+                    view?.evaluateJavascript(
+                        StringBuilder().append("javascript:PortOne.requestIssueBillingKeyAndPay(")
+                            .append("${encodingformat.encodeToString(issueBillingKeyAndPayRequest.toInternal())})")
+                            .append(".catch(function(error){")
+                            .append("Portone.fail(error.transactionType, error.txId, error.paymentId, error.billingKey, error.code, error.message)")
+                            .append("})")
+                            .toString(),
+                        null
+                    )
+                }
             }
 
             override fun shouldOverrideUrlLoading(
@@ -298,6 +337,16 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 val shouldOverride = if (request.url != null) {
                     val url = request.url
                     when (url.scheme) {
+                        "market" -> {
+                            view.context.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    url
+                                )
+                            )
+                            true
+                        }
+
                         "intent" -> {
                             view.context.startSchemeIntent(url.toString())
                         }
@@ -327,8 +376,6 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
 
         }
 
-        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk.html")
-
         addJavascriptInterface(object : IssueBillingKeyAndPayJavascriptInterface {
             @JavascriptInterface
             override fun fail(
@@ -350,6 +397,8 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 issueBillingKeyAndPayCallback.onFail(fail)
             }
         }, interfaceName)
+
+        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk.html")
     }
 
     fun loadPaymentUI(
@@ -359,17 +408,19 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
         webViewClient = object : PortOneWebViewClientCompat(assetLoader) {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                view?.evaluateJavascript(
-                    StringBuilder().append("javascript:PortOne.loadPaymentUI(")
-                        .append("${encodingformat.encodeToString(loadPaymentUIRequest.toInternal())},{")
-                        .append("onPaymentSuccess: (response) => { Portone.success(response.transactionType, response.txId, response.paymentId) },")
-                        .append("onPaymentFail: (error) => { Portone.fail(error.transactionType, error.txId, error.paymentId, error.code, error.message)}})")
-                        .append(".catch(function(error){")
-                        .append("Portone.fail(error.transactionType, error.txId, error.paymentId, error.code, error.message)")
-                        .append("})")
-                        .toString(),
-                    null
-                )
+                if (url == loadUIUrl) {
+                    view?.evaluateJavascript(
+                        StringBuilder().append("javascript:PortOne.loadPaymentUI(")
+                            .append("${encodingformat.encodeToString(loadPaymentUIRequest.toInternal())},{")
+                            .append("onPaymentSuccess: (response) => { Portone.success(response.transactionType, response.txId, response.paymentId) },")
+                            .append("onPaymentFail: (error) => { Portone.fail(error.transactionType, error.txId, error.paymentId, error.code, error.message)}})")
+                            .append(".catch(function(error){")
+                            .append("Portone.fail(error.transactionType, error.txId, error.paymentId, error.code, error.message)")
+                            .append("})")
+                            .toString(),
+                        null
+                    )
+                }
             }
 
             override fun shouldOverrideUrlLoading(
@@ -408,8 +459,6 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
 
         }
 
-        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk_load_ui.html")
-
         addJavascriptInterface(object : LoadPaymentUIJavascriptInterface {
             @JavascriptInterface
             override fun fail(
@@ -443,6 +492,8 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 paymentCallback.onSuccess(success)
             }
         }, interfaceName)
+
+        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk_load_ui.html")
     }
 
     fun loadIssueBillingKeyUI(
@@ -453,17 +504,19 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
         webViewClient = object : PortOneWebViewClientCompat(assetLoader) {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                view?.evaluateJavascript(
-                    StringBuilder().append("javascript:PortOne.loadIssueBillingKeyUI(")
-                        .append("${encodingformat.encodeToString(loadIssueBillingKeyUIRequest.toInternal())},{")
-                        .append("onIssueBillingKeySuccess: (response) => { Portone.success(response.transactionType, response.billingKey) },")
-                        .append("onIssueBillingKeyFail: (error) => { Portone.fail(error.transactionType, error.billingKey, error.code, error.message)}})")
-                        .append(".catch(function(error){")
-                        .append("Portone.fail(error.transactionType, error.billingKey, error.code, error.message)")
-                        .append("})")
-                        .toString(),
-                    null
-                )
+                if (url == loadUIUrl) {
+                    view?.evaluateJavascript(
+                        StringBuilder().append("javascript:PortOne.loadIssueBillingKeyUI(")
+                            .append("${encodingformat.encodeToString(loadIssueBillingKeyUIRequest.toInternal())},{")
+                            .append("onIssueBillingKeySuccess: (response) => { Portone.success(response.transactionType, response.billingKey) },")
+                            .append("onIssueBillingKeyFail: (error) => { Portone.fail(error.transactionType, error.billingKey, error.code, error.message)}})")
+                            .append(".catch(function(error){")
+                            .append("Portone.fail(error.transactionType, error.billingKey, error.code, error.message)")
+                            .append("})")
+                            .toString(),
+                        null
+                    )
+                }
             }
 
             override fun shouldOverrideUrlLoading(
@@ -501,7 +554,6 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
             }
 
         }
-        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk_load_ui.html")
 
         addJavascriptInterface(object : LoadIssueBillingKeyUIJavascriptInterface {
             @JavascriptInterface
@@ -533,6 +585,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
             }
         }, interfaceName)
 
+        loadUrl("https://appassets.androidplatform.net/assets/browser_sdk_load_ui.html")
     }
 
     private fun handlePaymentResponse(responseUrl: Uri): PaymentResponse {

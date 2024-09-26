@@ -191,7 +191,14 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                         }
 
                         else -> {
-                            false
+                            // 삼성카드 백신 앱 onestore 대응
+                            val requestedUrl = url.toString()
+                            if (requestedUrl.startsWith("https://m.onestore") || requestedUrl.startsWith("https://onesto.re")) {
+                                context.startActivity(Intent(Intent.ACTION_VIEW, url))
+                                 true
+                            } else {
+                                false
+                            }
                         }
                     }
 

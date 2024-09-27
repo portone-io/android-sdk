@@ -20,7 +20,7 @@ data class IssueBillingKeyAndPayRequest(
     val paymentId: String, // 주문 번호
     val orderName: String, // 주문명
     val amount: Amount,
-    val billingKeyAndPayMethod: BillingKeyAndPayMethod,
+    val method: BillingKeyAndPayMethod,
     val channelKey: String? = null, // 채널 이름
     val pgProvider: PgProvider? = null, // PG사
     val isTestChannel: Boolean? = null, // 테스트 채널 여부
@@ -45,7 +45,7 @@ data class IssueBillingKeyAndPayRequest(
             taxFreeAmount = amount.taxFree,
             vatAmount = amount.vat,
             currency = amount.currency,
-            billingKeyAndPayMethod = billingKeyAndPayMethod.method(),
+            billingKeyAndPayMethod = method.method(),
             channelKey = channelKey,
             pgProvider = pgProvider,
             isTestChannel = isTestChannel,
@@ -55,8 +55,8 @@ data class IssueBillingKeyAndPayRequest(
             productType = productType,
             country = country,
             bypass = bypass,
-            mobile = when (billingKeyAndPayMethod) {
-                is BillingKeyAndPayMethod.Mobile -> billingKeyAndPayMethod
+            mobile = when (method) {
+                is BillingKeyAndPayMethod.Mobile -> method
             }
         )
 

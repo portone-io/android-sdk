@@ -2,6 +2,7 @@ package io.portone.sdk.android.request
 
 import io.portone.sdk.android.PaymentUIType
 import io.portone.sdk.android.PortOne
+import io.portone.sdk.android.RawJsonStringSerializer
 import io.portone.sdk.android.request.type.Address
 import io.portone.sdk.android.request.type.Customer
 import io.portone.sdk.android.request.type.OfferPeriod
@@ -46,5 +47,6 @@ internal data class LoadPaymentUIRequest(
     val storeDetails: StoreDetails? = null,
     val country: Country? = null,
     val shippingAddress: Address? = null, // 배송지 주소
-    val bypass: String? = null, // TODO 작업 필요
+    @Serializable(with = RawJsonStringSerializer::class)
+    val bypass: String? = null, // TODO class 정형화 필요
 )

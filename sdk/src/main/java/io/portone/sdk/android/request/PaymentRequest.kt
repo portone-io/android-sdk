@@ -1,6 +1,7 @@
 package io.portone.sdk.android.request
 
 import io.portone.sdk.android.PortOne
+import io.portone.sdk.android.RawJsonStringSerializer
 import io.portone.sdk.android.request.type.Address
 import io.portone.sdk.android.type.Country
 import io.portone.sdk.android.type.Currency
@@ -48,7 +49,8 @@ internal data class PaymentRequest(
     val country: Country? = null,
     val shippingAddress: Address? = null, // 배송지 주소
     val promotionId: String? = null, // 프로모션 아이디
-    val bypass: String? = null, // TODO 작업 필요
+    @Serializable(with = RawJsonStringSerializer::class)
+    val bypass: String? = null, // TODO class 정형화 필요
     val card: PaymentMethod.Card? = null,
     val virtualAccount: RequestPaymentMethod.VirtualAccount? = null,
     val transfer: PaymentMethod.Transfer? = null,

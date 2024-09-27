@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">PortoneSdk</string>
     <string-array name="payment_methods_array">
+        <item>미선택</item>
         <item>CARD</item>
         <item>VIRTUAL_ACCOUNT</item>
         <item>TRANSFER</item>
@@ -8,12 +9,20 @@
         <item>GIFT_CERTIFICATE</item>
         <item>EASY_PAY</item>
     </string-array>
+    <string-array name="billing_key_methods_array">
+        <item>미선택</item>
+        <item>CARD</item>
+        <item>MOBILE</item>
+        <item>EASY_PAY</item>
+    </string-array>
     <string-array name="cash_receipt_type_array">
+        <item>미선택</item>
         <item>PERSONAL</item>
         <item>CORPORATE</item>
         <item>ANONYMOUS</item>
     </string-array>
     <string-array name="easy_pay_provider_array">
+        <item>미선택</item>
         <item>PAYCO</item>
         <item>SAMSUNGPAY</item>
         <item>SSGPAY</item>
@@ -25,12 +34,14 @@
         <item>APPLEPAY</item>
     </string-array>
     <string-array name="gift_certificate_type_array">
+        <item>미선택</item>
         <item>CULTURELAND</item>
         <item>BOOKNLIFE</item>
         <item>SMART_MUNSANG</item>
         <item>CULTURE_GIFT</item>
     </string-array>
     <string-array name="carrier_array">
+        <item>미선택</item>
         <item>SKT</item>
         <item>KT</item>
         <item>LGU</item>
@@ -38,16 +49,373 @@
         <item>KCT</item>
         <item>SK7</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="sample_json"> {
-    \"storeId\": \"store-9a843a46-6b68-45d6-96ac-64fe100c9a0c\",
-    \"paymentId\": \"testm0dfrzrk\",
-        \"orderName\": \"portone-internal-test-qa\",
-    \"totalAmount\": 100,
-    \"currency\": \"KRW\",
-    \"channelKey\": \"channel-key-2106879a-bbab-48d3-b3e1-ef42961c1f19\",
-    \"payMethod\": \"CARD\"
-  }
+    <string-array name="card_company_array">
+        <item>미선택</item>
+        <item>KOREA_DEVELOPMENT_BANK</item>
+        <item>KFCC</item>
+        <item>SHINHYUP</item>
+        <item>EPOST</item>
+        <item>SAVINGS_BANK_KOREA</item>
+        <item>KAKAO_BANK</item>
+        <item>WOORI_CARD</item>
+        <item>BC_CARD</item>
+        <item>GWANGJU_CARD</item>
+        <item>SAMSUNG_CARD</item>
+        <item>SHINHAN_CARD</item>
+        <item>HYUNDAI_CARD</item>
+        <item>LOTTE_CARD</item>
+        <item>SUHYUP_CARD</item>
+        <item>CITI_CARD</item>
+        <item>NH_CARD</item>
+        <item>JEONBUK_CARD</item>
+        <item>JEJU_CARD</item>
+        <item>HANA_CARD</item>
+        <item>KOOKMIN_CARD</item>
+        <item>K_BANK</item>
+        <item>TOSS_BANK</item>
+        <item>MIRAE_ASSET_SECURITIES</item>
+    </string-array>
+    <string-array name="gender_array">
+        <item>미선택</item>
+        <item>MALE</item>
+        <item>FEMALE</item>
+        <item>OTHER</item>
+    </string-array>
+    <string-array name="country_array">
+        <item>미선택</item>
+        <item>AF</item>
+        <item>AX</item>
+        <item>AL</item>
+        <item>DZ</item>
+        <item>AS</item>
+        <item>AD</item>
+        <item>AO</item>
+        <item>AI</item>
+        <item>AQ</item>
+        <item>AG</item>
+        <item>AR</item>
+        <item>AM</item>
+        <item>AW</item>
+        <item>AU</item>
+        <item>AT</item>
+        <item>AZ</item>
+        <item>BH</item>
+        <item>BS</item>
+        <item>BD</item>
+        <item>BB</item>
+        <item>BY</item>
+        <item>BE</item>
+        <item>BZ</item>
+        <item>BJ</item>
+        <item>BM</item>
+        <item>BT</item>
+        <item>BO</item>
+        <item>BQ</item>
+        <item>BA</item>
+        <item>BW</item>
+        <item>BV</item>
+        <item>BR</item>
+        <item>IO</item>
+        <item>BN</item>
+        <item>BG</item>
+        <item>BF</item>
+        <item>BI</item>
+        <item>KH</item>
+        <item>CM</item>
+        <item>CA</item>
+        <item>CV</item>
+        <item>KY</item>
+        <item>CF</item>
+        <item>TD</item>
+        <item>CL</item>
+        <item>CN</item>
+        <item>CX</item>
+        <item>CC</item>
+        <item>CO</item>
+        <item>KM</item>
+        <item>CG</item>
+        <item>CD</item>
+        <item>CK</item>
+        <item>CR</item>
+        <item>CI</item>
+        <item>HR</item>
+        <item>CU</item>
+        <item>CW</item>
+        <item>CY</item>
+        <item>CZ</item>
+        <item>DK</item>
+        <item>DJ</item>
+        <item>DM</item>
+        <item>DO</item>
+        <item>EC</item>
+        <item>EG</item>
+        <item>SV</item>
+        <item>GQ</item>
+        <item>ER</item>
+        <item>EE</item>
+        <item>ET</item>
+        <item>FK</item>
+        <item>FO</item>
+        <item>FJ</item>
+        <item>FI</item>
+        <item>FR</item>
+        <item>GF</item>
+        <item>PF</item>
+        <item>TF</item>
+        <item>GA</item>
+        <item>GM</item>
+        <item>GE</item>
+        <item>DE</item>
+        <item>GH</item>
+        <item>GI</item>
+        <item>GR</item>
+        <item>GL</item>
+        <item>GD</item>
+        <item>GP</item>
+        <item>GU</item>
+        <item>GT</item>
+        <item>GG</item>
+        <item>GN</item>
+        <item>GW</item>
+        <item>GY</item>
+        <item>HT</item>
+        <item>HM</item>
+        <item>VA</item>
+        <item>HN</item>
+        <item>HK</item>
+        <item>HU</item>
+        <item>IS</item>
+        <item>IN</item>
+        <item>ID</item>
+        <item>IR</item>
+        <item>IQ</item>
+        <item>IE</item>
+        <item>IM</item>
+        <item>IL</item>
+        <item>IT</item>
+        <item>JM</item>
+        <item>JP</item>
+        <item>JE</item>
+        <item>JO</item>
+        <item>KZ</item>
+        <item>KE</item>
+        <item>KI</item>
+        <item>KP</item>
+        <item>KR</item>
+        <item>KW</item>
+        <item>KG</item>
+        <item>LA</item>
+        <item>LV</item>
+        <item>LB</item>
+        <item>LS</item>
+        <item>LR</item>
+        <item>LY</item>
+        <item>LI</item>
+        <item>LT</item>
+        <item>LU</item>
+        <item>MO</item>
+        <item>MK</item>
+        <item>MG</item>
+        <item>MW</item>
+        <item>MY</item>
+        <item>MV</item>
+        <item>ML</item>
+        <item>MT</item>
+        <item>MH</item>
+        <item>MQ</item>
+        <item>MR</item>
+        <item>MU</item>
+        <item>YT</item>
+        <item>MX</item>
+        <item>FM</item>
+        <item>MD</item>
+        <item>MC</item>
+        <item>MN</item>
+        <item>ME</item>
+        <item>MS</item>
+        <item>MA</item>
+        <item>MZ</item>
+        <item>MM</item>
+        <item>NA</item>
+        <item>NR</item>
+        <item>NP</item>
+        <item>NL</item>
+        <item>NC</item>
+        <item>NZ</item>
+        <item>NI</item>
+        <item>NE</item>
+        <item>NG</item>
+        <item>NU</item>
+        <item>NF</item>
+        <item>MP</item>
+        <item>NO</item>
+        <item>OM</item>
+        <item>PK</item>
+        <item>PW</item>
+        <item>PS</item>
+        <item>PA</item>
+        <item>PG</item>
+        <item>PY</item>
+        <item>PE</item>
+        <item>PH</item>
+        <item>PN</item>
+        <item>PL</item>
+        <item>PT</item>
+        <item>PR</item>
+        <item>QA</item>
+        <item>RE</item>
+        <item>RO</item>
+        <item>RU</item>
+        <item>RW</item>
+        <item>BL</item>
+        <item>SH</item>
+        <item>KN</item>
+        <item>LC</item>
+        <item>MF</item>
+        <item>PM</item>
+        <item>VC</item>
+        <item>WS</item>
+        <item>SM</item>
+        <item>ST</item>
+        <item>SA</item>
+        <item>SN</item>
+        <item>RS</item>
+        <item>SC</item>
+        <item>SL</item>
+        <item>SG</item>
+        <item>SX</item>
+        <item>SK</item>
+        <item>SI</item>
+        <item>SB</item>
+        <item>SO</item>
+        <item>ZA</item>
+        <item>GS</item>
+        <item>SS</item>
+        <item>ES</item>
+        <item>LK</item>
+        <item>SD</item>
+        <item>SR</item>
+        <item>SJ</item>
+        <item>SZ</item>
+        <item>SE</item>
+        <item>CH</item>
+        <item>SY</item>
+        <item>TW</item>
+        <item>TJ</item>
+        <item>TZ</item>
+        <item>TH</item>
+        <item>TL</item>
+        <item>TG</item>
+        <item>TK</item>
+        <item>TO</item>
+        <item>TT</item>
+        <item>TN</item>
+        <item>TR</item>
+        <item>TM</item>
+        <item>TC</item>
+        <item>TV</item>
+        <item>UG</item>
+        <item>UA</item>
+        <item>AE</item>
+        <item>GB</item>
+        <item>US</item>
+        <item>UM</item>
+        <item>UY</item>
+        <item>UZ</item>
+        <item>VU</item>
+        <item>VE</item>
+        <item>VN</item>
+        <item>VG</item>
+        <item>VI</item>
+        <item>WF</item>
+        <item>EH</item>
+        <item>YE</item>
+        <item>ZM</item>
+        <item>ZW</item>
+    </string-array>
+    <string-array name="bank_array">
+        <item>미선택</item>
+        <item>BANK_OF_KOREA</item>
+        <item>KOREA_DEVELOPMENT_BANK</item>
+        <item>INDUSTRIAL_BANK_OF_KOREA</item>
+        <item>KOOKMIN_BANK</item>
+        <item>SUHYUP_BANK</item>
+        <item>EXPORT_IMPORT_BANK_OF_KOREA</item>
+        <item>NH_NONGHYUP_BANK</item>
+        <item>LOCAL_NONGHYUP</item>
+        <item>WOORI_BANK</item>
+        <item>SC_BANK_KOREA</item>
+        <item>CITI_BANK_KOREA</item>
+        <item>DAEGU_BANK</item>
+        <item>BUSAN_BANK</item>
+        <item>GWANGJU_BANK</item>
+        <item>JEJU_BANK</item>
+        <item>JEONBUK_BANK</item>
+        <item>KYONGNAM_BANK</item>
+        <item>KFCC</item>
+        <item>SHINHYUP</item>
+        <item>SAVINGS_BANK_KOREA</item>
+        <item>MORGAN_STANLEY_BANK</item>
+        <item>HSBC_BANK</item>
+        <item>DEUTSCHE_BANK</item>
+        <item>JP_MORGAN_CHASE_BANK</item>
+        <item>MIZUHO_BANK</item>
+        <item>MUFG_BANK</item>
+        <item>BANK_OF_AMERICA_BANK</item>
+        <item>BNP_PARIBAS_BANK</item>
+        <item>ICBC</item>
+        <item>BANK_OF_CHINA</item>
+        <item>NATIONAL_FORESTRY_COOPERATIVE_FEDERATION</item>
+        <item>UNITED_OVERSEAS_BANK</item>
+        <item>BANK_OF_COMMUNICATIONS</item>
+        <item>CHINA_CONSTRUCTION_BANK</item>
+        <item>EPOST</item>
+        <item>KODIT</item>
+        <item>KIBO</item>
+        <item>HANA_BANK</item>
+        <item>SHINHAN_BANK</item>
+        <item>K_BANK</item>
+        <item>KAKAO_BANK</item>
+        <item>TOSS_BANK</item>
+        <item>KCIS</item>
+        <item>DAISHIN_SAVINGS_BANK</item>
+        <item>SBI_SAVINGS_BANK</item>
+        <item>HK_SAVINGS_BANK</item>
+        <item>WELCOME_SAVINGS_BANK</item>
+        <item>SHINHAN_SAVINGS_BANK</item>
+        <item>KYOBO_SECURITIES</item>
+        <item>DAISHIN_SECURITIES</item>
+        <item>MERITZ_SECURITIES</item>
+        <item>MIRAE_ASSET_SECURITIES</item>
+        <item>BOOKOOK_SECURITIES</item>
+        <item>SAMSUNG_SECURITIES</item>
+        <item>SHINYOUNG_SECURITIES</item>
+        <item>SHINHAN_FINANCIAL_INVESTMENT</item>
+        <item>YUANTA_SECURITIES</item>
+        <item>EUGENE_INVESTMENT_SECURITIES</item>
+        <item>KAKAO_PAY_SECURITIES</item>
+        <item>TOSS_SECURITIES</item>
+        <item>KOREA_FOSS_SECURITIES</item>
+        <item>HANA_FINANCIAL_INVESTMENT</item>
+        <item>HI_INVESTMENT_SECURITIES</item>
+        <item>KOREA_INVESTMENT_SECURITIES</item>
+        <item>HANWHA_INVESTMENT_SECURITIES</item>
+        <item>HYUNDAI_MOTOR_SECURITIES</item>
+        <item>DB_FINANCIAL_INVESTMENT</item>
+        <item>KB_SECURITIES</item>
+        <item>KTB_INVESTMENT_SECURITIES</item>
+        <item>NH_INVESTMENT_SECURITIES</item>
+        <item>SK_SECURITIES</item>
+        <item>SCI</item>
+        <item>KIWOOM_SECURITIES</item>
+        <item>EBEST_INVESTMENT_SECURITIES</item>
+        <item>CAPE_INVESTMENT_CERTIFICATE</item>
+    </string-array>
+    <string name="sample_json">
+        {
+         \n
+            \t"kcp_v2":{}
+        \n
+        }
     </string>
 </resources>

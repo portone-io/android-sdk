@@ -232,13 +232,13 @@ class MainActivity : AppCompatActivity() {
 
 ```
 
-### 본인인증 (PortOne.requestPayment)
+### 본인인증 (PortOne.requestIdentityVerification)
 
-본인인증 시 필요한 자세한 파라미터에 대한 내용은 PaymentRequest.kt 파일에 기술되어 있습니다.
+본인인증 시 필요한 자세한 파라미터에 대한 내용은 IdentityVerificationRequest.kt 파일에 기술되어 있습니다.
 
 ```kotlin
 class MainActivity : AppCompatActivity() {
-    // 결제 완료/실패 이후 응답을 처리 하기 위한 ResultLauncher 생성
+    // 본인인증 완료/실패 이후 응답을 처리 하기 위한 ResultLauncher 생성
     private val identityVerificationActivityResultLauncher =
         PortOne.registerForIdentityVerificationActivity(this, callback = object :
             IdentityVerificationCallback {
@@ -261,19 +261,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // 결제 요청 함수 호출, 호출 시 전달한 PaymentRequest 정보로 결제를 요청하는 Activity를 생성합니다.
-        PortOne.requestPayment(
-            this,
-            request = PaymentRequest(
-                storeId = "상점 아이디",
-                channelKey = "채널 키",
-                paymentId = "결제 건 ID",
-                orderName = "주문 명",
-                amount = Amount(total = 1000, currency = Currency.KRW), // 금액
-                method = PaymentMethod.Card() // 결제수단 관련 정보
-            ),
-            resultLauncher = paymentActivityResultLauncher
-        )
+        // 본인인증 함수 호출, 호출 시 전달한 IdentityVerificationRequest 정보로 본인인증을 요청하는 Activity를 생성합니다.
+         PortOne.requestIdentityVerification(
+                    this,
+                    request = IdentityVerificationRequest(
+                        storeId = "상정 아이디",
+                        identityVerificationId = "본인인증 요청 ID",
+                        channelKey = "채널 키"
+                    ),
+                    resultLauncher = identityVerificationActivityResultLauncher
+                )
 
 ```
 

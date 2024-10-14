@@ -25,4 +25,7 @@ sealed interface BillingKeyMethod : Parcelable {
         val carrier: Carrier? = null,
         val availableCarriers: List<Carrier>? = null,
     ) : Parcelable, BillingKeyMethod
+
+    @Parcelize
+    object Paypal: BillingKeyMethod, Parcelable
 }

@@ -13,20 +13,21 @@
 ```Gradle Kotlin DSL
 // settings.gradle.kts
 
-	dependencyResolutionManagement {
-		repositories {
-			mavenCentral()
+    dependencyResolutionManagement {
+        repositories {
+            mavenCentral()
             maven {
                 url = uri("https://jitpack.io")
             }
-        }
-	}
+        } 
+    }
 
 // build.gradle.kts
 
     dependencies {
         implementation("com.github.portone-io:android-sdk:x.y.z")
     }
+
 ```
 
 #### minSdkVersion이 API LEVEL 26 미만인 경우
@@ -36,14 +37,14 @@ java 8 API를 사용하기 위해, desugaring 의존성을 추가해주셔야 �
 ```Gradle Kotlin DSL
 // settings.gradle.kts
 
-	dependencyResolutionManagement {
-		repositories {
-			mavenCentral()
+    dependencyResolutionManagement {
+        repositories {
+            mavenCentral()
             maven {
                 url = uri("https://jitpack.io")
             }
-        }
-	}
+        } 
+    }
 
 // build.gradle.kts
     compileOptions {

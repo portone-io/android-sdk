@@ -1,5 +1,5 @@
 package io.portone.sdk.android.request.type.billingkeyandpay
 
-enum class IssueBillingKeyAndPayMethod {
+internal enum class IssueBillingKeyAndPayMethod {
     MOBILE
 }

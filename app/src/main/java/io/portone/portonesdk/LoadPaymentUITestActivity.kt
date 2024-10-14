@@ -3,35 +3,35 @@ package io.portone.portonesdk
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import io.portone.portonesdk.databinding.ActivityIssueBillingKeyTestBinding
+import io.portone.portonesdk.databinding.ActivityLoadPaymentUiTestBinding
+import io.portone.sdk.android.PaymentUIType
 import io.portone.sdk.android.PortOne
-import io.portone.sdk.android.issuebillingkey.IssueBillingKeyCallback
-import io.portone.sdk.android.issuebillingkey.IssueBillingKeyRequest
-import io.portone.sdk.android.issuebillingkey.IssueBillingKeyResponse
+import io.portone.sdk.android.payment.PaymentCallback
+import io.portone.sdk.android.payment.PaymentResponse
+import io.portone.sdk.android.paymentui.LoadPaymentUIRequest
 import io.portone.sdk.android.type.Address
-import io.portone.sdk.android.type.BillingKeyMethod
+import io.portone.sdk.android.type.Amount
 import io.portone.sdk.android.type.BirthDate
 import io.portone.sdk.android.type.Country
 import io.portone.sdk.android.type.Currency
 import io.portone.sdk.android.type.Customer
 import io.portone.sdk.android.type.Gender
 
-class IssueBillingKeyTestActivity : BaseActivity<ActivityIssueBillingKeyTestBinding>() {
-    private val issueBillingKeyActivityResultLauncher =
-        PortOne.registerForIssueBillingKeyActivity(this, callback = object :
-            IssueBillingKeyCallback {
-            override fun onSuccess(response: IssueBillingKeyResponse.Success) {
-                AlertDialog.Builder(this@IssueBillingKeyTestActivity)
-                    .setTitle("빌링키 발급 성공")
+class LoadPaymentUITestActivity : BaseActivity<ActivityLoadPaymentUiTestBinding>() {
+    private val loadPaymentUIActivityResultLauncher =
+        PortOne.registerForLoadPaymentUI(this, callback = object :
+            PaymentCallback {
+            override fun onSuccess(response: PaymentResponse.Success) {
+                AlertDialog.Builder(this@LoadPaymentUITestActivity)
+                    .setTitle("결제 성공")
                     .setMessage(response.toString())
                     .show()
             }
 
-            override fun onFail(response: IssueBillingKeyResponse.Fail) {
-                AlertDialog.Builder(this@IssueBillingKeyTestActivity)
-                    .setTitle("빌링키 발급 실패")
+            override fun onFail(response: PaymentResponse.Fail) {
+                AlertDialog.Builder(this@LoadPaymentUITestActivity)
+                    .setTitle("결제 실패")
                     .setMessage(response.toString())
                     .show()
             }
@@ -42,38 +42,27 @@ class IssueBillingKeyTestActivity : BaseActivity<ActivityIssueBillingKeyTestBind
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setSpinners()
-        binding.btnIssueBillingKey.setOnClickListener {
-            try {
-                PortOne.requestIssueBillingKey(
-                    this,
-                    request = IssueBillingKeyRequest(
-                        storeId = binding.etStoreId.text.toString(),
-                        issueId = binding.etIssueId.text.toString(),
-                        issueName = binding.etIssueName.text.toString(),
-                        channelKey = binding.etChannelKey.text.toString(),
-                        displayAmount = binding.etDisplayAmount.text.toString().toLong(),
+        binding.btnLoadPaymentUi.setOnClickListener {
+            PortOne.loadPaymentUI(
+                this,
+                request = LoadPaymentUIRequest(
+                    uiType = PaymentUIType.PAYPAL_SPB,
+                    storeId = binding.etStoreId.text.toString(),
+                    paymentId = binding.etPaymentId.text.toString(),
+                    orderName = binding.etOrderName.text.toString(),
+                    channelKey = binding.etChannelKey.text.toString(),
+                    amount = Amount(
+                        total = binding.etTotalAmount.text.toString().toLong(),
                         currency = Currency.valueOf(binding.etCurrency.text.toString()),
-                        customer = customer(),
-                        method =  when (val billingKeyMethod = binding.spinnerBillingKeyMethod.selectedItem.toString()) {
-                            "CARD" -> BillingKeyMethod.Card()
-                            "MOBILE" -> BillingKeyMethod.Mobile()
-                            "EASY_PAY" -> BillingKeyMethod.EasyPay()
-                            else -> {
-                                val errorText = "invalid BillingKeyMethod ${billingKeyMethod}!"
-                                Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show()
-                                throw Exception(errorText)
-                            }
-                        },
-                        bypass = if (!binding.etBypass.text.isNullOrEmpty()) binding.etBypass.text.toString() else null
                     ),
-                    resultLauncher = issueBillingKeyActivityResultLauncher
-                )
-            } catch (e: Exception) {
-                Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
-            }
+                    customer = customer(),
+                    bypass = if (!binding.etBypass.text.isNullOrEmpty()) binding.etBypass.text.toString() else null
+                ),
+                resultLauncher = loadPaymentUIActivityResultLauncher,
+            )
         }
-
     }
+
     private fun customer(): Customer {
         return Customer(
             id = if (!binding.etCustomerId.text.isNullOrEmpty()) {
@@ -120,16 +109,8 @@ class IssueBillingKeyTestActivity : BaseActivity<ActivityIssueBillingKeyTestBind
 
         )
     }
+
     private fun setSpinners() {
-        val billingKeyMethodSpinner = binding.spinnerBillingKeyMethod
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.billing_key_methods_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            billingKeyMethodSpinner.adapter = adapter
-        }
         val genderSpinner = binding.spinnerGender
         ArrayAdapter.createFromResource(
             this,
@@ -150,7 +131,8 @@ class IssueBillingKeyTestActivity : BaseActivity<ActivityIssueBillingKeyTestBind
             countrySpinner.adapter = adapter
         }
     }
-    override fun setViewBinding(inflater: LayoutInflater): ActivityIssueBillingKeyTestBinding {
-        return ActivityIssueBillingKeyTestBinding.inflate(inflater)
+
+    override fun setViewBinding(inflater: LayoutInflater): ActivityLoadPaymentUiTestBinding {
+        return ActivityLoadPaymentUiTestBinding.inflate(inflater)
     }
 }

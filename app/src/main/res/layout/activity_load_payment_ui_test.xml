@@ -57,7 +57,6 @@
             android:hint="상점 아이디"
             android:inputType="text"
             android:maxLines="1"
-            android:text="store-9a843a46-6b68-45d6-96ac-64fe100c9a0c"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -93,7 +92,6 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:hint="주문 번호"
-            android:text="asddasxxz"
             android:inputType="text"
             android:maxLines="1"
             android:textSize="16sp" />
@@ -249,7 +247,6 @@
             android:imeOptions="actionNext"
             android:inputType="text"
             android:maxLines="1"
-            android:text="channel-key-a1d4bcdc-16cb-4964-b270-3a14059305a5"
             android:textSize="16sp" />
 
     </LinearLayout>

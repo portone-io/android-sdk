@@ -46,7 +46,6 @@
                 android:hint="상점 아이디"
                 android:inputType="text"
                 android:maxLines="1"
-                android:text="store-9a843a46-6b68-45d6-96ac-64fe100c9a0c"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -121,7 +120,6 @@
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:maxLines="1"
-                android:text="channel-key-2106879a-bbab-48d3-b3e1-ef42961c1f19"
                 android:textSize="16sp" />
 
         </LinearLayout>

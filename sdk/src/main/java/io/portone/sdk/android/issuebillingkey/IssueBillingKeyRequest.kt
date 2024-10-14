@@ -1,4 +1,4 @@
-package io.portone.sdk.android
+package io.portone.sdk.android.issuebillingkey
 
 import android.os.Parcelable
 import io.portone.sdk.android.request.type.billingkey.IssueBillingKeyMethod
@@ -18,9 +18,9 @@ data class IssueBillingKeyRequest(
     val storeId: String, // 스토어 아이디
     val issueId: String? = null, // 주문 번호
     val issueName: String? = null, // 주문명
-    val displayAmount: Int? = null,
+    val displayAmount: Long? = null,
     val currency: Currency? = null, // 통화
-    val billingKeyMethod: BillingKeyMethod,
+    val method: BillingKeyMethod,
     val channelKey: String? = null, // 채널 이름
     val pgProvider: PgProvider? = null, // PG사
     val isTestChannel: Boolean? = null, // 테스트 채널 여부
@@ -33,7 +33,7 @@ data class IssueBillingKeyRequest(
     val customData: String? = null, // 가맹점 Custom Data
     val offerPeriod: OfferPeriod? = null,
     val productType: ProductType? = null,
-    val bypass: String? = null, // TODO 작업 필요
+    val bypass: String? = null,
 ) : Parcelable {
     internal fun toInternal(): InternalIssueBillingKeyRequest =
         InternalIssueBillingKeyRequest(
@@ -42,7 +42,7 @@ data class IssueBillingKeyRequest(
             issueName = issueName,
             displayAmount = displayAmount,
             currency = currency,
-            billingKeyMethod = billingKeyMethod.billingKeyMethod(),
+            billingKeyMethod = method.billingKeyMethod(),
             channelKey = channelKey,
             pgProvider = pgProvider,
             isTestChannel = isTestChannel,
@@ -55,19 +55,22 @@ data class IssueBillingKeyRequest(
             offerPeriod = offerPeriod?.toRequest(),
             productType = productType,
             bypass = bypass,
-            card = when (billingKeyMethod) {
-                is BillingKeyMethod.Card -> billingKeyMethod
+            card = when (method) {
+                is BillingKeyMethod.Card -> method
                 is BillingKeyMethod.EasyPay,
+                is BillingKeyMethod.Paypal,
                 is BillingKeyMethod.Mobile -> null
             },
-            mobile = when (billingKeyMethod) {
-                is BillingKeyMethod.Mobile -> billingKeyMethod
+            mobile = when (method) {
+                is BillingKeyMethod.Mobile -> method
                 is BillingKeyMethod.EasyPay,
+                is BillingKeyMethod.Paypal,
                 is BillingKeyMethod.Card -> null
             },
-            easyPay = when (billingKeyMethod) {
-                is BillingKeyMethod.EasyPay -> billingKeyMethod
+            easyPay = when (method) {
+                is BillingKeyMethod.EasyPay -> method
                 is BillingKeyMethod.Card,
+                is BillingKeyMethod.Paypal,
                 is BillingKeyMethod.Mobile -> null
             }
 
@@ -78,5 +81,6 @@ data class IssueBillingKeyRequest(
             is BillingKeyMethod.Card -> IssueBillingKeyMethod.CARD
             is BillingKeyMethod.EasyPay -> IssueBillingKeyMethod.EASY_PAY
             is BillingKeyMethod.Mobile -> IssueBillingKeyMethod.MOBILE
+            is BillingKeyMethod.Paypal -> IssueBillingKeyMethod.PAYPAL
         }
 }

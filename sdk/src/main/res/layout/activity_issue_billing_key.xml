@@ -5,9 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IssueBillingKeyActivity">
+    tools:context=".issuebillingkey.IssueBillingKeyActivity">
 
-    <io.portone.sdk.PortOneWebView
+    <io.portone.sdk.android.PortOneWebView
         android:id="@+id/web_view_issue_billing_key"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

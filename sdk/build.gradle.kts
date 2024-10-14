@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
     id(libs.plugins.kotlin.parcelize.get().pluginId)
+    id("maven-publish")
 }
 
 android {
@@ -27,15 +28,29 @@ android {
     }
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
+    }
+}
+
+publishing {
+    publications {
+        register<MavenPublication>("maven") {
+            groupId = "io.portone.sdk"
+            artifactId = "android"
+            version = project.property("versionName") as String
+            afterEvaluate {
+            from(components["release"])
+                }
+        }
     }
 }
 
 dependencies {
+    implementation(libs.material)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(libs.kotlinx.datetime)
     implementation(libs.androidx.core.ktx)
@@ -43,4 +58,5 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.webkit)
 }

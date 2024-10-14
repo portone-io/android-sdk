@@ -1,22 +1,12 @@
-package io.portone.sdk.android.type.paymentmethod
+package io.portone.sdk.android.type
 
 import android.os.Parcelable
-import io.portone.sdk.android.type.Bank
-import io.portone.sdk.android.type.CardCompany
-import io.portone.sdk.android.type.Carrier
-import io.portone.sdk.android.type.CashReceiptType
-import io.portone.sdk.android.type.EasyPayPaymentMethod
-import io.portone.sdk.android.type.EasyPayProvider
-import io.portone.sdk.android.type.GiftCertificateType
-import io.portone.sdk.android.type.Installment
 import io.portone.sdk.android.request.type.paymentmethod.PaymentMethod as RequestPaymentMethod
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 
-@Serializable
-@Parcelize
 sealed interface PaymentMethod : Parcelable {
     @Serializable
     @Parcelize
@@ -79,7 +69,8 @@ sealed interface PaymentMethod : Parcelable {
             @Parcelize
             data class ValidHours(val validHours: Int) : AccountExpiry
             @Parcelize
-            data class DueDate(val dueDate: Instant) : AccountExpiry // date is RFC 3339 date-time format
+            data class DueDate(val dueDate: Instant) :
+                AccountExpiry // date is RFC 3339 date-time format
         }
 
         @Parcelize

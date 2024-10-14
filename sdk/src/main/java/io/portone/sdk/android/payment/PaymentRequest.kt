@@ -1,4 +1,4 @@
-package io.portone.sdk.android
+package io.portone.sdk.android.payment
 
 import android.os.Parcelable
 import io.portone.sdk.android.type.Amount
@@ -9,12 +9,12 @@ import io.portone.sdk.android.type.Customer
 import io.portone.sdk.android.type.Locale
 import io.portone.sdk.android.type.OfferPeriod
 import io.portone.sdk.android.type.PayMethod
+import io.portone.sdk.android.type.PaymentMethod
 import io.portone.sdk.android.type.PgProvider
 import io.portone.sdk.android.type.Product
 import io.portone.sdk.android.type.ProductType
 import io.portone.sdk.android.type.StoreDetails
 import io.portone.sdk.android.type.WindowType
-import io.portone.sdk.android.type.paymentmethod.PaymentMethod
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -23,11 +23,11 @@ data class PaymentRequest(
     val paymentId: String, // 주문 번호
     val orderName: String, // 주문명
     val amount: Amount, // 결제 금액(실제 결제 금액 X 10^ 해당 currency의 scale factor, 예) $1.50 -> 150)
-    val paymentMethod: PaymentMethod,
+    val method: PaymentMethod,
     val channelKey: String? = null, // 채널 이름
     val pgProvider: PgProvider? = null, // PG사
     val isTestChannel: Boolean? = null, // 테스트 채널 여부
-    val channelGroupId: String? = null, // 채널 그룹 아이디
+    val channelGroupId: String? = null, // 채널 그룹 아이디 (스마트라우팅 사용 시 적용)
     val customer: Customer? = null, // 구매자 정보
     val windowType: WindowType? = null, // 결제창 유형
     val noticeUrls: List<String>? = null, // 웹훅 URL
@@ -44,7 +44,7 @@ data class PaymentRequest(
     val country: Country? = null,
     val shippingAddress: Address? = null, // 배송지 주소
     val promotionId: String? = null, // 프로모션 아이디
-    val bypass: String? = null, // TODO 작업 필요
+    val bypass: String? = null,
 ) : Parcelable {
     internal fun toInternal(): InternalPaymentRequest =
         InternalPaymentRequest(
@@ -52,7 +52,7 @@ data class PaymentRequest(
             paymentId = paymentId,
             orderName = orderName,
             totalAmount = amount.total,
-            payMethod = paymentMethod.payMethod(),
+            payMethod = method.payMethod(),
             channelKey = channelKey,
             pgProvider = pgProvider,
             isTestChannel = isTestChannel,
@@ -77,49 +77,49 @@ data class PaymentRequest(
             shippingAddress = shippingAddress?.toRequest(),
             promotionId = promotionId,
             bypass = bypass,
-            card = when (paymentMethod) {
-                is PaymentMethod.Card -> paymentMethod
+            card = when (method) {
+                is PaymentMethod.Card -> method
                 is PaymentMethod.EasyPay -> null
                 is PaymentMethod.GiftCertificate -> null
                 is PaymentMethod.Mobile -> null
                 is PaymentMethod.Transfer -> null
                 is PaymentMethod.VirtualAccount -> null
             },
-            virtualAccount = when (paymentMethod) {
+            virtualAccount = when (method) {
                 is PaymentMethod.Card -> null
                 is PaymentMethod.EasyPay -> null
                 is PaymentMethod.GiftCertificate -> null
                 is PaymentMethod.Mobile -> null
                 is PaymentMethod.Transfer -> null
-                is PaymentMethod.VirtualAccount -> paymentMethod.toRequest()
+                is PaymentMethod.VirtualAccount -> method.toRequest()
             },
-            transfer = when (paymentMethod) {
+            transfer = when (method) {
                 is PaymentMethod.Card -> null
                 is PaymentMethod.EasyPay -> null
                 is PaymentMethod.GiftCertificate -> null
                 is PaymentMethod.Mobile -> null
-                is PaymentMethod.Transfer -> paymentMethod
+                is PaymentMethod.Transfer -> method
                 is PaymentMethod.VirtualAccount -> null
             },
-            mobile = when (paymentMethod) {
+            mobile = when (method) {
                 is PaymentMethod.Card -> null
                 is PaymentMethod.EasyPay -> null
                 is PaymentMethod.GiftCertificate -> null
-                is PaymentMethod.Mobile -> paymentMethod
+                is PaymentMethod.Mobile -> method
                 is PaymentMethod.Transfer -> null
                 is PaymentMethod.VirtualAccount -> null
             },
-            giftCertificate = when (paymentMethod) {
+            giftCertificate = when (method) {
                 is PaymentMethod.Card -> null
                 is PaymentMethod.EasyPay -> null
-                is PaymentMethod.GiftCertificate -> paymentMethod
+                is PaymentMethod.GiftCertificate -> method
                 is PaymentMethod.Mobile -> null
                 is PaymentMethod.Transfer -> null
                 is PaymentMethod.VirtualAccount -> null
             },
-            easyPay = when (paymentMethod) {
+            easyPay = when (method) {
                 is PaymentMethod.Card -> null
-                is PaymentMethod.EasyPay -> paymentMethod
+                is PaymentMethod.EasyPay -> method
                 is PaymentMethod.GiftCertificate -> null
                 is PaymentMethod.Mobile -> null
                 is PaymentMethod.Transfer -> null

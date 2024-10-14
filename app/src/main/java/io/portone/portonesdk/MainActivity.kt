@@ -10,13 +10,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.btnPayment.setOnClickListener {
-            startActivity(Intent(this@MainActivity,PaymentTestActivity::class.java))
+            startActivity(Intent(this@MainActivity, PaymentTestActivity::class.java))
         }
         binding.btnIssueBillingKey.setOnClickListener {
-            startActivity(Intent(this@MainActivity,IssueBillingKeyTestActivity::class.java))
+            startActivity(Intent(this@MainActivity, IssueBillingKeyTestActivity::class.java))
         }
         binding.btnIdentityVerification.setOnClickListener {
-            startActivity(Intent(this@MainActivity,IdentityVerificationTestActivity::class.java))
+            startActivity(Intent(this@MainActivity, IdentityVerificationTestActivity::class.java))
+        }
+        binding.btnIssueBillingKeyAndPay.setOnClickListener {
+            startActivity(Intent(this@MainActivity, IssueBillingKeyAndPayTestActivity::class.java))
+        }
+        binding.btnLoadPaymentUi.setOnClickListener {
+            startActivity(Intent(this@MainActivity, LoadPaymentUITestActivity::class.java))
+        }
+        binding.btnLoadIssueBillingKeyUi.setOnClickListener {
+            startActivity(Intent(this@MainActivity, LoadIssueBillingKeyUITestActivity::class.java))
         }
     }
 

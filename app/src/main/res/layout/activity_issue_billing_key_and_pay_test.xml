@@ -6,9 +6,11 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".IssueBillingKeyTestActivity">
+        tools:context=".IssueBillingKeyAndPayTestActivity">
+
 
         <LinearLayout
             android:id="@+id/et_layout_store_id"
@@ -49,37 +51,36 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/et_layout_issue_id"
+            android:id="@+id/et_layout_payment_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
             android:background="@drawable/ic_edittext_background"
             android:orientation="vertical"
             android:paddingStart="16dp"
             android:paddingTop="5dp"
             android:paddingEnd="10dp"
             android:paddingBottom="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/et_layout_issue_name"
+            app:layout_constraintBottom_toTopOf="@+id/et_layout_order_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_layout_store_id">
 
             <TextView
-                android:id="@+id/tv_issue_id"
+                android:id="@+id/tv_payment_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="빌링키 발급 주문 번호" />
+                android:text="주문 번호" />
 
             <EditText
-                android:id="@+id/et_issue_id"
+                android:id="@+id/et_payment_id"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:hint="빌링키 발급 주문 번호"
+                android:hint="주문 번호"
                 android:inputType="text"
                 android:maxLines="1"
                 android:textSize="16sp" />
@@ -87,7 +88,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/et_layout_issue_name"
+            android:id="@+id/et_layout_order_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -99,33 +100,34 @@
             android:paddingTop="5dp"
             android:paddingEnd="10dp"
             android:paddingBottom="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/et_layout_display_amount"
+            app:layout_constraintBottom_toTopOf="@+id/et_layout_total_amount"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_layout_issue_id">
+            app:layout_constraintTop_toBottomOf="@+id/et_layout_payment_id">
 
             <TextView
-                android:id="@+id/tv_issue_name"
+                android:id="@+id/tv_order_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="빌링키 발급 주문 명(issueName)" />
+                android:text="주문 명" />
 
             <EditText
-                android:id="@+id/et_issue_name"
+                android:id="@+id/et_order_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:hint="빌링키 발급 주문 명"
+                android:hint="주문 명"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:maxLines="1"
+                android:text="test order"
                 android:textSize="16sp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/et_layout_display_amount"
+            android:id="@+id/et_layout_total_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -141,20 +143,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_layout_issue_name">
+            app:layout_constraintTop_toBottomOf="@+id/et_layout_order_name">
 
             <TextView
-                android:id="@+id/tv_display_amount"
+                android:id="@+id/tv_total_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="발급창 표시용 금액(displayAmount)" />
+                android:text="금액" />
 
             <EditText
-                android:id="@+id/et_display_amount"
+                android:id="@+id/et_total_amount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:hint="발급창 표시용 금액"
+                android:hint="금액"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:maxLines="1"
@@ -179,7 +181,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_layout_display_amount">
+            app:layout_constraintTop_toBottomOf="@+id/et_layout_total_amount">
 
             <TextView
                 android:id="@+id/tv_currency"
@@ -238,9 +240,8 @@
 
         </LinearLayout>
 
-
         <LinearLayout
-            android:id="@+id/et_layout_billing_key_method"
+            android:id="@+id/et_layout_pay_method"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -258,19 +259,105 @@
             app:layout_constraintTop_toBottomOf="@+id/et_layout_channel_key">
 
             <TextView
-                android:id="@+id/tv_billing_key_method"
+                android:id="@+id/tv_pay_method"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="빌링키 발급 수단" />
+                android:text="결제 수단"
+                android:textStyle="bold" />
 
             <Spinner
-                android:id="@+id/spinner_billing_key_method"
+                android:id="@+id/spinner_pay_method"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
 
         </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_mobile_specific"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_layout_pay_method">
+
+
+            <LinearLayout
+                android:id="@+id/et_layout_carrier"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/ic_edittext_background"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_carrier"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="소액결제 바로 호출을 위한 통신사" />
+
+                <Spinner
+                    android:id="@+id/spinner_carrier"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/et_layout_available_carriers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/ic_edittext_background"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_layout_carrier">
+
+                <TextView
+                    android:id="@+id/tv_available_carriers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="일부 통신사만 노출 설정" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_available_carriers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_spinner" />
+
+                <Button
+                    android:id="@+id/btn_add_carriers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/portone_orange"
+                    android:text="추가"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_customer"
             android:layout_width="match_parent"
@@ -280,26 +367,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_layout_billing_key_method">
+            app:layout_constraintTop_toBottomOf="@+id/cl_mobile_specific">
 
             <TextView
                 android:id="@+id/tv_customer_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:text="구매자 정보"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:layout_marginStart="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <LinearLayout
                 android:id="@+id/et_layout_customer_id"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/ic_edittext_background"
                 android:orientation="vertical"
                 android:paddingStart="16dp"
@@ -874,6 +962,7 @@
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <LinearLayout
             android:id="@+id/et_layout_bypass"
             android:layout_width="0dp"
@@ -909,7 +998,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_issue_billing_key"
+            android:id="@+id/btn_issue_billing_key_and_pay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -917,7 +1006,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:backgroundTint="@color/portone_orange"
-            android:text="빌링키 발급하기"
+            android:text="빌링키 발급 및 결제하기"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/et_layout_bypass"
             app:layout_constraintBottom_toBottomOf="parent"

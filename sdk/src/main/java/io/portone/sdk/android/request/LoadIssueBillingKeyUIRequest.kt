@@ -1,5 +1,6 @@
 package io.portone.sdk.android.request
 
+import io.portone.sdk.android.IssueBillingKeyUIType
 import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.RawJsonStringSerializer
 import io.portone.sdk.android.type.BillingKeyMethod
@@ -14,11 +15,12 @@ import io.portone.sdk.android.type.WindowType
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class IssueBillingKeyRequest(
+internal data class LoadIssueBillingKeyUIRequest(
+    val uiType: IssueBillingKeyUIType,
     val storeId: String, // 스토어 아이디
     val issueId: String? = null, // 주문 번호
     val issueName: String? = null, // 주문명
-    val displayAmount: Long? = null, //
+    val displayAmount: Int? = null, //
     val billingKeyMethod: IssueBillingKeyMethod,
     val channelKey: String? = null, // 채널 이름
     val pgProvider: PgProvider? = null, // PG사
@@ -32,11 +34,7 @@ internal data class IssueBillingKeyRequest(
     val currency: Currency? = null, // 통화
     val locale: Locale? = null, // 결제창 언어
     val customData: String? = null, // 가맹점 Custom Data
-    val offerPeriod: OfferPeriod? = null,
     val productType: ProductType? = null,
     @Serializable(with = RawJsonStringSerializer::class)
     val bypass: String? = null, // TODO class 정형화 필요
-    val card: BillingKeyMethod.Card? = null,
-    val mobile: BillingKeyMethod.Mobile? = null,
-    val easyPay: BillingKeyMethod.EasyPay? = null,
 )

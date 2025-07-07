@@ -26,6 +26,8 @@
 
     dependencies {
         implementation("com.github.portone-io:android-sdk:x.y.z")
+        coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:x.y.z") // java 8 API를 사용하기 위해, desugaring 의존성을 추가해주셔야 합니다.
+
     }
 
 ```
@@ -33,29 +35,6 @@
 #### minSdkVersion이 API LEVEL 26 미만인 경우
 
 java 8 API를 사용하기 위해, desugaring 의존성을 추가해주셔야 합니다.
-
-```Gradle Kotlin DSL
-// settings.gradle.kts
-
-    dependencyResolutionManagement {
-        repositories {
-            mavenCentral()
-            maven {
-                url = uri("https://jitpack.io")
-            }
-        } 
-    }
-
-// build.gradle.kts
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-    }
-
-    dependencies {
-        implementation("com.github.portone-io:android-sdk:x.y.z")
-        coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:x.y.z")
-    }
-```
 
 ### 메이븐
 

@@ -31,11 +31,6 @@
     }
 
 ```
-
-#### minSdkVersion이 API LEVEL 26 미만인 경우
-
-java 8 API를 사용하기 위해, desugaring 의존성을 추가해주셔야 합니다.
-
 ### 메이븐
 
 ```XML

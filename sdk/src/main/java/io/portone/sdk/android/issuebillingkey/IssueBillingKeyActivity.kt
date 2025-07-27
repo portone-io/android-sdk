@@ -8,6 +8,8 @@ import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.PortOneWebView
 import io.portone.sdk.android.R
 import io.portone.sdk.android.util.applyInsets
+import io.portone.sdk.__generated__.request.IssueBillingKeyRequest
+import io.portone.sdk.__generated__.response.IssueBillingKeyResponse
 
 class IssueBillingKeyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

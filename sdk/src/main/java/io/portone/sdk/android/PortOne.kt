@@ -14,16 +14,16 @@ import io.portone.sdk.android.issuebillingkey.IssueBillingKeyActivity
 import io.portone.sdk.android.issuebillingkey.IssueBillingKeyCallback
 import io.portone.sdk.android.payment.PaymentActivity
 import io.portone.sdk.android.payment.PaymentCallback
-import io.portone.sdk.android.payment.PaymentRequest
 import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayActivity
 import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayCallback
 import io.portone.sdk.android.issuebillingkeyui.LoadIssueBillingKeyUIActivity
 import io.portone.sdk.android.paymentui.LoadPaymentUIActivity
-import io.portone.sdk.android.paymentui.LoadPaymentUIRequest
 import io.portone.sdk.__generated__.request.IdentityVerificationRequest
 import io.portone.sdk.__generated__.request.IssueBillingKeyRequest
 import io.portone.sdk.__generated__.request.LoadIssueBillingKeyUIRequest
 import io.portone.sdk.__generated__.request.IssueBillingKeyAndPayRequest
+import io.portone.sdk.__generated__.request.PaymentRequest
+import io.portone.sdk.__generated__.request.LoadPaymentUIRequest
 
 interface Sdk {
     fun registerForPaymentActivity(

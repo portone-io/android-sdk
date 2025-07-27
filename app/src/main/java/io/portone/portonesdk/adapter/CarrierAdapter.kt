@@ -10,7 +10,7 @@ import android.widget.Spinner
 import androidx.recyclerview.widget.RecyclerView
 import io.portone.portonesdk.R
 import io.portone.portonesdk.databinding.ItemSpinnerBinding
-import io.portone.sdk.android.type.Carrier
+import io.portone.sdk.type.entity.Carrier
 
 class CarrierAdapter(private val carriers: MutableList<Carrier> = mutableListOf()) :
     RecyclerView.Adapter<CarrierViewHolder>() {

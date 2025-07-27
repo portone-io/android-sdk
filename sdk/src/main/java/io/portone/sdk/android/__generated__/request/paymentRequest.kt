@@ -1,5 +1,6 @@
 package io.portone.sdk.__generated__.request
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.Address
 import io.portone.sdk.__generated__.entity.Country
 import io.portone.sdk.__generated__.entity.Currency
@@ -23,7 +24,9 @@ import io.portone.sdk.__generated__.request.PaymentRequestUnionMobile
 import io.portone.sdk.__generated__.request.PaymentRequestUnionPaypal
 import io.portone.sdk.__generated__.request.PaymentRequestUnionTransfer
 import io.portone.sdk.__generated__.request.PaymentRequestUnionVirtualAccount
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class PaymentRequest(
     /**
      * **상점 아이디**
@@ -280,7 +283,7 @@ data class PaymentRequest(
     val paypal: PaymentRequestUnionPaypal?,
     val alipay: PaymentRequestUnionAlipay?,
     val convenienceStore: PaymentRequestUnionConvenienceStore?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "storeId" to storeId,
         "paymentId" to paymentId,

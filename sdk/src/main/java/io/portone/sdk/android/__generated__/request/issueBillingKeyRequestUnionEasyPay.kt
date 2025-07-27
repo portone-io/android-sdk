@@ -1,9 +1,12 @@
 package io.portone.sdk.__generated__.request
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.CardCompany
 import io.portone.sdk.__generated__.entity.EasyPayPaymentMethod
 import io.portone.sdk.__generated__.entity.EasyPayProvider
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class IssueBillingKeyRequestUnionEasyPay(
     val availableCards: List<CardCompany>?,
     /**
@@ -14,7 +17,7 @@ data class IssueBillingKeyRequestUnionEasyPay(
      * 노출을 허용할 결제 수단의 종류
      */
     val availablePayMethods: List<EasyPayPaymentMethod>?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "availableCards" to availableCards?.let { availableCards.map { it.toJson() } },
         "easyPayProvider" to easyPayProvider?.let { easyPayProvider.toJson() },

@@ -1,9 +1,10 @@
 package io.portone.sdk.android.issuebillingkey
 
 import io.portone.sdk.android.Callback
+import io.portone.sdk.__generated__.response.IdentityVerificationResponse
 
 interface IssueBillingKeyCallback :
-    Callback<IssueBillingKeyResponse.Success, IssueBillingKeyResponse.Fail> {
-    override fun onSuccess(response: IssueBillingKeyResponse.Success)
-    override fun onFail(response: IssueBillingKeyResponse.Fail)
+    Callback<IssueBillingKeyResponse, IssueBillingKeyResponse> {
+    override fun onSuccess(response: IssueBillingKeyResponse)
+    override fun onFail(response: IssueBillingKeyResponse)
 }

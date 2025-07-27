@@ -1,11 +1,14 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.payment.NaverpayProductItem
 import io.portone.sdk.__generated__.entity.bypass.payment.NaverpaySubMerchantInfo
+import kotlinx.parcelize.Parcelize
 
 /**
  * 네이버페이 bypass 파라미터
  */
+@Parcelize
 data class NaverpayPaymentBypass(
     /**
      * 이용 완료일(YYYYMMDD)
@@ -20,7 +23,7 @@ data class NaverpayPaymentBypass(
      * 배송비
      */
     val deliveryFee: Long?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "useCfmYmdt" to useCfmYmdt?.let { useCfmYmdt },
         "productItems" to productItems.map { it.toJson() },

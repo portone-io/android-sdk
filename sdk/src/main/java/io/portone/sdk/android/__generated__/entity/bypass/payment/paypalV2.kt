@@ -1,13 +1,16 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.loadPaymentUI.PaypalV2AdditionalData
 import io.portone.sdk.__generated__.entity.bypass.loadPaymentUI.PaypalV2Payer
 import io.portone.sdk.__generated__.entity.bypass.loadPaymentUI.PaypalV2PurchaseUnit
 import io.portone.sdk.__generated__.entity.bypass.payment.PaypalV2PaymentSource
+import kotlinx.parcelize.Parcelize
 
 /**
  * **Paypal bypass 파라미터**
  */
+@Parcelize
 data class PaypalV2PaymentBypass(
     /**
      * create order API 호출에 필요한 파라미터
@@ -19,7 +22,7 @@ data class PaypalV2PaymentBypass(
      * STC 파라미터
      */
     val additionalData: List<PaypalV2AdditionalData>?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "purchase_units" to purchaseUnits?.let { purchaseUnits.map { it.toJson() } },
         "payer" to payer?.let { payer.toJson() },

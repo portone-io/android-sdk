@@ -1,8 +1,12 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * 결제창 UI 설정
  */
+@Parcelize
 data class InicisJpPaymentUI(
     /**
      * **결제창 색상**
@@ -32,7 +36,7 @@ data class InicisJpPaymentUI(
      * 69 \* 20 픽셀 크기의 이미지 URL
      */
     val logoUrl: String?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "colorTheme" to colorTheme?.let { colorTheme },
         "logoUrl" to logoUrl?.let { logoUrl }

@@ -1,6 +1,8 @@
 package io.portone.sdk.__generated__.entity
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.CardCompany
+import kotlinx.parcelize.Parcelize
 
 /**
  * **무이자 할부 설정**
@@ -31,6 +33,7 @@ import io.portone.sdk.__generated__.entity.CardCompany
  * - 카드사별로 최소 결제 금액 제한이 있을 수 있습니다 (일반적으로 5만원 이상)
  * - 일부 카드사는 특정 개월수에 대해서만 무이자 할부를 허용할 수 있습니다
  */
+@Parcelize
 data class FreeInstallmentPlan(
     /**
      * 카드 결제시 사용되는 카드사 코드
@@ -40,7 +43,7 @@ data class FreeInstallmentPlan(
      * **무이자 할부를 제공하는 개월 수**
      */
     val months: List<Long>
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "cardCompany" to cardCompany.toJson(),
         "months" to months

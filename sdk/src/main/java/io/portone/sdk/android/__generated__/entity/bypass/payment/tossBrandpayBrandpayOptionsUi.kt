@@ -1,9 +1,12 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.payment.TossBrandpayBrandpayOptionsUiButtonStyle
 import io.portone.sdk.__generated__.entity.bypass.payment.TossBrandpayBrandpayOptionsUiLabels
 import io.portone.sdk.__generated__.entity.bypass.payment.TossBrandpayBrandpayOptionsUiNavigationBar
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class TossBrandpayBrandpayOptionsUi(
     /**
      * UI의 메인 색상. (기본값: #3182f6)
@@ -18,7 +21,7 @@ data class TossBrandpayBrandpayOptionsUi(
     val buttonStyle: TossBrandpayBrandpayOptionsUiButtonStyle?,
     val labels: TossBrandpayBrandpayOptionsUiLabels?,
     val navigationBar: TossBrandpayBrandpayOptionsUiNavigationBar?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "highlightColor" to highlightColor?.let { highlightColor },
         "buttonStyle" to buttonStyle?.let { buttonStyle.toJson() },

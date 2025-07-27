@@ -1,13 +1,16 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.payment.TossBrandpayBrandpayOptionsUi
+import kotlinx.parcelize.Parcelize
 
 /**
  * loadBrandpay 호출시 전달하는 세번째 파라미터
  */
+@Parcelize
 data class TossBrandpayBrandpayOptions(
     val ui: TossBrandpayBrandpayOptionsUi?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "ui" to ui?.let { ui.toJson() }
     )

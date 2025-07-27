@@ -1,8 +1,12 @@
 package io.portone.sdk.__generated__.entity.bypass.issueBillingKeyAndPay
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * **웰컴페이먼츠 bypass 파라미터**
  */
+@Parcelize
 data class WelcomeIssueBillingKeyAndPayBypass(
     /**
      * `acceptmethod` 파라미터는 휴대폰 소액결제 시 기본 선택할 통신사를 설정하며, 추가로 `buyer_tel` 값의 수정 가능 여부를 지정할 수 있습니다.
@@ -52,7 +56,7 @@ data class WelcomeIssueBillingKeyAndPayBypass(
      * - 수정 가능으로 설정하려면 `hpp_nofix=N`를 전달합니다. (기본값)
      */
     val pReserved: List<String>?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "acceptmethod" to acceptmethod?.let { acceptmethod },
         "P_RESERVED" to pReserved?.let { pReserved }

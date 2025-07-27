@@ -1,11 +1,14 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.payment.TossBrandpayBrandpayOptions
 import io.portone.sdk.__generated__.entity.bypass.payment.TossBrandpayWidgetOptions
+import kotlinx.parcelize.Parcelize
 
 /**
  * 토스 브랜드페이 bypass 파라미터
  */
+@Parcelize
 data class TossBrandpayPaymentBypass(
     /**
      * loadBrandpay 호출시 전달하는 세번째 파라미터
@@ -23,7 +26,7 @@ data class TossBrandpayPaymentBypass(
      * 등록되어 있는 결제수단 중 하나를 지정해서 바로 결제하고 싶을 때 사용
      */
     val methodId: String?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "brandpayOptions" to brandpayOptions?.let { brandpayOptions.toJson() },
         "widgetOptions" to widgetOptions?.let { widgetOptions.toJson() },

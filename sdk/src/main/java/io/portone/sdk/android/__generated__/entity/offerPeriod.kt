@@ -1,6 +1,8 @@
 package io.portone.sdk.__generated__.entity
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.OfferPeriodRange
+import kotlinx.parcelize.Parcelize
 
 /**
  * **서비스 제공 기간**
@@ -44,16 +46,19 @@ import io.portone.sdk.__generated__.entity.OfferPeriodRange
  * 예6) 1년 주기
  * `interval: '1y'`
  */
-sealed interface OfferPeriod {
+@Parcelize
+sealed interface OfferPeriod : Parcelable {
     /**
      * **기간 범위**
      */
+    @Parcelize
     data class Range(val value: OfferPeriodRange) : OfferPeriod
     /**
      * **제공 주기**
      * 
      * 제공 주기 (`${number}d | ${number}m | ${number}y` 형태로 입력할 수 있습니다.)
      */
+    @Parcelize
     data class Interval(val value: String) : OfferPeriod
 
     fun toJson(): Map<String, Any> = when (this) {

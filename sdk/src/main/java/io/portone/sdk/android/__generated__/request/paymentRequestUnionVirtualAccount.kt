@@ -1,13 +1,16 @@
 package io.portone.sdk.__generated__.request
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.Bank
 import io.portone.sdk.__generated__.entity.CashReceiptType
 import io.portone.sdk.__generated__.request.PaymentRequestUnionVirtualAccountAccountExpiry
 import io.portone.sdk.__generated__.request.PaymentRequestUnionVirtualAccountFixedOption
+import kotlinx.parcelize.Parcelize
 
 /**
  * **가상계좌 결제 설정**
  */
+@Parcelize
 data class PaymentRequestUnionVirtualAccount(
     /**
      * **현금영수증 발급 유형**
@@ -41,7 +44,7 @@ data class PaymentRequestUnionVirtualAccount(
      * 가상계좌 발급 UI에서 선택할 수 있는 은행 목록을 지정합니다. KCP에서만 지원합니다.
      */
     val availableBanks: List<Bank>?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "cashReceiptType" to cashReceiptType?.let { cashReceiptType.toJson() },
         "customerIdentifier" to customerIdentifier?.let { customerIdentifier },

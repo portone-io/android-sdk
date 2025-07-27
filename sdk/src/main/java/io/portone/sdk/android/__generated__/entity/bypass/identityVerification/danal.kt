@@ -1,8 +1,12 @@
 package io.portone.sdk.__generated__.entity.bypass.identityVerification
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * **다날 bypass 파라미터**
  */
+@Parcelize
 data class DanalIdentityVerificationBypass(
     /**
      * **고객사 서비스 URL 혹은 본인확인 기능 사용 경로**
@@ -29,7 +33,7 @@ data class DanalIdentityVerificationBypass(
      * 여러 개의 통신사를 활성화시키려면 위 값들을 semicolon(`;`) 으로 이어야 합니다. ex) `SKT;KTF`
      */
     val isCarrier: String?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "CPTITLE" to cptitle?.let { cptitle },
         "AGELIMIT" to agelimit?.let { agelimit },

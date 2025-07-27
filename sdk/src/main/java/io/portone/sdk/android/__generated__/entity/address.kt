@@ -1,10 +1,13 @@
 package io.portone.sdk.__generated__.entity
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.Country
+import kotlinx.parcelize.Parcelize
 
 /**
  * **주소 정보**
  */
+@Parcelize
 data class Address(
     /**
      * **국가**
@@ -28,7 +31,7 @@ data class Address(
      * **주, 도, 시**
      */
     val province: String?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "country" to country?.let { country.toJson() },
         "addressLine1" to addressLine1,

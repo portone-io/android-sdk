@@ -1,11 +1,14 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.payment.SmartroV2OpenType
 import io.portone.sdk.__generated__.entity.bypass.payment.SmartroV2SkinColor
+import kotlinx.parcelize.Parcelize
 
 /**
  * 스마트로 V2 bypass 파라미터
  */
+@Parcelize
 data class SmartroV2PaymentBypass(
     /**
      * 결제 상품 품목 개수
@@ -23,7 +26,7 @@ data class SmartroV2PaymentBypass(
      * `"KR"`, `"EN"` 중 하나의 값으로 입력해주세요.
      */
     val openType: SmartroV2OpenType?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "GoodsCnt" to goodsCnt?.let { goodsCnt },
         "SkinColor" to skinColor?.let { skinColor.toJson() },

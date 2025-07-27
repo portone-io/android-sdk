@@ -1,5 +1,6 @@
 package io.portone.sdk.__generated__.request
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.BillingKeyAndPayMethod
 import io.portone.sdk.__generated__.entity.Country
 import io.portone.sdk.__generated__.entity.Currency
@@ -14,7 +15,9 @@ import io.portone.sdk.__generated__.entity.StoreDetails
 import io.portone.sdk.__generated__.entity.WindowTypes
 import io.portone.sdk.__generated__.entity.bypass.IssueBillingKeyAndPayBypass
 import io.portone.sdk.__generated__.request.IssueBillingKeyAndPayRequestUnionMobile
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class IssueBillingKeyAndPayRequest(
     /**
      * **상점 아이디**
@@ -200,7 +203,7 @@ data class IssueBillingKeyAndPayRequest(
      */
     val iframe: Iframe?,
     val mobile: IssueBillingKeyAndPayRequestUnionMobile?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "storeId" to storeId,
         "paymentId" to paymentId,

@@ -1,14 +1,18 @@
 package io.portone.sdk.__generated__.entity.bypass.issueBillingKey
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * **토스페이 bypass 파라미터**
  */
+@Parcelize
 data class TosspayV2IssueBillingKeyBypass(
     /**
      * 암호화된 사용자 CI
      */
     val encryptedUserCi: String?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "encryptedUserCi" to encryptedUserCi?.let { encryptedUserCi }
     )

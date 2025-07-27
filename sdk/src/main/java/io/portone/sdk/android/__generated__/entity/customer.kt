@@ -1,8 +1,11 @@
 package io.portone.sdk.__generated__.entity
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.Address
 import io.portone.sdk.__generated__.entity.Gender
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Customer(
     /**
      * **구매자 ID**
@@ -90,7 +93,7 @@ data class Customer(
      * KG이니시스 JPPG 일본 편의점 결제에서 필수입니다. 최대 20바이트입니다.
      */
     val lastNameKana: String?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "customerId" to customerId?.let { customerId },
         "fullName" to fullName?.let { fullName },

@@ -1,8 +1,12 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * 페이레터 해외결제 bypass 파라미터
  */
+@Parcelize
 data class PayletterGlobalBypass(
     /**
      * **결제수단 지정용 파라미터**
@@ -19,7 +23,7 @@ data class PayletterGlobalBypass(
      * 고객사 서비스명, WeChatPay, Alipay 이용 시 필수 입력
      */
     val servicename: String?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "pginfo" to pginfo?.let { pginfo },
         "servicename" to servicename?.let { servicename }

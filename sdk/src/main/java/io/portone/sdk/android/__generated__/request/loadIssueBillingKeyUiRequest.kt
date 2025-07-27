@@ -1,5 +1,6 @@
 package io.portone.sdk.__generated__.request
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.BillingKeyMethod
 import io.portone.sdk.__generated__.entity.Currency
 import io.portone.sdk.__generated__.entity.Customer
@@ -7,7 +8,9 @@ import io.portone.sdk.__generated__.entity.IssueBillingKeyUIType
 import io.portone.sdk.__generated__.entity.Locale
 import io.portone.sdk.__generated__.entity.ProductType
 import io.portone.sdk.__generated__.entity.bypass.LoadIssueBillingKeyUIBypass
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class LoadIssueBillingKeyUIRequest(
     val uiType: IssueBillingKeyUIType,
     /**
@@ -76,7 +79,7 @@ data class LoadIssueBillingKeyUIRequest(
      */
     val productType: ProductType?,
     val bypass: LoadIssueBillingKeyUIBypass?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "uiType" to uiType.toJson(),
         "displayAmount" to displayAmount?.let { displayAmount },

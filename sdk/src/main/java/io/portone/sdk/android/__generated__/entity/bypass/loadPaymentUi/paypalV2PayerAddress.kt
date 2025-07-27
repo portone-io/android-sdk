@@ -1,7 +1,10 @@
 package io.portone.sdk.__generated__.entity.bypass.loadPaymentUI
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.Country
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class PaypalV2PayerAddress(
     /**
      * 구매자 주소지 정보
@@ -20,7 +23,7 @@ data class PaypalV2PayerAddress(
      * [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) 코드입니다.
      */
     val countryCode: Country
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "address_line_1" to addressLine1?.let { addressLine1 },
         "address_line_2" to addressLine2?.let { addressLine2 },

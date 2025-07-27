@@ -1,14 +1,17 @@
 package io.portone.sdk.__generated__.entity.bypass.issueBillingKeyAndPay
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.issueBillingKeyAndPay.EximbayV2BillTo
 import io.portone.sdk.__generated__.entity.bypass.issueBillingKeyAndPay.EximbayV2Merchant
 import io.portone.sdk.__generated__.entity.bypass.issueBillingKeyAndPay.EximbayV2Payment
 import io.portone.sdk.__generated__.entity.bypass.issueBillingKeyAndPay.EximbayV2ShipTo
 import io.portone.sdk.__generated__.entity.bypass.issueBillingKeyAndPay.EximbayV2Surcharge
+import kotlinx.parcelize.Parcelize
 
 /**
  * **엑심베이 bypass 파라미터**
  */
+@Parcelize
 data class EximbayV2IssueBillingKeyAndPayBypass(
     /**
      * 결제 정보
@@ -27,7 +30,7 @@ data class EximbayV2IssueBillingKeyAndPayBypass(
      * **청구지 정보**
      */
     val billTo: EximbayV2BillTo?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "payment" to payment?.let { payment.toJson() },
         "merchant" to merchant?.let { merchant.toJson() },

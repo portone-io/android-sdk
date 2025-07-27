@@ -1,11 +1,14 @@
 package io.portone.sdk.__generated__.request
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.CardCompany
 import io.portone.sdk.__generated__.entity.CashReceiptType
 import io.portone.sdk.__generated__.entity.EasyPayPaymentMethod
 import io.portone.sdk.__generated__.entity.EasyPayProvider
 import io.portone.sdk.__generated__.entity.Installment
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class PaymentRequestUnionEasyPay(
     /**
      * PG 제휴로 간편결제를 이용할 때, 간편결제 UI를 직접 호출할 수 있는 간편결제
@@ -106,7 +109,7 @@ data class PaymentRequestUnionEasyPay(
      * `false`로 지정하면 신용카드 할부 사용을 금지합니다. 토스페이(직계약)에서 지원합니다.
      */
     val useInstallment: Boolean?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "easyPayProvider" to easyPayProvider?.let { easyPayProvider.toJson() },
         "useFreeInterestFromMall" to useFreeInterestFromMall?.let { useFreeInterestFromMall },

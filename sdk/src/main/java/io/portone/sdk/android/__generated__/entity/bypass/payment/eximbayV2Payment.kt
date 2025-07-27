@@ -1,8 +1,12 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * 결제 정보
  */
+@Parcelize
 data class EximbayV2Payment(
     /**
      * 결제수단 단독 노출
@@ -12,7 +16,7 @@ data class EximbayV2Payment(
      * 결제수단 노출 목록
      */
     val multiPaymentMethod: List<String>?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "payment_method" to paymentMethod?.let { paymentMethod },
         "multi_payment_method" to multiPaymentMethod?.let { multiPaymentMethod }

@@ -1,13 +1,16 @@
 package io.portone.sdk.__generated__.entity.bypass.loadPaymentUI
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.loadPaymentUI.PaypalV2StyleColor
 import io.portone.sdk.__generated__.entity.bypass.loadPaymentUI.PaypalV2StyleLabel
 import io.portone.sdk.__generated__.entity.bypass.loadPaymentUI.PaypalV2StyleLayout
 import io.portone.sdk.__generated__.entity.bypass.loadPaymentUI.PaypalV2StyleShape
+import kotlinx.parcelize.Parcelize
 
 /**
  * SPB 버튼 렌더링에 필요한 파라미터
  */
+@Parcelize
 data class PaypalV2Style(
     /**
      * 버튼 색상
@@ -37,7 +40,7 @@ data class PaypalV2Style(
      * 버튼 하위에 문구 노출 여부
      */
     val tagline: Boolean?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "color" to color?.let { color.toJson() },
         "height" to height?.let { height },

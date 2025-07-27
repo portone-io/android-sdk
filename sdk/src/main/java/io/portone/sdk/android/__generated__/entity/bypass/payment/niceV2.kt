@@ -1,14 +1,17 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.payment.NiceV2DirectCoupon
 import io.portone.sdk.__generated__.entity.bypass.payment.NiceV2DirectShow
 import io.portone.sdk.__generated__.entity.bypass.payment.NiceV2DisableScroll
 import io.portone.sdk.__generated__.entity.bypass.payment.NiceV2SamPayMallType
 import io.portone.sdk.__generated__.entity.bypass.payment.NiceV2SkinType
+import kotlinx.parcelize.Parcelize
 
 /**
  * (신)나이스페이먼츠 bypass 파라미터
  */
+@Parcelize
 data class NiceV2PaymentBypass(
     /**
      * 결제창 로고 이미지 URL
@@ -65,7 +68,7 @@ data class NiceV2PaymentBypass(
      * 삼성페이 고객사 유형 (01: 삼성페이 內 쇼핑 / 99: 기타 (기본값))
      */
     val samPayMallType: NiceV2SamPayMallType?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "LogoImage" to logoImage?.let { logoImage },
         "NPDisableScroll" to npDisableScroll?.let { npDisableScroll.toJson() },

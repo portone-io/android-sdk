@@ -1,5 +1,6 @@
 package io.portone.sdk.__generated__.request
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.BillingKeyMethod
 import io.portone.sdk.__generated__.entity.Currency
 import io.portone.sdk.__generated__.entity.Customer
@@ -14,7 +15,9 @@ import io.portone.sdk.__generated__.request.IssueBillingKeyRequestUnionCard
 import io.portone.sdk.__generated__.request.IssueBillingKeyRequestUnionEasyPay
 import io.portone.sdk.__generated__.request.IssueBillingKeyRequestUnionMobile
 import io.portone.sdk.__generated__.request.IssueBillingKeyRequestUnionPaypal
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class IssueBillingKeyRequest(
     /**
      * 빌링키 발급 창에 디스플레이 용으로 띄우는 금액
@@ -151,7 +154,7 @@ data class IssueBillingKeyRequest(
     val mobile: IssueBillingKeyRequestUnionMobile?,
     val easyPay: IssueBillingKeyRequestUnionEasyPay?,
     val paypal: IssueBillingKeyRequestUnionPaypal?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "displayAmount" to displayAmount?.let { displayAmount },
         "currency" to currency?.let { currency.toJson() },

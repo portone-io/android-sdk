@@ -1,8 +1,12 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * 배송지 정보
  */
+@Parcelize
 data class EximbayV2ShipTo(
     /**
      * 배송지 도시
@@ -36,7 +40,7 @@ data class EximbayV2ShipTo(
      * 배송지 상세 주소
      */
     val street1: String?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "city" to city?.let { city },
         "country" to country?.let { country },

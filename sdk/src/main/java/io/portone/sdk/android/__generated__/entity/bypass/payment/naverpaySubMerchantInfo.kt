@@ -1,8 +1,12 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * 하부 가맹점 정보. PG 업종 가맹점인 경우에만 필수 값
  */
+@Parcelize
 data class NaverpaySubMerchantInfo(
     /**
      * 하부 가맹점 명
@@ -28,7 +32,7 @@ data class NaverpaySubMerchantInfo(
      * 하부 가맹점 고객 서비스 URL
      */
     val subMerchantCustomerServiceUrl: String
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "subMerchantName" to subMerchantName,
         "subMerchantId" to subMerchantId,

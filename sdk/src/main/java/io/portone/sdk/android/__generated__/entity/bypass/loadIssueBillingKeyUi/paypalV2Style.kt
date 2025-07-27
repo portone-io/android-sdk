@@ -1,13 +1,16 @@
 package io.portone.sdk.__generated__.entity.bypass.loadIssueBillingKeyUI
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.loadIssueBillingKeyUI.PaypalV2StyleColor
 import io.portone.sdk.__generated__.entity.bypass.loadIssueBillingKeyUI.PaypalV2StyleLabel
 import io.portone.sdk.__generated__.entity.bypass.loadIssueBillingKeyUI.PaypalV2StyleLayout
 import io.portone.sdk.__generated__.entity.bypass.loadIssueBillingKeyUI.PaypalV2StyleShape
+import kotlinx.parcelize.Parcelize
 
 /**
  * 페이팔 빌링키 발급 UI 호출 시 필요한 파라미터
  */
+@Parcelize
 data class PaypalV2Style(
     /**
      * 버튼 색상
@@ -33,7 +36,7 @@ data class PaypalV2Style(
      * 버튼 하위에 문구 노출 여부
      */
     val tagline: Boolean?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "color" to color?.let { color.toJson() },
         "height" to height?.let { height },

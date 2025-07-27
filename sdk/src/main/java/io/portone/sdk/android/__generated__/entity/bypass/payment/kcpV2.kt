@@ -1,11 +1,14 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.payment.KcpV2ComplexPnt
 import io.portone.sdk.__generated__.entity.bypass.payment.KcpV2DispTax
+import kotlinx.parcelize.Parcelize
 
 /**
  * NHN KCP bypass 파라미터
  */
+@Parcelize
 data class KcpV2Bypass(
     val skinIndx: String?,
     val siteLogo: String?,
@@ -28,7 +31,7 @@ data class KcpV2Bypass(
      * 에스크로 배송 예상 소요일
      */
     val deliTerm: String?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "skin_indx" to skinIndx?.let { skinIndx },
         "site_logo" to siteLogo?.let { siteLogo },

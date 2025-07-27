@@ -26,7 +26,7 @@ class IssueBillingKeyActivity : AppCompatActivity() {
             webView.requestIssueBillingKey(
                 issueBillingKeyRequest,
                 object : IssueBillingKeyCallback {
-                    override fun onSuccess(response: IssueBillingKeyResponse.Success) {
+                    override fun onSuccess(response: IssueBillingKeyResponse) {
                         setResult(
                             PortOne.SUCCESS_CODE,
                             Intent().putExtra(PortOne.RESPONSE, response)
@@ -34,7 +34,7 @@ class IssueBillingKeyActivity : AppCompatActivity() {
                         finish()
                     }
 
-                    override fun onFail(response: IssueBillingKeyResponse.Fail) {
+                    override fun onFail(response: IssueBillingKeyResponse) {
                         setResult(PortOne.FAIL_CODE, Intent().putExtra(PortOne.RESPONSE, response))
                         finish()
                     }

@@ -1,5 +1,8 @@
 package io.portone.sdk.__generated__.entity
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * **할부 개월 수 설정**
  * 
@@ -26,18 +29,21 @@ package io.portone.sdk.__generated__.entity
  * }
  * ```
  */
-sealed interface InstallmentMonthOption {
+@Parcelize
+sealed interface InstallmentMonthOption : Parcelable {
     /**
      * **구매자가 선택할 수 없도록 고정된 할부 개월수**
      * 
      * 구매자가 할부 개월 수를 선택할 수 있도록 하려면 `availableMonthList`를 사용해주세요.
      */
+    @Parcelize
     data class FixedMonth(val value: Long) : InstallmentMonthOption
     /**
      * **구매자가 선택할 수 있는 할부 개월수 리스트**
      * 
      * 구매자가 할부 개월 수를 선택할 수 없도록 하려면 `fixedMonth`를 사용해주세요.
      */
+    @Parcelize
     data class AvailableMonthList(val value: List<Long>) : InstallmentMonthOption
 
     fun toJson(): Map<String, Any> = when (this) {

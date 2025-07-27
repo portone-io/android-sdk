@@ -1,11 +1,14 @@
 package io.portone.sdk.__generated__.request
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.Customer
 import io.portone.sdk.__generated__.entity.Iframe
 import io.portone.sdk.__generated__.entity.Popup
 import io.portone.sdk.__generated__.entity.WindowTypes
 import io.portone.sdk.__generated__.entity.bypass.IdentityVerificationBypass
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class IdentityVerificationRequest(
     /**
      * **상점 아이디**
@@ -57,7 +60,7 @@ data class IdentityVerificationRequest(
      * **결제창이 iframe 방식일 경우 결제창에 적용할 속성**
      */
     val iframe: Iframe?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "storeId" to storeId,
         "identityVerificationId" to identityVerificationId,

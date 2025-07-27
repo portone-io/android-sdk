@@ -1,11 +1,14 @@
 package io.portone.sdk.__generated__.request
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.Bank
 import io.portone.sdk.__generated__.entity.CashReceiptType
+import kotlinx.parcelize.Parcelize
 
 /**
  * **계좌이체 결제 설정**
  */
+@Parcelize
 data class PaymentRequestUnionTransfer(
     /**
      * **현금영수증 발급 유형**
@@ -21,7 +24,7 @@ data class PaymentRequestUnionTransfer(
      * 가상계좌 발급시 사용되는 은행 코드
      */
     val bankCode: Bank?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "cashReceiptType" to cashReceiptType?.let { cashReceiptType.toJson() },
         "customerIdentifier" to customerIdentifier?.let { customerIdentifier },

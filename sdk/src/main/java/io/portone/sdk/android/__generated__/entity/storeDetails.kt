@@ -1,6 +1,8 @@
 package io.portone.sdk.__generated__.entity
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.StoreDetailsOpeningHours
+import kotlinx.parcelize.Parcelize
 
 /**
  * **상점 정보**
@@ -9,6 +11,7 @@ import io.portone.sdk.__generated__.entity.StoreDetailsOpeningHours
  * - 나이스페이먼츠의 경우 매출 전표에 표기 할 용도로 선택 입력
  * - KG이니시스 일본결제의 경우 JPPG(gmoPayment) 결제의 상점정보로 사용되거나 편의점 결제 시 영수증 표시 정보로 사용됨.
  */
+@Parcelize
 data class StoreDetails(
     /**
      * **대표자 이름**
@@ -64,7 +67,7 @@ data class StoreDetails(
      * ex: 문의창구, 연락처, 지원창구
      */
     val contactName: String?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "ceoFullName" to ceoFullName?.let { ceoFullName },
         "phoneNumber" to phoneNumber?.let { phoneNumber },

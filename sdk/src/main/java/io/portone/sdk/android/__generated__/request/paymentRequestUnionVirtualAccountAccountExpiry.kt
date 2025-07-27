@@ -1,5 +1,8 @@
 package io.portone.sdk.__generated__.request
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * **가상계좌 입금 만료 기한**
  * 
@@ -7,12 +10,14 @@ package io.portone.sdk.__generated__.request
  * 
  * `validHours`와 `dueDate` 중 하나만 지정합니다.
  */
-sealed interface PaymentRequestUnionVirtualAccountAccountExpiry {
+@Parcelize
+sealed interface PaymentRequestUnionVirtualAccountAccountExpiry : Parcelable {
     /**
      * **유효 시간**
      * 
      * 예) 3을 전달하면 지금으로부터 3시간 후가 만료 기한으로 지정 됨
      */
+    @Parcelize
     data class ValidHours(val value: Long) : PaymentRequestUnionVirtualAccountAccountExpiry
     /**
      * **만료 시각**
@@ -22,6 +27,7 @@ sealed interface PaymentRequestUnionVirtualAccountAccountExpiry {
      * - YYYY-MM-DD
      * - YYYY-MM-DD HH:mm:ss
      */
+    @Parcelize
     data class DueDate(val value: String) : PaymentRequestUnionVirtualAccountAccountExpiry
 
     fun toJson(): Map<String, Any> = when (this) {

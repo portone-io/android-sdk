@@ -27,12 +27,12 @@ class LoadIssueBillingKeyUIActivity : AppCompatActivity() {
         if (loadIssueBillingKeyUIRequest != null) {
             webView.loadIssueBillingKeyUI(loadIssueBillingKeyUIRequest, object :
                 IssueBillingKeyCallback {
-                override fun onSuccess(response: IssueBillingKeyResponse.Success) {
+                override fun onSuccess(response: IssueBillingKeyResponse) {
                     setResult(PortOne.SUCCESS_CODE, Intent().putExtra(PortOne.RESPONSE, response))
                     finish()
                 }
 
-                override fun onFail(response: IssueBillingKeyResponse.Fail) {
+                override fun onFail(response: IssueBillingKeyResponse) {
                     setResult(PortOne.FAIL_CODE, Intent().putExtra(PortOne.RESPONSE, response))
                     finish()
                 }

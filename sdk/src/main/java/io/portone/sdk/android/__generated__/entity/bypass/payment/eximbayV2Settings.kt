@@ -1,10 +1,13 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.payment.EximbayV2SettingsCallFromApp
+import kotlinx.parcelize.Parcelize
 
 /**
  * 설정 정보
  */
+@Parcelize
 data class EximbayV2Settings(
     /**
      * 인앱 웹뷰 여부
@@ -18,7 +21,7 @@ data class EximbayV2Settings(
      * 입금 만료 일자 (yyyyMMddHH)
      */
     val virtualaccountExpiryDate: String?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "call_from_app" to callFromApp?.let { callFromApp.toJson() },
         "issuer_country" to issuerCountry?.let { issuerCountry },

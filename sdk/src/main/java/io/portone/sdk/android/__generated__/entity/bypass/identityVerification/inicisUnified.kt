@@ -1,11 +1,14 @@
 package io.portone.sdk.__generated__.entity.bypass.identityVerification
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.identityVerification.InicisUnifiedDirectAgency
 import io.portone.sdk.__generated__.entity.bypass.identityVerification.InicisUnifiedFlgFixedUser
+import kotlinx.parcelize.Parcelize
 
 /**
  * **KG이니시스 bypass 파라미터**
  */
+@Parcelize
 data class InicisUnifiedIdentityVerificationBypass(
     /**
      * **단독 노출할 인증 업체 코드**
@@ -42,7 +45,7 @@ data class InicisUnifiedIdentityVerificationBypass(
      * `N`인 경우 네이버, 카카오에서 사용자가 성별 및 외국인 정보를 입력하는 칸을 표시하지 않습니다.
      */
     val frgndInfo: String?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "directAgency" to directAgency?.let { directAgency.toJson() },
         "flgFixedUser" to flgFixedUser.toJson(),

@@ -1,10 +1,13 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.payment.TosspayV2CashReceiptTradeOption
+import kotlinx.parcelize.Parcelize
 
 /**
  * 토스페이 bypass 파라미터
  */
+@Parcelize
 data class TosspayV2PaymentBypass(
     /**
      * 결제 만료 기한 (yyyy-MM-dd HH:mm:ss)
@@ -18,7 +21,7 @@ data class TosspayV2PaymentBypass(
      * - PUBLIC\_TP: 교통비
      */
     val cashReceiptTradeOption: TosspayV2CashReceiptTradeOption?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "expiredTime" to expiredTime?.let { expiredTime },
         "cashReceiptTradeOption" to cashReceiptTradeOption?.let { cashReceiptTradeOption.toJson() }

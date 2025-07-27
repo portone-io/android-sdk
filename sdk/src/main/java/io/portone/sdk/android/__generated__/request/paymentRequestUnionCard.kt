@@ -1,11 +1,14 @@
 package io.portone.sdk.__generated__.request
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.CardCompany
 import io.portone.sdk.__generated__.entity.Installment
+import kotlinx.parcelize.Parcelize
 
 /**
  * **카드 결제 설정**
  */
+@Parcelize
 data class PaymentRequestUnionCard(
     /**
      * 카드 결제시 사용되는 카드사 코드
@@ -79,7 +82,7 @@ data class PaymentRequestUnionCard(
      * 할부 사용 가능 여부
      */
     val useInstallment: Boolean?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "cardCompany" to cardCompany?.let { cardCompany.toJson() },
         "availableCards" to availableCards?.let { availableCards.map { it.toJson() } },

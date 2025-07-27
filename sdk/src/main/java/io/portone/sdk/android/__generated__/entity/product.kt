@@ -1,8 +1,12 @@
 package io.portone.sdk.__generated__.entity
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * **구매 상품 상세 정보**
  */
+@Parcelize
 data class Product(
     /**
      * **상품 ID**
@@ -41,7 +45,7 @@ data class Product(
      * **상품 판매 URL**
      */
     val link: String?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "id" to id,
         "name" to name,

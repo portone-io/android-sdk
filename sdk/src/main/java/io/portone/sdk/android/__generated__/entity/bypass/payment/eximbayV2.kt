@@ -1,5 +1,6 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.payment.EximbayV2BillTo
 import io.portone.sdk.__generated__.entity.bypass.payment.EximbayV2Merchant
 import io.portone.sdk.__generated__.entity.bypass.payment.EximbayV2Payment
@@ -7,10 +8,12 @@ import io.portone.sdk.__generated__.entity.bypass.payment.EximbayV2Settings
 import io.portone.sdk.__generated__.entity.bypass.payment.EximbayV2ShipTo
 import io.portone.sdk.__generated__.entity.bypass.payment.EximbayV2Surcharge
 import io.portone.sdk.__generated__.entity.bypass.payment.EximbayV2Tax
+import kotlinx.parcelize.Parcelize
 
 /**
  * 엑심베이 V2 bypass 파라미터
  */
+@Parcelize
 data class EximbayV2Bypass(
     /**
      * 결제 정보
@@ -40,7 +43,7 @@ data class EximbayV2Bypass(
      * 설정 정보
      */
     val settings: EximbayV2Settings?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "payment" to payment?.let { payment.toJson() },
         "merchant" to merchant?.let { merchant.toJson() },

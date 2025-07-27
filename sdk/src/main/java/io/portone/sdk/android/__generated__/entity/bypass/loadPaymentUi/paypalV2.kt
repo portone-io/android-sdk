@@ -1,13 +1,16 @@
 package io.portone.sdk.__generated__.entity.bypass.loadPaymentUI
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.loadPaymentUI.PaypalV2AdditionalData
 import io.portone.sdk.__generated__.entity.bypass.loadPaymentUI.PaypalV2Payer
 import io.portone.sdk.__generated__.entity.bypass.loadPaymentUI.PaypalV2PurchaseUnit
 import io.portone.sdk.__generated__.entity.bypass.loadPaymentUI.PaypalV2Style
+import kotlinx.parcelize.Parcelize
 
 /**
  * **Paypal bypass 파라미터**
  */
+@Parcelize
 data class PaypalV2LoadPaymentUIBypass(
     /**
      * SPB 버튼 렌더링에 필요한 파라미터
@@ -30,7 +33,7 @@ data class PaypalV2LoadPaymentUIBypass(
      * STC 파라미터
      */
     val additionalData: List<PaypalV2AdditionalData>?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "style" to style?.let { style.toJson() },
         "enable-funding" to enableFunding?.let { enableFunding },

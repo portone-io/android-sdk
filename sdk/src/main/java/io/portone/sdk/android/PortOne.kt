@@ -10,7 +10,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import io.portone.sdk.android.identityverification.IdentityVerificationActivity
 import io.portone.sdk.android.identityverification.IdentityVerificationCallback
-import io.portone.sdk.android.identityverification.IdentityVerificationRequest
 import io.portone.sdk.android.issuebillingkey.IssueBillingKeyActivity
 import io.portone.sdk.android.issuebillingkey.IssueBillingKeyCallback
 import io.portone.sdk.android.issuebillingkey.IssueBillingKeyRequest
@@ -24,6 +23,7 @@ import io.portone.sdk.android.issuebillingkeyui.LoadIssueBillingKeyUIActivity
 import io.portone.sdk.android.paymentui.LoadPaymentUIActivity
 import io.portone.sdk.android.paymentui.LoadPaymentUIRequest
 import io.portone.sdk.android.issuebillingkeyui.LoadIssueBillingKeyUIRequest
+import io.portone.sdk.__generated__.request.IdentityVerificationRequest
 
 interface Sdk {
     fun registerForPaymentActivity(

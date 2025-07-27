@@ -1,12 +1,15 @@
 package io.portone.sdk.__generated__.entity.bypass
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.identityVerification.DanalIdentityVerificationBypass
 import io.portone.sdk.__generated__.entity.bypass.identityVerification.InicisUnifiedIdentityVerificationBypass
 import io.portone.sdk.__generated__.entity.bypass.identityVerification.KcpV2IdentityVerificationBypass
+import kotlinx.parcelize.Parcelize
 
 /**
  * **PG사 본인인증 창 호출 시 PG사로 그대로 bypass할 값들의 모음**
  */
+@Parcelize
 data class IdentityVerificationBypass(
     /**
      * **다날 bypass 파라미터**
@@ -20,7 +23,7 @@ data class IdentityVerificationBypass(
      * **KCP bypass 파라미터**
      */
     val kcpV2: KcpV2IdentityVerificationBypass?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "danal" to danal?.let { danal.toJson() },
         "inicisUnified" to inicisUnified?.let { inicisUnified.toJson() },

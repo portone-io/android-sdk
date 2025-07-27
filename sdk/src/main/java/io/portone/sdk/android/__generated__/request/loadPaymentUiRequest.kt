@@ -1,5 +1,6 @@
 package io.portone.sdk.__generated__.request
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.Address
 import io.portone.sdk.__generated__.entity.Country
 import io.portone.sdk.__generated__.entity.Currency
@@ -11,7 +12,9 @@ import io.portone.sdk.__generated__.entity.Product
 import io.portone.sdk.__generated__.entity.ProductType
 import io.portone.sdk.__generated__.entity.StoreDetails
 import io.portone.sdk.__generated__.entity.bypass.LoadPaymentUIBypass
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class LoadPaymentUIRequest(
     val uiType: PaymentUIType,
     /**
@@ -185,7 +188,7 @@ data class LoadPaymentUIRequest(
      * 프로모션 ID 목록
      */
     val promotionIds: List<String>?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "uiType" to uiType.toJson(),
         "storeId" to storeId,

@@ -1,5 +1,6 @@
 package io.portone.sdk.__generated__.entity.bypass
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.payment.EximbayV2Bypass
 import io.portone.sdk.__generated__.entity.bypass.payment.HyphenBypass
 import io.portone.sdk.__generated__.entity.bypass.payment.InicisJpBypass
@@ -17,10 +18,12 @@ import io.portone.sdk.__generated__.entity.bypass.payment.TossBrandpayPaymentByp
 import io.portone.sdk.__generated__.entity.bypass.payment.TosspayV2PaymentBypass
 import io.portone.sdk.__generated__.entity.bypass.payment.TosspaymentsPaymentBypass
 import io.portone.sdk.__generated__.entity.bypass.payment.WelcomePaymentBypass
+import kotlinx.parcelize.Parcelize
 
 /**
  * **PG사 결제창 호출 시 PG사로 그대로 bypass할 값들의 모음**
  */
+@Parcelize
 data class PaymentBypass(
     /**
      * 토스페이먼츠 bypass 파라미터
@@ -92,7 +95,7 @@ data class PaymentBypass(
      * 페이레터 해외결제 bypass 파라미터
      */
     val payletterGlobal: PayletterGlobalBypass?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "tosspayments" to tosspayments?.let { tosspayments.toJson() },
         "ksnet" to ksnet?.let { ksnet.toJson() },

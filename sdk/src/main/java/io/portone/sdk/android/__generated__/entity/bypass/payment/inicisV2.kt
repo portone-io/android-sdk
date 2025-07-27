@@ -1,10 +1,14 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * KG이니시스 bypass 파라미터
  * 
  * KG이니시스는 PC 결제 모듈과 모바일 결제 모듈이 분리되어 있기 때문에 bypass 파라미터 또한 PC용과 모바일용이 분리되어 있습니다.
  */
+@Parcelize
 data class InicisV2Bypass(
     /**
      * **PC용 파라미터**
@@ -130,7 +134,7 @@ data class InicisV2Bypass(
      * (android의 경우) custom url scheme 대신 intent schema(intent://) 호출
      */
     val pReserved: List<String>?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "logo_url" to logoUrl?.let { logoUrl },
         "logo_2nd" to logo2Nd?.let { logo2Nd },

@@ -1,5 +1,6 @@
 package io.portone.sdk.__generated__.entity.bypass
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.issueBillingKey.InicisV2IssueBillingKeyBypass
 import io.portone.sdk.__generated__.entity.bypass.issueBillingKey.KcpV2IssueBillingKeyBypass
 import io.portone.sdk.__generated__.entity.bypass.issueBillingKey.NaverpayIssueBillingKeyBypass
@@ -7,7 +8,9 @@ import io.portone.sdk.__generated__.entity.bypass.issueBillingKey.SmartroV2Issue
 import io.portone.sdk.__generated__.entity.bypass.issueBillingKey.TosspayV2IssueBillingKeyBypass
 import io.portone.sdk.__generated__.entity.bypass.issueBillingKey.WelcomeIssueBillingKeyBypass
 import io.portone.sdk.__generated__.entity.bypass.payment.KakaopayPaymentBypass
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class IssueBillingKeyBypass(
     /**
      * 카카오페이 bypass 파라미터
@@ -37,7 +40,7 @@ data class IssueBillingKeyBypass(
      * **KCP bypass 파라미터**
      */
     val kcpV2: KcpV2IssueBillingKeyBypass?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "kakaopay" to kakaopay?.let { kakaopay.toJson() },
         "smartro_v2" to smartroV2?.let { smartroV2.toJson() },

@@ -1,7 +1,10 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.payment.NaverpayProductItemPayReferrer
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class NaverpayProductItem(
     /**
      * 결제 상품 유형
@@ -39,7 +42,7 @@ data class NaverpayProductItem(
      * 결제 상품 개수
      */
     val count: Long
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "categoryType" to categoryType,
         "categoryId" to categoryId,

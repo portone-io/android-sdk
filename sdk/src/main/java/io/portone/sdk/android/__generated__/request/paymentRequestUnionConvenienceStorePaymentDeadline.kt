@@ -1,18 +1,24 @@
 package io.portone.sdk.__generated__.request
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * **편의점결제 지불기한**
  */
-sealed interface PaymentRequestUnionConvenienceStorePaymentDeadline {
+@Parcelize
+sealed interface PaymentRequestUnionConvenienceStorePaymentDeadline : Parcelable {
     /**
      * **유효 시간 (단위: 시간)**
      */
+    @Parcelize
     data class ValidHours(val value: Long) : PaymentRequestUnionConvenienceStorePaymentDeadline
     /**
      * **만료일시**
      * 
      * RFC 3339 형식입니다.
      */
+    @Parcelize
     data class DueDate(val value: String) : PaymentRequestUnionConvenienceStorePaymentDeadline
 
     fun toJson(): Map<String, Any> = when (this) {

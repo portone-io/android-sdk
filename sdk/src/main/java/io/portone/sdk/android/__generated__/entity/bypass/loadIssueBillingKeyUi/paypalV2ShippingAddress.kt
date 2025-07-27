@@ -1,7 +1,10 @@
 package io.portone.sdk.__generated__.entity.bypass.loadIssueBillingKeyUI
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.loadIssueBillingKeyUI.PaypalV2Country
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class PaypalV2ShippingAddress(
     /**
      * 수령인 이름
@@ -31,7 +34,7 @@ data class PaypalV2ShippingAddress(
      * **페이팔 V2 국가 코드**
      */
     val countryCode: PaypalV2Country
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "recipient_name" to recipientName?.let { recipientName },
         "line1" to line1,

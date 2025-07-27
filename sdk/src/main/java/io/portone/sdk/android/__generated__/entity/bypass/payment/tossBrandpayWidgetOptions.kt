@@ -1,11 +1,14 @@
 package io.portone.sdk.__generated__.entity.bypass.payment
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.bypass.payment.TossBrandpayWidgetOptionsMethodType
 import io.portone.sdk.__generated__.entity.bypass.payment.TossBrandpayWidgetOptionsUi
+import kotlinx.parcelize.Parcelize
 
 /**
  * 브랜드페이 위젯 render() 함수 호출시 전달하는 두번째 파라미터
  */
+@Parcelize
 data class TossBrandpayWidgetOptions(
     /**
      * 위젯에 보여줄 결제 수단. 예) 카드 전달시 등록한 결제 수단 중 카드만 노출 됨
@@ -16,7 +19,7 @@ data class TossBrandpayWidgetOptions(
      */
     val methodId: String?,
     val ui: TossBrandpayWidgetOptionsUi?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "methodType" to methodType?.let { methodType.toJson() },
         "methodId" to methodId?.let { methodId },

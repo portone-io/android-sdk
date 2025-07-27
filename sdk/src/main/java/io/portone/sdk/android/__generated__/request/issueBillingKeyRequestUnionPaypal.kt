@@ -1,5 +1,9 @@
 package io.portone.sdk.__generated__.request
 
-class IssueBillingKeyRequestUnionPaypal {
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+class IssueBillingKeyRequestUnionPaypal : Parcelable {
     fun toJson(): Map<String, Any> = emptyMap()
 }

@@ -1,7 +1,9 @@
 package io.portone.sdk.__generated__.entity
 
+import android.os.Parcelable
 import io.portone.sdk.__generated__.entity.FreeInstallmentPlan
 import io.portone.sdk.__generated__.entity.InstallmentMonthOption
+import kotlinx.parcelize.Parcelize
 
 /**
  * **할부 설정**
@@ -48,6 +50,7 @@ import io.portone.sdk.__generated__.entity.InstallmentMonthOption
  * - 카드 다이렉트 호출 시 고정 할부만 가능한 PG사가 있습니다
  * - 무이자 할부는 가맹점이 수수료를 부담하는 방식입니다
  */
+@Parcelize
 data class Installment(
     /**
      * **무이자 할부 설정**
@@ -80,7 +83,7 @@ data class Installment(
      * ```
      */
     val monthOption: InstallmentMonthOption?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "freeInstallmentPlans" to freeInstallmentPlans?.let { freeInstallmentPlans.map { it.toJson() } },
         "monthOption" to monthOption?.let { monthOption.toJson() }

@@ -1,8 +1,12 @@
 package io.portone.sdk.__generated__.response
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * **리디렉션 없이 빌링키 발급 및 초회결제 UI가 표시된 경우 반환값**
  */
+@Parcelize
 data class IssueBillingKeyAndPayResponse(
     /**
      * `ISSUE_BILLING_KEY_AND_PAY`
@@ -50,7 +54,7 @@ data class IssueBillingKeyAndPayResponse(
      * PG에서 오류 메시지를 내려 주는 경우 이 오류 메시지를 그대로 반환합니다.
      */
     val pgMessage: String?
-) {
+) : Parcelable {
     fun toJson(): Map<String, Any?> = mapOf(
         "transactionType" to transactionType,
         "txId" to txId,

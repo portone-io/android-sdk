@@ -1,0 +1,20 @@
+package io.portone.sdk.__generated__.entity
+
+import io.portone.sdk.__generated__.entity.WindowType
+
+/**
+ * **환경 별 제공되는 결제/본인인증 창 유형**
+ * 
+ * - PG사에 따라 가능한 창 유형이 다릅니다.
+ * - 전달되지 않았을 때 결정되는 기본 창이 다릅니다.
+ * - 미입력 시, 해당 PG사의 기본 창 방식을 따릅니다.
+ */
+data class WindowTypes(
+    val pc: WindowType?,
+    val mobile: WindowType?
+) {
+    fun toJson(): Map<String, Any?> = mapOf(
+        "pc" to pc?.let { pc.toJson() },
+        "mobile" to mobile?.let { mobile.toJson() }
+    )
+}

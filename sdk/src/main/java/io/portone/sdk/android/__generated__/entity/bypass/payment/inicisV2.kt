@@ -1,0 +1,144 @@
+package io.portone.sdk.__generated__.entity.bypass.payment
+
+/**
+ * KG이니시스 bypass 파라미터
+ * 
+ * KG이니시스는 PC 결제 모듈과 모바일 결제 모듈이 분리되어 있기 때문에 bypass 파라미터 또한 PC용과 모바일용이 분리되어 있습니다.
+ */
+data class InicisV2Bypass(
+    /**
+     * **PC용 파라미터**
+     * 
+     * 결제창에 삽입할 메인 로고 url
+     * 
+     * 결제창 중앙 상단에 표시됩니다.
+     * 이미지 권장 사이즈는 89\*18 입니다.
+     */
+    val logoUrl: String?,
+    /**
+     * **PC용 파라미터**
+     * 
+     * 결제창에 삽입할 서브 로고 url
+     * 
+     * 결제창 우측 상단에 표시됩니다.
+     * 이미지 권장 사이즈는 64\*13 입니다.
+     */
+    val logo2Nd: String?,
+    /**
+     * **PC용 파라미터**
+     * 
+     * 보호자 이메일 주소
+     * 
+     * 14세 미만 고객의 경우 필수 입력입니다.
+     * "@", "." 외의 특수문자는 입력 불가합니다.
+     */
+    val parentemail: String?,
+    /**
+     * **PC용 파라미터**
+     * 
+     * SSGPAY 결제요청 시 PUSH 전송 휴대폰번호
+     * 
+     * `-` 없이 숫자만 허용합니다.
+     */
+    val iniSsgpayMdn: String?,
+    /**
+     * **PC용 파라미터**
+     * 
+     * 추가 옵션
+     * 
+     * 아래 string 중 원하는 옵션들을 골라 array 형태로 입력합니다.
+     * 
+     * - **SKIN(#색상코드)**
+     * 
+     * 결제창 배경색상 설정 \[기본값: #C1272C]
+     * 
+     * 예시: `SKIN(#fc6b2d)`
+     * 
+     * - **below1000**
+     * 
+     * (카드결제 & 간편결제 시) 1000원 미만 결제 허용 옵션
+     * 
+     * - **ocb**
+     * 
+     * (카드결제 시) 카드 메인화면에 OCB 적립을 위한 카드번호 창 표시옵션 (별도 계약시 이용 가능)
+     * 
+     * - **paypopup**
+     * 
+     * (카드결제 시) 안심클릭계열 신용카드 POPUP 형태 표시옵션
+     * 
+     * - **hidebar**
+     * 
+     * (카드결제 시) 프로그레스바 미노출 옵션
+     * 
+     * - **noeasypay**
+     * 
+     * (카드결제 시) 간편결제 미노출 옵션
+     * 
+     * - **slimquota(코드-개월:개월^코드-개월:개월)**
+     * 
+     * 부분 무이자 설정 (별도 계약시 이용 가능)
+     * 
+     * `string` 부분에는 `코드-개월:개월^코드-개월:개월` 와 같은 형식으로 입력합니다. (ex. `slimquota(11-2:3^34-2:3)`)
+     * 카드사 코드는 [KG이니시스 통합 코드](https://manual.inicis.com/pay/code.html) 페이지에서
+     * "결제요청 시 카드코드" 섹션을 참고하시기 바랍니다.
+     * 
+     * - **mallpoint(카드코드:카드코드)**
+     * 
+     * 몰포인트 (별도 계약시 이용 가능)
+     * 
+     * `string` 부분에는 `카드코드:카드코드` 와 같은 형식으로 입력합니다. (ex. `mallpoint(11:34)`)
+     * 카드사 코드는 [KG이니시스 통합 코드](https://manual.inicis.com/pay/code.html) 페이지에서
+     * "결제요청 시 카드코드" 섹션을 참고하시기 바랍니다.
+     */
+    val acceptmethod: List<String>?,
+    /**
+     * **모바일용 파라미터**
+     * 
+     * 신용카드 우선선택 옵션
+     * 
+     * 설정한 카드코드에 해당하는 카드가 선택된 채로 Display 됩니다.
+     * `selcode=카드코드` 형식으로 입력합니다. (ex. `selcode=14`)
+     */
+    val pCardOption: String?,
+    /**
+     * **모바일용 파라미터**
+     * 
+     * 가맹점 이름
+     */
+    val pMname: String?,
+    /**
+     * **모바일용 파라미터**
+     * 
+     * 추가 옵션
+     * 
+     * 아래 string 중 원하는 옵션들을 골라 array 형태로 입력합니다.
+     * 
+     * - **below1000=Y**
+     * 
+     * (카드결제 & 간편결제 시) 1000원 미만 결제 허용 옵션
+     * 
+     * - **noeasypay=Y**
+     * 
+     * (카드결제 시) 간편결제 미노출 옵션
+     * 
+     * - **global\_visa3d=Y**
+     * 
+     * 해외카드 노출 옵션
+     * 
+     * - **apprun\_check=Y**
+     * 
+     * (android의 경우) custom url scheme 대신 intent schema(intent://) 호출
+     */
+    val pReserved: List<String>?
+) {
+    fun toJson(): Map<String, Any?> = mapOf(
+        "logo_url" to logoUrl?.let { logoUrl },
+        "logo_2nd" to logo2Nd?.let { logo2Nd },
+        "parentemail" to parentemail?.let { parentemail },
+        "Ini_SSGPAY_MDN" to iniSsgpayMdn?.let { iniSsgpayMdn },
+        "acceptmethod" to acceptmethod?.let { acceptmethod },
+        "P_CARD_OPTION" to pCardOption?.let { pCardOption },
+        "P_MNAME" to pMname?.let { pMname },
+        "P_RESERVED" to pReserved?.let { pReserved }
+    )
+}

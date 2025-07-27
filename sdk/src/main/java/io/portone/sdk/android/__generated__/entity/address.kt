@@ -1,0 +1,39 @@
+package io.portone.sdk.__generated__.entity
+
+import io.portone.sdk.__generated__.entity.Country
+
+/**
+ * **주소 정보**
+ */
+data class Address(
+    /**
+     * **국가**
+     * 
+     * [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) 코드입니다.
+     */
+    val country: Country?,
+    /**
+     * **주소 첫째 줄**
+     */
+    val addressLine1: String,
+    /**
+     * **주소 둘째 줄**
+     */
+    val addressLine2: String,
+    /**
+     * **도시**
+     */
+    val city: String?,
+    /**
+     * **주, 도, 시**
+     */
+    val province: String?
+) {
+    fun toJson(): Map<String, Any?> = mapOf(
+        "country" to country?.let { country.toJson() },
+        "addressLine1" to addressLine1,
+        "addressLine2" to addressLine2,
+        "city" to city?.let { city },
+        "province" to province?.let { province }
+    )
+}

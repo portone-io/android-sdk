@@ -1,0 +1,49 @@
+package io.portone.sdk.__generated__.entity
+
+/**
+ * **결제수단 구분코드**
+ * 
+ * PG사별 지원되는 결제수단이 모두 상이합니다.
+ * 
+ * [각 PG사별 결제 연동 가이드](https://developers.portone.io/opi/ko/integration/pg/v2/readme?v=v2)를 참고하세요
+ */
+enum class PaymentPayMethod {
+    /**
+     * 카드
+     */
+    CARD,
+    /**
+     * 가상계좌
+     */
+    VIRTUAL_ACCOUNT,
+    /**
+     * 계좌이체
+     */
+    TRANSFER,
+    /**
+     * 휴대폰 소액결제
+     */
+    MOBILE,
+    /**
+     * 상품권
+     */
+    GIFT_CERTIFICATE,
+    /**
+     * 간편 결제
+     */
+    EASY_PAY,
+    /**
+     * 페이팔(SPB)
+     */
+    PAYPAL,
+    /**
+     * 알리페이
+     */
+    ALIPAY,
+    /**
+     * 편의점 결제
+     */
+    CONVENIENCE_STORE;
+
+    fun toJson(): String = name
+}

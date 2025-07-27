@@ -1,0 +1,43 @@
+package io.portone.sdk.__generated__.entity.bypass.payment
+
+import io.portone.sdk.__generated__.entity.bypass.payment.KcpV2ComplexPnt
+import io.portone.sdk.__generated__.entity.bypass.payment.KcpV2DispTax
+
+/**
+ * NHN KCP bypass 파라미터
+ */
+data class KcpV2Bypass(
+    val skinIndx: String?,
+    val siteLogo: String?,
+    val shopUserId: String,
+    val kcpPayTitle: String?,
+    /**
+     * 포인트 결제의 경우 신용카드 + 포인트 결제인데, N으로 설정 시 포인트로만 결제가 이루어짐
+     */
+    val complexPntYn: KcpV2ComplexPnt?,
+    val ptMemcorpCd: String?,
+    /**
+     * 가상계좌, 계좌이체 시 현금영수증 노출 여부
+     */
+    val dispTaxYn: KcpV2DispTax?,
+    /**
+     * 결제창에 노출될 고객사 상호명
+     */
+    val siteName: String?,
+    /**
+     * 에스크로 배송 예상 소요일
+     */
+    val deliTerm: String?
+) {
+    fun toJson(): Map<String, Any?> = mapOf(
+        "skin_indx" to skinIndx?.let { skinIndx },
+        "site_logo" to siteLogo?.let { siteLogo },
+        "shop_user_id" to shopUserId,
+        "kcp_pay_title" to kcpPayTitle?.let { kcpPayTitle },
+        "complex_pnt_yn" to complexPntYn?.let { complexPntYn.toJson() },
+        "pt_memcorp_cd" to ptMemcorpCd?.let { ptMemcorpCd },
+        "disp_tax_yn" to dispTaxYn?.let { dispTaxYn.toJson() },
+        "site_name" to siteName?.let { siteName },
+        "deli_term" to deliTerm?.let { deliTerm }
+    )
+}

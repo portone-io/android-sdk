@@ -1,0 +1,50 @@
+package io.portone.sdk.__generated__.entity.bypass.issueBillingKeyAndPay
+
+/**
+ * **청구지 정보**
+ */
+data class EximbayV2BillTo(
+    /**
+     * **청구지 도시**
+     */
+    val city: String,
+    /**
+     * **청구지 국가 (ISO 3166 두 자리 국가 코드)**
+     */
+    val country: String,
+    /**
+     * **청구 카드 명의자의 성을 제외한 이름**
+     */
+    val firstName: String,
+    /**
+     * **청구 카드 명의자의 성**
+     */
+    val lastName: String,
+    /**
+     * **청구 카드 명의자의 전화번호**
+     */
+    val phoneNumber: String,
+    /**
+     * **청구지 우편번호**
+     */
+    val postalCode: String,
+    /**
+     * **청구지가 미국 혹은 캐나다인 경우, 청구지 주 정보**
+     */
+    val state: String,
+    /**
+     * **청구지 상세 주소**
+     */
+    val street1: String
+) {
+    fun toJson(): Map<String, Any?> = mapOf(
+        "city" to city,
+        "country" to country,
+        "first_name" to firstName,
+        "last_name" to lastName,
+        "phone_number" to phoneNumber,
+        "postal_code" to postalCode,
+        "state" to state,
+        "street1" to street1
+    )
+}

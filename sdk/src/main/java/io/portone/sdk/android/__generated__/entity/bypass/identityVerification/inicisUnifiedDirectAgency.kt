@@ -1,0 +1,67 @@
+package io.portone.sdk.__generated__.entity.bypass.identityVerification
+
+/**
+ * **단독 노출할 인증 업체 코드**
+ * 
+ * 인증 업체 선택 화면 없이 설정한 인증 업체를 통해 인증하도록 합니다.
+ */
+enum class InicisUnifiedDirectAgency {
+    /**
+     * 페이코
+     */
+    PAYCO,
+    /**
+     * 패스 (통신사)
+     */
+    PASS,
+    /**
+     * 토스
+     */
+    TOSS,
+    /**
+     * 금융결제원
+     */
+    KFTC,
+    /**
+     * 카카오
+     */
+    KAKAO,
+    /**
+     * 네이버
+     */
+    NAVER,
+    /**
+     * 삼성패스
+     */
+    SAMSUNG,
+    /**
+     * 신한은행
+     */
+    SHINHAN,
+    /**
+     * 국민은행
+     */
+    KB,
+    /**
+     * 하나은행
+     */
+    HANA,
+    /**
+     * 우리은행
+     */
+    WOORI,
+    /**
+     * 농협은행
+     */
+    NH,
+    /**
+     * 카카오뱅크
+     */
+    KAKAOBANK,
+    /**
+     * 휴대폰 인증, 별도 계약 필요
+     */
+    SMS;
+
+    fun toJson(): String = name
+}

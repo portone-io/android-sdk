@@ -1,0 +1,72 @@
+package io.portone.sdk.__generated__.request
+
+import io.portone.sdk.__generated__.entity.Customer
+import io.portone.sdk.__generated__.entity.Iframe
+import io.portone.sdk.__generated__.entity.Popup
+import io.portone.sdk.__generated__.entity.WindowTypes
+import io.portone.sdk.__generated__.entity.bypass.IdentityVerificationBypass
+
+data class IdentityVerificationRequest(
+    /**
+     * **상점 아이디**
+     * 
+     * 포트원 계정에 생성된 상점을 식별하는 고유한 값으로 [관리자 콘솔 > 연동 정보](https://admin.portone.io/integration-v2/manage/channel) 우측 상단에서 확인할 수 있습니다.
+     */
+    val storeId: String,
+    /**
+     * **본인인증 건 ID**
+     * 
+     * - 임의로 ID를 정하여 입력합니다.
+     * - 이미 본인인증이 완료된 `identityVerificationId`로 다시 본인인증을 시도하는 경우 실패합니다.
+     */
+    val identityVerificationId: String,
+    /**
+     * **채널 키**
+     * 
+     * 포트원에 등록된 결제 채널 중 하나를 지정합니다.
+     * 
+     * [관리자 콘솔 > 연동 정보](https://admin.portone.io/integration-v2/manage/channel)에서 채널 연동 후 채널 키를 확인할 수 있습니다.
+     * 
+     * 채널 키와 채널 그룹 ID 중 하나를 지정해야 합니다.
+     */
+    val channelKey: String?,
+    val customer: Customer?,
+    /**
+     * **환경 별 제공되는 결제/본인인증 창 유형**
+     * 
+     * - PG사에 따라 가능한 창 유형이 다릅니다.
+     * - 전달되지 않았을 때 결정되는 기본 창이 다릅니다.
+     * - 미입력 시, 해당 PG사의 기본 창 방식을 따릅니다.
+     */
+    val windowType: WindowTypes?,
+    /**
+     * **본인인증 정보와 함께 관리하고 싶은 고객사 커스텀 JSON 데이터**
+     */
+    val customData: String?,
+    /**
+     * **PG사 본인인증 창 호출 시 PG사로 그대로 bypass할 값들의 모음**
+     */
+    val bypass: IdentityVerificationBypass?,
+    /**
+     * **팝업 관련 필드**
+     * 
+     * UI가 팝업 창으로 열릴 때 적용되는 속성입니다.
+     */
+    val popup: Popup?,
+    /**
+     * **결제창이 iframe 방식일 경우 결제창에 적용할 속성**
+     */
+    val iframe: Iframe?
+) {
+    fun toJson(): Map<String, Any?> = mapOf(
+        "storeId" to storeId,
+        "identityVerificationId" to identityVerificationId,
+        "channelKey" to channelKey?.let { channelKey },
+        "customer" to customer?.let { customer.toJson() },
+        "windowType" to windowType?.let { windowType.toJson() },
+        "customData" to customData?.let { customData },
+        "bypass" to bypass?.let { bypass.toJson() },
+        "popup" to popup?.let { popup.toJson() },
+        "iframe" to iframe?.let { iframe.toJson() }
+    )
+}

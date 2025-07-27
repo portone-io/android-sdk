@@ -9,6 +9,7 @@ import io.portone.sdk.__generated__.entity.Locale
 import io.portone.sdk.__generated__.entity.ProductType
 import io.portone.sdk.__generated__.entity.bypass.LoadIssueBillingKeyUIBypass
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class LoadIssueBillingKeyUIRequest(
@@ -65,7 +66,7 @@ data class LoadIssueBillingKeyUIRequest(
      * 
      * 자유롭게 데이터를 넣어 이후 조회할 수 있습니다.
      */
-    val customData: Map<String, Any?>?,
+    val customData: @RawValue Map<String, Any?>?,
     /**
      * **앱 URL 스킴**
      */

@@ -8,6 +8,8 @@ import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.PortOneWebView
 import io.portone.sdk.android.R
 import io.portone.sdk.android.util.applyInsets
+import io.portone.sdk.__generated__.request.IdentityVerificationRequest
+import io.portone.sdk.__generated__.response.IdentityVerificationResponse
 
 class IdentityVerificationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +27,7 @@ class IdentityVerificationActivity : AppCompatActivity() {
             webView.requestIdentityVerification(
                 identityVerificationRequest,
                 object : IdentityVerificationCallback {
-                    override fun onSuccess(response: IdentityVerificationResponse.Success) {
+                    override fun onSuccess(response: IdentityVerificationResponse) {
                         setResult(
                             PortOne.SUCCESS_CODE,
                             Intent().putExtra(PortOne.RESPONSE, response)
@@ -33,7 +35,7 @@ class IdentityVerificationActivity : AppCompatActivity() {
                         finish()
                     }
 
-                    override fun onFail(response: IdentityVerificationResponse.Fail) {
+                    override fun onFail(response: IdentityVerificationResponse) {
                         setResult(PortOne.FAIL_CODE, Intent().putExtra(PortOne.RESPONSE, response))
                         finish()
                     }

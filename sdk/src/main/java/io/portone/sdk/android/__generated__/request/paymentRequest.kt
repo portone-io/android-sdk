@@ -25,6 +25,7 @@ import io.portone.sdk.__generated__.request.PaymentRequestUnionPaypal
 import io.portone.sdk.__generated__.request.PaymentRequestUnionTransfer
 import io.portone.sdk.__generated__.request.PaymentRequestUnionVirtualAccount
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class PaymentRequest(
@@ -173,7 +174,7 @@ data class PaymentRequest(
     /**
      * **결제 정보에 포함할 고객사 커스텀 JSON 데이터**
      */
-    val customData: Map<String, Any?>?,
+    val customData: @RawValue Map<String, Any?>?,
     /**
      * **PG사 결제창 호출 시 PG사로 그대로 bypass할 값들의 모음**
      */

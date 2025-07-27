@@ -13,6 +13,7 @@ import io.portone.sdk.__generated__.entity.ProductType
 import io.portone.sdk.__generated__.entity.StoreDetails
 import io.portone.sdk.__generated__.entity.bypass.LoadPaymentUIBypass
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class LoadPaymentUIRequest(
@@ -113,7 +114,7 @@ data class LoadPaymentUIRequest(
     /**
      * **결제 정보와 함께 관리하고 싶은 고객사 커스텀 JSON 데이터**
      */
-    val customData: Map<String, Any?>?,
+    val customData: @RawValue Map<String, Any?>?,
     /**
      * **서비스 제공 기간**
      * 

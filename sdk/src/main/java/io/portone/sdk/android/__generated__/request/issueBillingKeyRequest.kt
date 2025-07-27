@@ -16,6 +16,7 @@ import io.portone.sdk.__generated__.request.IssueBillingKeyRequestUnionEasyPay
 import io.portone.sdk.__generated__.request.IssueBillingKeyRequestUnionMobile
 import io.portone.sdk.__generated__.request.IssueBillingKeyRequestUnionPaypal
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class IssueBillingKeyRequest(
@@ -83,7 +84,7 @@ data class IssueBillingKeyRequest(
     /**
      * **빌링키 발급 정보와 함께 관리하고 싶은 고객사 커스텀 JSON 데이터**
      */
-    val customData: Map<String, Any?>?,
+    val customData: @RawValue Map<String, Any?>?,
     /**
      * **서비스 제공 기간**
      * 

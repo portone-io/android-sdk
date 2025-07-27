@@ -8,28 +8,30 @@ import androidx.appcompat.app.AlertDialog
 import io.portone.portonesdk.databinding.ActivityIssueBillingKeyTestBinding
 import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.issuebillingkey.IssueBillingKeyCallback
-import io.portone.sdk.android.issuebillingkey.IssueBillingKeyRequest
-import io.portone.sdk.android.issuebillingkey.IssueBillingKeyResponse
-import io.portone.sdk.android.type.Address
-import io.portone.sdk.android.type.BillingKeyMethod
-import io.portone.sdk.android.type.BirthDate
-import io.portone.sdk.android.type.Country
-import io.portone.sdk.android.type.Currency
-import io.portone.sdk.android.type.Customer
-import io.portone.sdk.android.type.Gender
+import io.portone.sdk.type.request.IssueBillingKeyRequest
+import io.portone.sdk.type.request.IssueBillingKeyRequestUnionCard
+import io.portone.sdk.type.request.IssueBillingKeyRequestUnionMobile
+import io.portone.sdk.type.request.IssueBillingKeyRequestUnionEasyPay
+import io.portone.sdk.type.response.IssueBillingKeyResponse
+import io.portone.sdk.type.entity.Address
+import io.portone.sdk.type.entity.BillingKeyMethod
+import io.portone.sdk.type.entity.Country
+import io.portone.sdk.type.entity.Currency
+import io.portone.sdk.type.entity.Customer
+import io.portone.sdk.type.entity.Gender
 
 class IssueBillingKeyTestActivity : BaseActivity<ActivityIssueBillingKeyTestBinding>() {
     private val issueBillingKeyActivityResultLauncher =
         PortOne.registerForIssueBillingKeyActivity(this, callback = object :
             IssueBillingKeyCallback {
-            override fun onSuccess(response: IssueBillingKeyResponse.Success) {
+            override fun onSuccess(response: IssueBillingKeyResponse) {
                 AlertDialog.Builder(this@IssueBillingKeyTestActivity)
                     .setTitle("빌링키 발급 성공")
                     .setMessage(response.toString())
                     .show()
             }
 
-            override fun onFail(response: IssueBillingKeyResponse.Fail) {
+            override fun onFail(response: IssueBillingKeyResponse) {
                 AlertDialog.Builder(this@IssueBillingKeyTestActivity)
                     .setTitle("빌링키 발급 실패")
                     .setMessage(response.toString())
@@ -54,17 +56,49 @@ class IssueBillingKeyTestActivity : BaseActivity<ActivityIssueBillingKeyTestBind
                         displayAmount = binding.etDisplayAmount.text.toString().toLong(),
                         currency = Currency.valueOf(binding.etCurrency.text.toString()),
                         customer = customer(),
-                        method =  when (val billingKeyMethod = binding.spinnerBillingKeyMethod.selectedItem.toString()) {
-                            "CARD" -> BillingKeyMethod.Card()
-                            "MOBILE" -> BillingKeyMethod.Mobile()
-                            "EASY_PAY" -> BillingKeyMethod.EasyPay()
+                        billingKeyMethod = when (val billingKeyMethod = binding.spinnerBillingKeyMethod.selectedItem.toString()) {
+                            "CARD" -> BillingKeyMethod.CARD
+                            "MOBILE" -> BillingKeyMethod.MOBILE
+                            "EASY_PAY" -> BillingKeyMethod.EASY_PAY
+                            "PAYPAL" -> BillingKeyMethod.PAYPAL
                             else -> {
                                 val errorText = "invalid BillingKeyMethod ${billingKeyMethod}!"
                                 Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show()
                                 throw Exception(errorText)
                             }
                         },
-                        bypass = if (!binding.etBypass.text.isNullOrEmpty()) binding.etBypass.text.toString() else null
+                        bypass = null, // TODO
+                        windowType = null,
+                        noticeUrls = null,
+                        appScheme = null,
+                        locale = null,
+                        customData = null,
+                        offerPeriod = null,
+                        popup = null,
+                        iframe = null,
+                        productType = null,
+                        card = when (binding.spinnerBillingKeyMethod.selectedItem.toString()) {
+                            "CARD" -> IssueBillingKeyRequestUnionCard(
+                                cardCompany = null
+                            )
+                            else -> null
+                        },
+                        mobile = when (binding.spinnerBillingKeyMethod.selectedItem.toString()) {
+                            "MOBILE" -> IssueBillingKeyRequestUnionMobile(
+                                carrier = null,
+                                avaliableCarriers = null
+                            )
+                            else -> null
+                        },
+                        easyPay = when (binding.spinnerBillingKeyMethod.selectedItem.toString()) {
+                            "EASY_PAY" -> IssueBillingKeyRequestUnionEasyPay(
+                                availableCards = null,
+                                easyPayProvider = null,
+                                availablePayMethods = null
+                            )
+                            else -> null
+                        },
+                        paypal = null
                     ),
                     resultLauncher = issueBillingKeyActivityResultLauncher
                 )
@@ -76,16 +110,17 @@ class IssueBillingKeyTestActivity : BaseActivity<ActivityIssueBillingKeyTestBind
     }
     private fun customer(): Customer {
         return Customer(
-            id = if (!binding.etCustomerId.text.isNullOrEmpty()) {
+            customerId = if (!binding.etCustomerId.text.isNullOrEmpty()) {
                 binding.etCustomerId.text.toString()
             } else null,
-            name = if (!binding.etCustomerFullName.text.isNullOrEmpty()) {
-                Customer.Name.Full(binding.etCustomerFullName.text.toString())
-            } else if (!binding.etCustomerFirstName.text.isNullOrEmpty() || !binding.etCustomerLastName.text.isNullOrEmpty()) {
-                Customer.Name.Separated(
-                    firstName = binding.tvCustomerFirstName.text.toString(),
-                    lastName = binding.tvCustomerLastName.text.toString(),
-                )
+            fullName = if (!binding.etCustomerFullName.text.isNullOrEmpty()) {
+                binding.etCustomerFullName.text.toString()
+            } else null,
+            firstName = if (!binding.etCustomerFirstName.text.isNullOrEmpty()) {
+                binding.tvCustomerFirstName.text.toString()
+            } else null,
+            lastName = if (!binding.etCustomerLastName.text.isNullOrEmpty()) {
+                binding.tvCustomerLastName.text.toString()
             } else null,
             phoneNumber = if (!binding.etCustomerPhoneNumber.text.isNullOrEmpty()) {
                 binding.etCustomerPhoneNumber.text.toString()
@@ -102,20 +137,17 @@ class IssueBillingKeyTestActivity : BaseActivity<ActivityIssueBillingKeyTestBind
                     addressLine2 = binding.etCustomerAddressLine2.text.toString(),
                     city = binding.etCustomerCity.text.toString(),
                     province = binding.etCustomerProvince.text.toString(),
-                    zipcode = binding.etCustomerZipcode.text.toString(),
                 )
             } else null,
+            zipcode = if (!binding.etCustomerZipcode.text.isNullOrEmpty()) binding.etCustomerZipcode.text.toString() else null,
             gender = if (binding.spinnerGender.selectedItemPosition != 0) {
                 Gender.valueOf(binding.spinnerGender.selectedItem.toString())
             } else null,
-            birthDate = BirthDate(
-                birthYear = if (!binding.etCustomerBirthYear.text.isNullOrEmpty()) binding.etCustomerBirthYear.text.toString()
-                    .toInt() else null,
-                birthMonth = if (!binding.etCustomerBirthMonth.text.isNullOrEmpty()) binding.etCustomerBirthMonth.text.toString()
-                    .toInt() else null,
-                birthDay = if (!binding.etCustomerBirthDay.text.isNullOrEmpty()) binding.etCustomerBirthDay.text.toString()
-                    .toInt() else null
-            )
+            birthYear = if (!binding.etCustomerBirthYear.text.isNullOrEmpty()) binding.etCustomerBirthYear.text.toString() else null,
+            birthMonth = if (!binding.etCustomerBirthMonth.text.isNullOrEmpty()) binding.etCustomerBirthMonth.text.toString() else null,
+            birthDay = if (!binding.etCustomerBirthDay.text.isNullOrEmpty()) binding.etCustomerBirthDay.text.toString() else null,
+            firstNameKana = null,
+            lastNameKana = null
 
 
         )

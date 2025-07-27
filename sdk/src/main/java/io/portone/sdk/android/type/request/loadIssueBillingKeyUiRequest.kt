@@ -73,7 +73,7 @@ data class LoadIssueBillingKeyUIRequest(
     /**
      * **앱 URL 스킴**
      */
-    val appScheme: String,
+    val appScheme: String?,
     /**
      * **웹훅 URL**
      */
@@ -96,7 +96,7 @@ data class LoadIssueBillingKeyUIRequest(
         "customer" to customer?.let { customer.toJson() },
         "locale" to locale?.let { locale.toJson() },
         "customData" to customData?.let { customData },
-        "appScheme" to appScheme,
+        "appScheme" to appScheme?.let { appScheme },
         "noticeUrls" to noticeUrls?.let { noticeUrls },
         "productType" to productType?.let { productType.toJson() },
         "bypass" to bypass?.let { bypass.toJson() }

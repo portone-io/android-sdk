@@ -87,7 +87,7 @@ data class LoadPaymentUIRequest(
     /**
      * 앱 URL Scheme
      */
-    val appScheme: String,
+    val appScheme: String?,
     /**
      * 에스크로 결제 여부
      */
@@ -205,7 +205,7 @@ data class LoadPaymentUIRequest(
         "customer" to customer?.let { customer.toJson() },
         "noticeUrls" to noticeUrls?.let { noticeUrls },
         "confirmUrl" to confirmUrl?.let { confirmUrl },
-        "appScheme" to appScheme,
+        "appScheme" to appScheme?.let { appScheme },
         "isEscrow" to isEscrow?.let { isEscrow },
         "products" to products?.let { products.map { it.toJson() } },
         "isCulturalExpense" to isCulturalExpense?.let { isCulturalExpense },

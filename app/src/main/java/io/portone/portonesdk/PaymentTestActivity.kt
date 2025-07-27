@@ -18,24 +18,31 @@ import io.portone.portonesdk.adapter.CarrierAdapter
 import io.portone.portonesdk.adapter.FreeInstallmentPlanAdapter
 import io.portone.portonesdk.databinding.ActivityTestPaymentBinding
 import io.portone.sdk.android.payment.PaymentCallback
-import io.portone.sdk.android.payment.PaymentRequest
-import io.portone.sdk.android.payment.PaymentResponse
 import io.portone.sdk.android.PortOne
-import io.portone.sdk.android.type.Address
-import io.portone.sdk.android.type.Amount
-import io.portone.sdk.android.type.Bank
-import io.portone.sdk.android.type.BirthDate
-import io.portone.sdk.android.type.CardCompany
-import io.portone.sdk.android.type.Carrier
-import io.portone.sdk.android.type.CashReceiptType
-import io.portone.sdk.android.type.Country
-import io.portone.sdk.android.type.Currency
-import io.portone.sdk.android.type.Customer
-import io.portone.sdk.android.type.EasyPayProvider
-import io.portone.sdk.android.type.Gender
-import io.portone.sdk.android.type.GiftCertificateType
-import io.portone.sdk.android.type.Installment
-import io.portone.sdk.android.type.PaymentMethod
+import io.portone.sdk.type.request.PaymentRequest
+import io.portone.sdk.type.request.PaymentRequestUnionCard
+import io.portone.sdk.type.request.PaymentRequestUnionVirtualAccount
+import io.portone.sdk.type.request.PaymentRequestUnionTransfer
+import io.portone.sdk.type.request.PaymentRequestUnionMobile
+import io.portone.sdk.type.request.PaymentRequestUnionGiftCertificate
+import io.portone.sdk.type.request.PaymentRequestUnionEasyPay
+import io.portone.sdk.type.request.PaymentRequestUnionVirtualAccountAccountExpiry
+import io.portone.sdk.type.response.PaymentResponse
+import io.portone.sdk.type.entity.Address
+import io.portone.sdk.type.entity.Bank
+import io.portone.sdk.type.entity.CardCompany
+import io.portone.sdk.type.entity.Carrier
+import io.portone.sdk.type.entity.CashReceiptType
+import io.portone.sdk.type.entity.Country
+import io.portone.sdk.type.entity.Currency
+import io.portone.sdk.type.entity.Customer
+import io.portone.sdk.type.entity.EasyPayProvider
+import io.portone.sdk.type.entity.Gender
+import io.portone.sdk.type.entity.GiftCertificateType
+import io.portone.sdk.type.entity.Installment
+import io.portone.sdk.type.entity.InstallmentMonthOption
+import io.portone.sdk.type.entity.FreeInstallmentPlan
+import io.portone.sdk.type.entity.PaymentPayMethod
 import java.time.Instant
 import java.util.UUID
 
@@ -43,14 +50,14 @@ class PaymentTestActivity : BaseActivity<ActivityTestPaymentBinding>() {
     private val paymentActivityResultLauncher =
         PortOne.registerForPaymentActivity(this, callback = object :
             PaymentCallback {
-            override fun onSuccess(response: PaymentResponse.Success) {
+            override fun onSuccess(response: PaymentResponse) {
                 AlertDialog.Builder(this@PaymentTestActivity)
                     .setTitle("결제 성공")
                     .setMessage(response.toString())
                     .show()
             }
 
-            override fun onFail(response: PaymentResponse.Fail) {
+            override fun onFail(response: PaymentResponse) {
                 AlertDialog.Builder(this@PaymentTestActivity)
                     .setTitle("결제 실패")
                     .setMessage(response.toString())
@@ -95,12 +102,11 @@ class PaymentTestActivity : BaseActivity<ActivityTestPaymentBinding>() {
                 paymentId = binding.etPaymentId.text.toString(),
                 orderName = binding.etOrderName.text.toString(),
                 channelKey = binding.etChannelKey.text.toString(),
-                amount = Amount(
-                    total = binding.etTotalAmount.text.toString().toLong(),
-                    currency = Currency.valueOf(binding.etCurrency.text.toString()),
-                ),
+                totalAmount = binding.etTotalAmount.text.toString().toLong(),
+                currency = Currency.valueOf(binding.etCurrency.text.toString()),
                 customer = customer(),
-                method = PaymentMethod.Card(
+                payMethod = PaymentPayMethod.CARD,
+                card = PaymentRequestUnionCard(
                     cardCompany = if (binding.spinnerCardCompany.selectedItemPosition != 0) {
                         CardCompany.valueOf(binding.spinnerCardCompany.selectedItem.toString())
                     } else null,
@@ -111,7 +117,35 @@ class PaymentTestActivity : BaseActivity<ActivityTestPaymentBinding>() {
                     useFreeInterestFromMall = binding.cbUseFreeInterestFromMall.isChecked,
                     useInstallment = null,
                 ),
-                bypass = if (!binding.etBypass.text.isNullOrEmpty()) binding.etBypass.text.toString() else null
+                bypass = null, // TODO
+                channelGroupId = null,
+                taxFreeAmount = null,
+                vatAmount = null,
+                windowType = null,
+                noticeUrls = null,
+                confirmUrl = null,
+                appScheme = null,
+                isEscrow = null,
+                products = null,
+                isCulturalExpense = null,
+                locale = null,
+                customData = null,
+                country = null,
+                productType = null,
+                offerPeriod = null,
+                storeDetails = null,
+                shippingAddress = null,
+                promotionId = null,
+                popup = null,
+                iframe = null,
+                virtualAccount = null,
+                transfer = null,
+                mobile = null,
+                giftCertificate = null,
+                easyPay = null,
+                paypal = null,
+                alipay = null,
+                convenienceStore = null
             )
 
             "VIRTUAL_ACCOUNT" -> PaymentRequest(
@@ -119,25 +153,56 @@ class PaymentTestActivity : BaseActivity<ActivityTestPaymentBinding>() {
                 paymentId = binding.etPaymentId.text.toString(),
                 orderName = binding.etOrderName.text.toString(),
                 channelKey = binding.etChannelKey.text.toString(),
-                amount = Amount(
-                    total = binding.etTotalAmount.text.toString().toLong(),
-                    currency = Currency.valueOf(binding.etCurrency.text.toString()),
-                ),
+                totalAmount = binding.etTotalAmount.text.toString().toLong(),
+                currency = Currency.valueOf(binding.etCurrency.text.toString()),
                 customer = customer(),
-                method = PaymentMethod.VirtualAccount(
+                payMethod = PaymentPayMethod.VIRTUAL_ACCOUNT,
+                virtualAccount = PaymentRequestUnionVirtualAccount(
                     cashReceiptType =
                     if (binding.spinnerCashReceiptType.selectedItemPosition != 0) {
                         CashReceiptType.valueOf(binding.spinnerCashReceiptType.selectedItem.toString())
                     } else null,
+                    customerIdentifier = null,
+                    fixedOption = null,
+                    bankCode = null,
                     accountExpiry = if (!binding.etValidHours.text.isNullOrEmpty()) {
-                        PaymentMethod.VirtualAccount.AccountExpiry.ValidHours(
-                            binding.etValidHours.text.toString().toInt()
+                        PaymentRequestUnionVirtualAccountAccountExpiry.ValidHours(
+                            binding.etValidHours.text.toString().toLong()
                         )
                     } else if (!binding.etDueDate.text.isNullOrEmpty()) {
-                        PaymentMethod.VirtualAccount.AccountExpiry.DueDate(Instant.parse(binding.etDueDate.text.toString()))
-                    } else null
+                        PaymentRequestUnionVirtualAccountAccountExpiry.DueDate(binding.etDueDate.text.toString())
+                    } else null,
+                    availableBanks = null
                 ),
-                bypass = if (!binding.etBypass.text.isNullOrEmpty()) binding.etBypass.text.toString() else null
+                bypass = null, // TODO
+                channelGroupId = null,
+                taxFreeAmount = null,
+                vatAmount = null,
+                windowType = null,
+                noticeUrls = null,
+                confirmUrl = null,
+                appScheme = null,
+                isEscrow = null,
+                products = null,
+                isCulturalExpense = null,
+                locale = null,
+                customData = null,
+                country = null,
+                productType = null,
+                offerPeriod = null,
+                storeDetails = null,
+                shippingAddress = null,
+                promotionId = null,
+                popup = null,
+                iframe = null,
+                card = null,
+                transfer = null,
+                mobile = null,
+                giftCertificate = null,
+                easyPay = null,
+                paypal = null,
+                alipay = null,
+                convenienceStore = null
             )
 
             "TRANSFER" -> PaymentRequest(
@@ -145,17 +210,44 @@ class PaymentTestActivity : BaseActivity<ActivityTestPaymentBinding>() {
                 paymentId = binding.etPaymentId.text.toString(),
                 orderName = binding.etOrderName.text.toString(),
                 channelKey = binding.etChannelKey.text.toString(),
-                amount = Amount(
-                    total = binding.etTotalAmount.text.toString().toLong(),
-                    currency = Currency.valueOf(binding.etCurrency.text.toString()),
-                ),
+                totalAmount = binding.etTotalAmount.text.toString().toLong(),
+                currency = Currency.valueOf(binding.etCurrency.text.toString()),
                 customer = customer(),
-                method = PaymentMethod.Transfer(
+                payMethod = PaymentPayMethod.TRANSFER,
+                transfer = PaymentRequestUnionTransfer(
                     cashReceiptType = CashReceiptType.valueOf(binding.spinnerTransferCashReceiptType.selectedItem.toString()),
                     customerIdentifier = binding.etTransferCustomerIdentifier.text.toString(),
                     bankCode = Bank.valueOf(binding.spinnerTransferBankCode.selectedItem.toString()),
                 ),
-                bypass = if (!binding.etBypass.text.isNullOrEmpty()) binding.etBypass.text.toString() else null
+                bypass = null, // TODO
+                channelGroupId = null,
+                taxFreeAmount = null,
+                vatAmount = null,
+                windowType = null,
+                noticeUrls = null,
+                confirmUrl = null,
+                appScheme = null,
+                isEscrow = null,
+                products = null,
+                isCulturalExpense = null,
+                locale = null,
+                customData = null,
+                country = null,
+                productType = null,
+                offerPeriod = null,
+                storeDetails = null,
+                shippingAddress = null,
+                promotionId = null,
+                popup = null,
+                iframe = null,
+                card = null,
+                virtualAccount = null,
+                mobile = null,
+                giftCertificate = null,
+                easyPay = null,
+                paypal = null,
+                alipay = null,
+                convenienceStore = null
             )
 
             "MOBILE" -> PaymentRequest(
@@ -163,16 +255,43 @@ class PaymentTestActivity : BaseActivity<ActivityTestPaymentBinding>() {
                 paymentId = binding.etPaymentId.text.toString(),
                 orderName = binding.etOrderName.text.toString(),
                 channelKey = binding.etChannelKey.text.toString(),
-                amount = Amount(
-                    total = binding.etTotalAmount.text.toString().toLong(),
-                    currency = Currency.valueOf(binding.etCurrency.text.toString()),
-                ),
+                totalAmount = binding.etTotalAmount.text.toString().toLong(),
+                currency = Currency.valueOf(binding.etCurrency.text.toString()),
                 customer = customer(),
-                method = PaymentMethod.Mobile(
+                payMethod = PaymentPayMethod.MOBILE,
+                mobile = PaymentRequestUnionMobile(
                     carrier = Carrier.valueOf(binding.spinnerCarrier.selectedItem.toString()),
-                    availableCarriers = null
+                    avaliableCarriers = null
                 ),
-                bypass = if (!binding.etBypass.text.isNullOrEmpty()) binding.etBypass.text.toString() else null
+                bypass = null, // TODO
+                channelGroupId = null,
+                taxFreeAmount = null,
+                vatAmount = null,
+                windowType = null,
+                noticeUrls = null,
+                confirmUrl = null,
+                appScheme = null,
+                isEscrow = null,
+                products = null,
+                isCulturalExpense = null,
+                locale = null,
+                customData = null,
+                country = null,
+                productType = null,
+                offerPeriod = null,
+                storeDetails = null,
+                shippingAddress = null,
+                promotionId = null,
+                popup = null,
+                iframe = null,
+                card = null,
+                virtualAccount = null,
+                transfer = null,
+                giftCertificate = null,
+                easyPay = null,
+                paypal = null,
+                alipay = null,
+                convenienceStore = null
             )
 
             "GIFT_CERTIFICATE" -> PaymentRequest(
@@ -180,15 +299,42 @@ class PaymentTestActivity : BaseActivity<ActivityTestPaymentBinding>() {
                 paymentId = binding.etPaymentId.text.toString(),
                 orderName = binding.etOrderName.text.toString(),
                 channelKey = binding.etChannelKey.text.toString(),
-                amount = Amount(
-                    total = binding.etTotalAmount.text.toString().toLong(),
-                    currency = Currency.valueOf(binding.etCurrency.text.toString()),
-                ),
+                totalAmount = binding.etTotalAmount.text.toString().toLong(),
+                currency = Currency.valueOf(binding.etCurrency.text.toString()),
                 customer = customer(),
-                method = PaymentMethod.GiftCertificate(
+                payMethod = PaymentPayMethod.GIFT_CERTIFICATE,
+                giftCertificate = PaymentRequestUnionGiftCertificate(
                     giftCertificateType = GiftCertificateType.valueOf(binding.spinnerGiftCertificateType.selectedItem.toString()),
                 ),
-                bypass = if (!binding.etBypass.text.isNullOrEmpty()) binding.etBypass.text.toString() else null
+                bypass = null, // TODO
+                channelGroupId = null,
+                taxFreeAmount = null,
+                vatAmount = null,
+                windowType = null,
+                noticeUrls = null,
+                confirmUrl = null,
+                appScheme = null,
+                isEscrow = null,
+                products = null,
+                isCulturalExpense = null,
+                locale = null,
+                customData = null,
+                country = null,
+                productType = null,
+                offerPeriod = null,
+                storeDetails = null,
+                shippingAddress = null,
+                promotionId = null,
+                popup = null,
+                iframe = null,
+                card = null,
+                virtualAccount = null,
+                transfer = null,
+                mobile = null,
+                easyPay = null,
+                paypal = null,
+                alipay = null,
+                convenienceStore = null
             )
 
             "EASY_PAY" ->
@@ -197,17 +343,50 @@ class PaymentTestActivity : BaseActivity<ActivityTestPaymentBinding>() {
                     paymentId = binding.etPaymentId.text.toString(),
                     orderName = binding.etOrderName.text.toString(),
                     channelKey = binding.etChannelKey.text.toString(),
-                    amount = Amount(
-                        total = binding.etTotalAmount.text.toString().toLong(),
-                        currency = Currency.valueOf(binding.etCurrency.text.toString()),
-                    ),
-                    method = PaymentMethod.EasyPay(
+                    totalAmount = binding.etTotalAmount.text.toString().toLong(),
+                    currency = Currency.valueOf(binding.etCurrency.text.toString()),
+                    payMethod = PaymentPayMethod.EASY_PAY,
+                    easyPay = PaymentRequestUnionEasyPay(
                         easyPayProvider = EasyPayProvider.valueOf(binding.spinnerEasyPayProvider.selectedItem.toString()),
-                        installment = installment()
+                        useFreeInterestFromMall = null,
+                        availableCards = null,
+                        installment = installment(),
+                        cashReceiptType = null,
+                        customerIdentifier = null,
+                        useCardPoint = null,
+                        availablePayMethods = null,
+                        useInstallment = null
                     ),
                     customer = customer(),
-                    bypass = if (!binding.etBypass.text.isNullOrEmpty()) binding.etBypass.text.toString() else null,
-
+                    bypass = null, // TODO
+                    channelGroupId = null,
+                    taxFreeAmount = null,
+                    vatAmount = null,
+                    windowType = null,
+                    noticeUrls = null,
+                    confirmUrl = null,
+                    appScheme = null,
+                    isEscrow = null,
+                    products = null,
+                    isCulturalExpense = null,
+                    locale = null,
+                    customData = null,
+                    country = null,
+                    productType = null,
+                    offerPeriod = null,
+                    storeDetails = null,
+                    shippingAddress = null,
+                    promotionId = null,
+                    popup = null,
+                    iframe = null,
+                    card = null,
+                    virtualAccount = null,
+                    transfer = null,
+                    mobile = null,
+                    giftCertificate = null,
+                    paypal = null,
+                    alipay = null,
+                    convenienceStore = null
                     )
 
             else -> {
@@ -483,9 +662,9 @@ class PaymentTestActivity : BaseActivity<ActivityTestPaymentBinding>() {
         binding.rvFreeInstallmentPlans.adapter = freeInstallmentPlanAdapter
         binding.btnAddFreeInstallmentPlans.setOnClickListener {
             freeInstallmentPlanAdapter.addItems(
-                Installment.FreeInstallmentPlan(
-                    months = listOf(1, 2),
-                    cardCompany = CardCompany.BC_CARD
+                FreeInstallmentPlan(
+                    cardCompany = CardCompany.BC_CARD,
+                    months = listOf(1L, 2L)
                 )
             )
         }
@@ -493,16 +672,17 @@ class PaymentTestActivity : BaseActivity<ActivityTestPaymentBinding>() {
 
     private fun customer(): Customer {
         return Customer(
-            id = if (!binding.etCustomerId.text.isNullOrEmpty()) {
+            customerId = if (!binding.etCustomerId.text.isNullOrEmpty()) {
                 binding.etCustomerId.text.toString()
             } else null,
-            name = if (!binding.etCustomerFullName.text.isNullOrEmpty()) {
-                Customer.Name.Full(binding.etCustomerFullName.text.toString())
-            } else if (!binding.etCustomerFirstName.text.isNullOrEmpty() || !binding.etCustomerLastName.text.isNullOrEmpty()) {
-                Customer.Name.Separated(
-                    firstName = binding.tvCustomerFirstName.text.toString(),
-                    lastName = binding.tvCustomerLastName.text.toString(),
-                )
+            fullName = if (!binding.etCustomerFullName.text.isNullOrEmpty()) {
+                binding.etCustomerFullName.text.toString()
+            } else null,
+            firstName = if (!binding.etCustomerFirstName.text.isNullOrEmpty()) {
+                binding.etCustomerFirstName.text.toString()
+            } else null,
+            lastName = if (!binding.etCustomerLastName.text.isNullOrEmpty()) {
+                binding.etCustomerLastName.text.toString()
             } else null,
             phoneNumber = if (!binding.etCustomerPhoneNumber.text.isNullOrEmpty()) {
                 binding.etCustomerPhoneNumber.text.toString()
@@ -519,22 +699,25 @@ class PaymentTestActivity : BaseActivity<ActivityTestPaymentBinding>() {
                     addressLine2 = binding.etCustomerAddressLine2.text.toString(),
                     city = binding.etCustomerCity.text.toString(),
                     province = binding.etCustomerProvince.text.toString(),
-                    zipcode = binding.etCustomerZipcode.text.toString(),
                 )
+            } else null,
+            zipcode = if (!binding.etCustomerZipcode.text.isNullOrEmpty()) {
+                binding.etCustomerZipcode.text.toString()
             } else null,
             gender = if (binding.spinnerGender.selectedItemPosition != 0) {
                 Gender.valueOf(binding.spinnerGender.selectedItem.toString())
             } else null,
-            birthDate = BirthDate(
-                birthYear = if (!binding.etCustomerBirthYear.text.isNullOrEmpty()) binding.etCustomerBirthYear.text.toString()
-                    .toInt() else null,
-                birthMonth = if (!binding.etCustomerBirthMonth.text.isNullOrEmpty()) binding.etCustomerBirthMonth.text.toString()
-                    .toInt() else null,
-                birthDay = if (!binding.etCustomerBirthDay.text.isNullOrEmpty()) binding.etCustomerBirthDay.text.toString()
-                    .toInt() else null
-            )
-
-
+            birthYear = if (!binding.etCustomerBirthYear.text.isNullOrEmpty()) {
+                binding.etCustomerBirthYear.text.toString()
+            } else null,
+            birthMonth = if (!binding.etCustomerBirthMonth.text.isNullOrEmpty()) {
+                binding.etCustomerBirthMonth.text.toString()
+            } else null,
+            birthDay = if (!binding.etCustomerBirthDay.text.isNullOrEmpty()) {
+                binding.etCustomerBirthDay.text.toString()
+            } else null,
+            firstNameKana = null,
+            lastNameKana = null
         )
     }
 
@@ -542,13 +725,13 @@ class PaymentTestActivity : BaseActivity<ActivityTestPaymentBinding>() {
         val adapter = binding.rvFreeInstallmentPlans.adapter as FreeInstallmentPlanAdapter
         return Installment(
             monthOption = if (!binding.etFixedMonth.text.isNullOrEmpty()) {
-                Installment.MonthOption.FixedMonth(
-                    month = binding.etFixedMonth.text.toString().toInt()
+                InstallmentMonthOption.FixedMonth(
+                    value = binding.etFixedMonth.text.toString().toLong()
                 )
             } else if (!binding.etAvailableMonthList.text.isNullOrEmpty()) {
-                Installment.MonthOption.AvailableMonths(
-                    months = binding.etAvailableMonthList.text.toString().split(",")
-                        .map { it.toInt() }
+                InstallmentMonthOption.AvailableMonthList(
+                    value = binding.etAvailableMonthList.text.toString().split(",")
+                        .map { it.toLong() }
                 )
             } else null,
             freeInstallmentPlans = if (adapter.itemCount != 0) {

@@ -103,12 +103,6 @@ data class IssueBillingKeyAndPayRequest(
      */
     val windowType: WindowTypes?,
     /**
-     * **리디렉션 방식에서 결제 완료 후 이동할 URL**
-     * 
-     * 결제사 페이지로 이동하여 진행하는 리디렉션 방식의 경우 필수로 설정해야 합니다. 대부분의 모바일 환경이 리디렉션 방식에 해당됩니다.
-     */
-    val redirectUrl: String?,
-    /**
      * **웹훅 URL**
      * 
      * 웹훅을 받을 URL 목록입니다. 값이 있으면 관리자 콘솔에 설정한 URL로는 웹훅이 발송되지 않습니다.
@@ -221,7 +215,6 @@ data class IssueBillingKeyAndPayRequest(
         "customer" to customer?.let { customer.toJson() },
         "products" to products?.let { products.map { it.toJson() } },
         "windowType" to windowType?.let { windowType.toJson() },
-        "redirectUrl" to redirectUrl?.let { redirectUrl },
         "noticeUrls" to noticeUrls?.let { noticeUrls },
         "locale" to locale?.let { locale.toJson() },
         "isCulturalExpense" to isCulturalExpense?.let { isCulturalExpense },

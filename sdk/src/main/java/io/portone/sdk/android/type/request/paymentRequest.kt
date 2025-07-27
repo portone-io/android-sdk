@@ -120,12 +120,6 @@ data class PaymentRequest(
      */
     val windowType: WindowTypes?,
     /**
-     * **리디렉션 방식에서 결제 완료 후 이동할 URL**
-     * 
-     * 결제사 페이지로 이동하여 진행하는 리디렉션 방식의 경우 필수로 설정해야 합니다. 대부분의 모바일 환경이 리디렉션 방식에 해당됩니다.
-     */
-    val redirectUrl: String?,
-    /**
      * **웹훅 수신 URL**
      * 
      * 포트원 관리자 콘솔에 설정한 웹훅 URL 대신 사용할 웹훅 URL을 결제시마다 설정할 수 있습니다.
@@ -301,7 +295,6 @@ data class PaymentRequest(
         "vatAmount" to vatAmount?.let { vatAmount },
         "customer" to customer?.let { customer.toJson() },
         "windowType" to windowType?.let { windowType.toJson() },
-        "redirectUrl" to redirectUrl?.let { redirectUrl },
         "noticeUrls" to noticeUrls?.let { noticeUrls },
         "confirmUrl" to confirmUrl?.let { confirmUrl },
         "appScheme" to appScheme?.let { appScheme },

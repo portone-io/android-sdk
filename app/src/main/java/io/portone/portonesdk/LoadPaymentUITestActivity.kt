@@ -5,31 +5,29 @@ import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import io.portone.portonesdk.databinding.ActivityLoadPaymentUiTestBinding
-import io.portone.sdk.android.PaymentUIType
 import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.payment.PaymentCallback
-import io.portone.sdk.android.payment.PaymentResponse
-import io.portone.sdk.android.paymentui.LoadPaymentUIRequest
-import io.portone.sdk.android.type.Address
-import io.portone.sdk.android.type.Amount
-import io.portone.sdk.android.type.BirthDate
-import io.portone.sdk.android.type.Country
-import io.portone.sdk.android.type.Currency
-import io.portone.sdk.android.type.Customer
-import io.portone.sdk.android.type.Gender
+import io.portone.sdk.type.entity.PaymentUIType
+import io.portone.sdk.type.response.PaymentResponse
+import io.portone.sdk.type.request.LoadPaymentUIRequest
+import io.portone.sdk.type.entity.Address
+import io.portone.sdk.type.entity.Country
+import io.portone.sdk.type.entity.Currency
+import io.portone.sdk.type.entity.Customer
+import io.portone.sdk.type.entity.Gender
 
 class LoadPaymentUITestActivity : BaseActivity<ActivityLoadPaymentUiTestBinding>() {
     private val loadPaymentUIActivityResultLauncher =
         PortOne.registerForLoadPaymentUI(this, callback = object :
             PaymentCallback {
-            override fun onSuccess(response: PaymentResponse.Success) {
+            override fun onSuccess(response: PaymentResponse) {
                 AlertDialog.Builder(this@LoadPaymentUITestActivity)
                     .setTitle("결제 성공")
                     .setMessage(response.toString())
                     .show()
             }
 
-            override fun onFail(response: PaymentResponse.Fail) {
+            override fun onFail(response: PaymentResponse) {
                 AlertDialog.Builder(this@LoadPaymentUITestActivity)
                     .setTitle("결제 실패")
                     .setMessage(response.toString())
@@ -51,12 +49,27 @@ class LoadPaymentUITestActivity : BaseActivity<ActivityLoadPaymentUiTestBinding>
                     paymentId = binding.etPaymentId.text.toString(),
                     orderName = binding.etOrderName.text.toString(),
                     channelKey = binding.etChannelKey.text.toString(),
-                    amount = Amount(
-                        total = binding.etTotalAmount.text.toString().toLong(),
-                        currency = Currency.valueOf(binding.etCurrency.text.toString()),
-                    ),
+                    totalAmount = binding.etTotalAmount.text.toString().toLong(),
+                    currency = Currency.valueOf(binding.etCurrency.text.toString()),
                     customer = customer(),
-                    bypass = if (!binding.etBypass.text.isNullOrEmpty()) binding.etBypass.text.toString() else null
+                    taxFreeAmount = null,
+                    vatAmount = null,
+                    noticeUrls = null,
+                    confirmUrl = null,
+                    appScheme = null,
+                    locale = null,
+                    offerPeriod = null,
+                    products = null,
+                    isCulturalExpense = null,
+                    country = null,
+                    customData = null,
+                    bypass = null,
+                    isEscrow = null,
+                    productType = null,
+                    storeDetails = null,
+                    shippingAddress = null,
+                    promotionGroupId = null,
+                    promotionIds = null
                 ),
                 resultLauncher = loadPaymentUIActivityResultLauncher,
             )
@@ -65,16 +78,17 @@ class LoadPaymentUITestActivity : BaseActivity<ActivityLoadPaymentUiTestBinding>
 
     private fun customer(): Customer {
         return Customer(
-            id = if (!binding.etCustomerId.text.isNullOrEmpty()) {
+            customerId = if (!binding.etCustomerId.text.isNullOrEmpty()) {
                 binding.etCustomerId.text.toString()
             } else null,
-            name = if (!binding.etCustomerFullName.text.isNullOrEmpty()) {
-                Customer.Name.Full(binding.etCustomerFullName.text.toString())
-            } else if (!binding.etCustomerFirstName.text.isNullOrEmpty() || !binding.etCustomerLastName.text.isNullOrEmpty()) {
-                Customer.Name.Separated(
-                    firstName = binding.tvCustomerFirstName.text.toString(),
-                    lastName = binding.tvCustomerLastName.text.toString(),
-                )
+            fullName = if (!binding.etCustomerFullName.text.isNullOrEmpty()) {
+                binding.etCustomerFullName.text.toString()
+            } else null,
+            firstName = if (!binding.etCustomerFirstName.text.isNullOrEmpty()) {
+                binding.tvCustomerFirstName.text.toString()
+            } else null,
+            lastName = if (!binding.etCustomerLastName.text.isNullOrEmpty()) {
+                binding.tvCustomerLastName.text.toString()
             } else null,
             phoneNumber = if (!binding.etCustomerPhoneNumber.text.isNullOrEmpty()) {
                 binding.etCustomerPhoneNumber.text.toString()
@@ -91,20 +105,17 @@ class LoadPaymentUITestActivity : BaseActivity<ActivityLoadPaymentUiTestBinding>
                     addressLine2 = binding.etCustomerAddressLine2.text.toString(),
                     city = binding.etCustomerCity.text.toString(),
                     province = binding.etCustomerProvince.text.toString(),
-                    zipcode = binding.etCustomerZipcode.text.toString(),
                 )
             } else null,
+            zipcode = if (!binding.etCustomerZipcode.text.isNullOrEmpty()) binding.etCustomerZipcode.text.toString() else null,
             gender = if (binding.spinnerGender.selectedItemPosition != 0) {
                 Gender.valueOf(binding.spinnerGender.selectedItem.toString())
             } else null,
-            birthDate = BirthDate(
-                birthYear = if (!binding.etCustomerBirthYear.text.isNullOrEmpty()) binding.etCustomerBirthYear.text.toString()
-                    .toInt() else null,
-                birthMonth = if (!binding.etCustomerBirthMonth.text.isNullOrEmpty()) binding.etCustomerBirthMonth.text.toString()
-                    .toInt() else null,
-                birthDay = if (!binding.etCustomerBirthDay.text.isNullOrEmpty()) binding.etCustomerBirthDay.text.toString()
-                    .toInt() else null
-            )
+            birthYear = if (!binding.etCustomerBirthYear.text.isNullOrEmpty()) binding.etCustomerBirthYear.text.toString() else null,
+            birthMonth = if (!binding.etCustomerBirthMonth.text.isNullOrEmpty()) binding.etCustomerBirthMonth.text.toString() else null,
+            birthDay = if (!binding.etCustomerBirthDay.text.isNullOrEmpty()) binding.etCustomerBirthDay.text.toString() else null,
+            firstNameKana = null,
+            lastNameKana = null
 
 
         )

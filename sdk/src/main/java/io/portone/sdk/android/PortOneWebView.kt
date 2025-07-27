@@ -23,16 +23,16 @@ import io.portone.sdk.android.payment.PaymentJavascriptInterface
 import io.portone.sdk.android.paymentui.LoadPaymentUIJavascriptInterface
 import kotlinx.serialization.encodeToString
 import java.net.URISyntaxException
-import io.portone.sdk.__generated__.response.IdentityVerificationResponse
-import io.portone.sdk.__generated__.request.IdentityVerificationRequest
-import io.portone.sdk.__generated__.response.IssueBillingKeyResponse
-import io.portone.sdk.__generated__.request.IssueBillingKeyRequest
-import io.portone.sdk.__generated__.request.LoadIssueBillingKeyUIRequest
-import io.portone.sdk.__generated__.request.IssueBillingKeyAndPayRequest
-import io.portone.sdk.__generated__.response.IssueBillingKeyAndPayResponse
-import io.portone.sdk.__generated__.request.PaymentRequest
-import io.portone.sdk.__generated__.response.PaymentResponse
-import io.portone.sdk.__generated__.request.LoadPaymentUIRequest
+import io.portone.sdk.type.response.IdentityVerificationResponse
+import io.portone.sdk.type.request.IdentityVerificationRequest
+import io.portone.sdk.type.response.IssueBillingKeyResponse
+import io.portone.sdk.type.request.IssueBillingKeyRequest
+import io.portone.sdk.type.request.LoadIssueBillingKeyUIRequest
+import io.portone.sdk.type.request.IssueBillingKeyAndPayRequest
+import io.portone.sdk.type.response.IssueBillingKeyAndPayResponse
+import io.portone.sdk.type.request.PaymentRequest
+import io.portone.sdk.type.response.PaymentResponse
+import io.portone.sdk.type.request.LoadPaymentUIRequest
 
 @SuppressLint("SetJavaScriptEnabled")
 class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(context, attrs) {

@@ -8,8 +8,8 @@ import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.PortOneWebView
 import io.portone.sdk.android.R
 import io.portone.sdk.android.util.applyInsets
-import io.portone.sdk.__generated__.request.IdentityVerificationRequest
-import io.portone.sdk.__generated__.response.IdentityVerificationResponse
+import io.portone.sdk.type.request.IdentityVerificationRequest
+import io.portone.sdk.type.response.IdentityVerificationResponse
 
 class IdentityVerificationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

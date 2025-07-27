@@ -1,7 +1,7 @@
 package io.portone.sdk.android.identityverification
 
 import io.portone.sdk.android.Callback
-import io.portone.sdk.__generated__.response.IdentityVerificationResponse
+import io.portone.sdk.type.response.IdentityVerificationResponse
 
 interface IdentityVerificationCallback :
     Callback<IdentityVerificationResponse, IdentityVerificationResponse> {

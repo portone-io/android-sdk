@@ -1,7 +1,7 @@
 package io.portone.sdk.android.issuebillingkey
 
 import io.portone.sdk.android.Callback
-import io.portone.sdk.__generated__.response.IssueBillingKeyResponse
+import io.portone.sdk.type.response.IssueBillingKeyResponse
 
 interface IssueBillingKeyCallback :
     Callback<IssueBillingKeyResponse, IssueBillingKeyResponse> {

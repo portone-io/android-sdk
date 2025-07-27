@@ -627,7 +627,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
             paymentId = responseUrl.getQueryParameter("paymentId").orEmpty(),
             code = responseUrl.getQueryParameter("code"),
             message = responseUrl.getQueryParameter("message"),
-            pgCode = responseUrl . getQueryParameter ("pgCode"),
+            pgCode = responseUrl.getQueryParameter("pgCode"),
             pgMessage = responseUrl.getQueryParameter("pgMessage")
         )
     }
@@ -641,7 +641,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 .orEmpty(),
             code = responseUrl.getQueryParameter("code"),
             message = responseUrl.getQueryParameter("message"),
-            pgCode = responseUrl . getQueryParameter ("pgCode"),
+            pgCode = responseUrl.getQueryParameter("pgCode"),
             pgMessage = responseUrl.getQueryParameter("pgMessage")
         )
     }
@@ -661,7 +661,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 .orEmpty(),
             code = responseUrl.getQueryParameter("code"),
             message = responseUrl.getQueryParameter("message"),
-            pgCode = responseUrl . getQueryParameter ("pgCode"),
+            pgCode = responseUrl.getQueryParameter("pgCode"),
             pgMessage = responseUrl.getQueryParameter("pgMessage")
         )
     }
@@ -679,7 +679,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 .orEmpty(),
             code = responseUrl.getQueryParameter("code"),
             message = responseUrl.getQueryParameter("message"),
-            pgCode = responseUrl . getQueryParameter ("pgCode"),
+            pgCode = responseUrl.getQueryParameter("pgCode"),
             pgMessage = responseUrl.getQueryParameter("pgMessage")
         )
     }

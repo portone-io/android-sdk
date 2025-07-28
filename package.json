@@ -5,7 +5,8 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "codegen": "rimraf sdk/src/main/java/io/portone/sdk/android/type && portone-client-sdk-generator generate --schema schema/browser-sdk.yml --generator kotlin sdk/src/main/java/io/portone/sdk/android/type"
+    "codegen": "rimraf sdk/src/main/java/io/portone/sdk/android/type && portone-client-sdk-generator generate --schema schema/browser-sdk.yml --generator kotlin sdk/src/main/java/io/portone/sdk/android/type",
+    "version": "changeset version && node scripts/sync-versions.js"
   },
   "keywords": [],
   "author": "",

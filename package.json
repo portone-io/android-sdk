@@ -16,7 +16,7 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.5",
-    "@portone/client-sdk-generator": "0.2.0-beta",
+    "@portone/client-sdk-generator": "0.2.0-beta.1",
     "rimraf": "^6.0.1"
   }
 }

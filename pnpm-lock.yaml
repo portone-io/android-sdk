@@ -15,8 +15,8 @@ importers:
         specifier: ^2.29.5
         version: 2.29.5
       '@portone/client-sdk-generator':
-        specifier: 0.2.0-beta
-        version: 0.2.0-beta
+        specifier: 0.2.0-beta.1
+        version: 0.2.0-beta.1
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -118,56 +118,56 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@portone/client-sdk-generator-darwin-arm64@0.2.0-beta':
-    resolution: {integrity: sha512-P3FUKtfxpcSEynaYGdMYibBIwRrc31YCpBfT15LyMySCFUUAuy3bhjA4uHLI62VjBLTMeqNwdM+Ts9x8yf6fmA==}
+  '@portone/client-sdk-generator-darwin-arm64@0.2.0-beta.1':
+    resolution: {integrity: sha512-hxrMtZG5zFHwUKFDDTcnT8z0dfteVfbQEgrmnwkz1NHXLMkxX7d2Vwe8M85yrrgBBFvWleeH/jQMnqAXV7tuiQ==}
     engines: {node: '>=22'}
     cpu: [arm64]
     os: [darwin]
 
-  '@portone/client-sdk-generator-darwin-x64@0.2.0-beta':
-    resolution: {integrity: sha512-h87yYio3UvNAM1qBk+ByrN3TE+yKsFF5BrVuM0smA3OnPNKfMm+W7rQ150+CgrqIW8ugBgz+SmJZttm9zH68+w==}
+  '@portone/client-sdk-generator-darwin-x64@0.2.0-beta.1':
+    resolution: {integrity: sha512-zs40NrmGuN77SmgKGERiWFWbCjb+DAfGbKJ2nrk/AjnMD4dagfE3gy8zBEUOxpcBNm+5DCj+mTgvztd2pIAoVw==}
     engines: {node: '>=22'}
     cpu: [x64]
     os: [darwin]
 
-  '@portone/client-sdk-generator-linux-arm64-musl@0.2.0-beta':
-    resolution: {integrity: sha512-uKnI7iuqfQzVCqAwHjPsRPHeGDuw7L1z2l0VAhrLMa0Yz+pNpSzE/y+Bup3+PODuB0vHlyfby+EoUY3zRFl2Kg==}
+  '@portone/client-sdk-generator-linux-arm64-musl@0.2.0-beta.1':
+    resolution: {integrity: sha512-81k7ZuUPcF381Qq00GE7TTjRO9fw1qdCoPIwQ00k2Oq0fFawOsRWvoLC5/qkeDB12jaYCOacnHv4ca85jjVmWg==}
     engines: {node: '>=22'}
     cpu: [arm64]
     os: [linux]
 
-  '@portone/client-sdk-generator-linux-arm64@0.2.0-beta':
-    resolution: {integrity: sha512-wMFucwrzvf47NY34uENuv+akWkd6wdvbbJHFiiy0871CQuhA1tkzOqVrElscf0VGLo6R4eSSXMjRdK8tsRaytw==}
+  '@portone/client-sdk-generator-linux-arm64@0.2.0-beta.1':
+    resolution: {integrity: sha512-jPiZ0QfM1F4LlIrf6r9GBQBEpLqVqnKHee2f5eGLnLV2hVHj3L6VVFdbIQm8x6UVv7+IJBVbKe+Po7m+SYP/ow==}
     engines: {node: '>=22'}
     cpu: [arm64]
     os: [linux]
 
-  '@portone/client-sdk-generator-linux-x64-musl@0.2.0-beta':
-    resolution: {integrity: sha512-UEYIwS0E8cuajQN80s+fF75H6RJ39LWHRL1JevBfPQJR3CE4i4CmERx43UdhILP0wDCD7CSM2OCHANEEQyMWDA==}
+  '@portone/client-sdk-generator-linux-x64-musl@0.2.0-beta.1':
+    resolution: {integrity: sha512-Lp3wfhXDvqFyvOu5JMyMrFrl8qt4mJ6SIy0zuHeboBQhbI3hTHRTzTTSwM1F4xXeo/sdZJnP/yeWBGer4pe/Lg==}
     engines: {node: '>=22'}
     cpu: [x64]
     os: [linux]
 
-  '@portone/client-sdk-generator-linux-x64@0.2.0-beta':
-    resolution: {integrity: sha512-X+yapor4eVZQNiTs94Iet1MuTYkG6J2PCNQ4LYV4Rp61ceVmgE6JmSBsMWJseQ6wLujnL5cRos8O19VAbCuJ2g==}
+  '@portone/client-sdk-generator-linux-x64@0.2.0-beta.1':
+    resolution: {integrity: sha512-3+SzdlR3ik1XOigd4H1msxriDXUWjZGuTWyIbOP+Gfbjs3u5q9piLGtRRRWyG5fn7Hh6UMy24wjGr+dfyLk3oQ==}
     engines: {node: '>=22'}
     cpu: [x64]
     os: [linux]
 
-  '@portone/client-sdk-generator-win32-arm64@0.2.0-beta':
-    resolution: {integrity: sha512-Vd4GkrbTWmmwkQkLPpwzXLpHIzOOXJ96h4Wg1HEnabzPhUcgMiDlPuQS/pnz7FcYq3FcSyVP0lTK1elifr/86Q==}
+  '@portone/client-sdk-generator-win32-arm64@0.2.0-beta.1':
+    resolution: {integrity: sha512-zCBm/HGfx0sq/vHd5MvcoUmNJJEAqsDM0C3fX3atcIRMz06rea5TKKFx9VWgDBsrZJNgJhD/B44AnlONLVg8OQ==}
     engines: {node: '>=22'}
     cpu: [arm64]
     os: [win32]
 
-  '@portone/client-sdk-generator-win32-x64@0.2.0-beta':
-    resolution: {integrity: sha512-bjye0/RWFqUJUV9OGnf0FDBOQCHGqZYoo0WtvI1fN/bxrSzK7l3iwqNSffdA2S8t4FGq982N4BwAaSo/iDkqLg==}
+  '@portone/client-sdk-generator-win32-x64@0.2.0-beta.1':
+    resolution: {integrity: sha512-Rf72SIzkBXdWWYrr+EDGPDby+HM9AfNzt54bLS4WQT+e3eaOVTJcEyyUtSZfgP50/3EVRTTnHoVGkucl9Pbe4Q==}
     engines: {node: '>=22'}
     cpu: [x64]
     os: [win32]
 
-  '@portone/client-sdk-generator@0.2.0-beta':
-    resolution: {integrity: sha512-g1aZfPkBebBvrL9ONEVXtUVvAhAmWqjzWF5vCxw4H8iDDB8nd7SrflX80xM434Vma8l+rqTf8MCSF2C4CKvwyA==}
+  '@portone/client-sdk-generator@0.2.0-beta.1':
+    resolution: {integrity: sha512-JFU1U0116HOnsQHFgyhFal3nmQfqKyTtDo3WRQfHfX72Px6+zKXL5MFzSyF1Cxw5NF9B1/N4aDkURmedleLH5Q==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -783,40 +783,40 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
-  '@portone/client-sdk-generator-darwin-arm64@0.2.0-beta':
+  '@portone/client-sdk-generator-darwin-arm64@0.2.0-beta.1':
     optional: true
 
-  '@portone/client-sdk-generator-darwin-x64@0.2.0-beta':
+  '@portone/client-sdk-generator-darwin-x64@0.2.0-beta.1':
     optional: true
 
-  '@portone/client-sdk-generator-linux-arm64-musl@0.2.0-beta':
+  '@portone/client-sdk-generator-linux-arm64-musl@0.2.0-beta.1':
     optional: true
 
-  '@portone/client-sdk-generator-linux-arm64@0.2.0-beta':
+  '@portone/client-sdk-generator-linux-arm64@0.2.0-beta.1':
     optional: true
 
-  '@portone/client-sdk-generator-linux-x64-musl@0.2.0-beta':
+  '@portone/client-sdk-generator-linux-x64-musl@0.2.0-beta.1':
     optional: true
 
-  '@portone/client-sdk-generator-linux-x64@0.2.0-beta':
+  '@portone/client-sdk-generator-linux-x64@0.2.0-beta.1':
     optional: true
 
-  '@portone/client-sdk-generator-win32-arm64@0.2.0-beta':
+  '@portone/client-sdk-generator-win32-arm64@0.2.0-beta.1':
     optional: true
 
-  '@portone/client-sdk-generator-win32-x64@0.2.0-beta':
+  '@portone/client-sdk-generator-win32-x64@0.2.0-beta.1':
     optional: true
 
-  '@portone/client-sdk-generator@0.2.0-beta':
+  '@portone/client-sdk-generator@0.2.0-beta.1':
     optionalDependencies:
-      '@portone/client-sdk-generator-darwin-arm64': 0.2.0-beta
-      '@portone/client-sdk-generator-darwin-x64': 0.2.0-beta
-      '@portone/client-sdk-generator-linux-arm64': 0.2.0-beta
-      '@portone/client-sdk-generator-linux-arm64-musl': 0.2.0-beta
-      '@portone/client-sdk-generator-linux-x64': 0.2.0-beta
-      '@portone/client-sdk-generator-linux-x64-musl': 0.2.0-beta
-      '@portone/client-sdk-generator-win32-arm64': 0.2.0-beta
-      '@portone/client-sdk-generator-win32-x64': 0.2.0-beta
+      '@portone/client-sdk-generator-darwin-arm64': 0.2.0-beta.1
+      '@portone/client-sdk-generator-darwin-x64': 0.2.0-beta.1
+      '@portone/client-sdk-generator-linux-arm64': 0.2.0-beta.1
+      '@portone/client-sdk-generator-linux-arm64-musl': 0.2.0-beta.1
+      '@portone/client-sdk-generator-linux-x64': 0.2.0-beta.1
+      '@portone/client-sdk-generator-linux-x64-musl': 0.2.0-beta.1
+      '@portone/client-sdk-generator-win32-arm64': 0.2.0-beta.1
+      '@portone/client-sdk-generator-win32-x64': 0.2.0-beta.1
 
   '@types/node@12.20.55': {}
 

@@ -4115,11 +4115,9 @@ resources:
             '1':
               description: |
                 간편 결제 표시
-              alias: 'Y'
             '0':
               description: |
                 간편 결제 미표시
-              alias: 'N'
           description: |
             간편 결제 표시 구분
         SmartroV2SkinColor:
@@ -4257,10 +4255,8 @@ resources:
           variants:
             '01':
               description: 삼성페이 內 쇼핑
-              alias: '_01'
             '99':
               description: 기타 (기본값)
-              alias: '_99'
           description: |
             삼성페이 고객사 유형 (01: 삼성페이 內 쇼핑 / 99: 기타 (기본값))
         TossBrandpayBrandpayOptions:
@@ -4311,7 +4307,6 @@ resources:
               description: 해외카드
             11PAY:
               description: 11Pay
-              alias: '_11PAY'
             LEGACY_AUTH:
               description: 구인증
             KEY_IN:

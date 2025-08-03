@@ -61,7 +61,9 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 if (url == defaultUrl) {
                     view?.evaluateJavascript(
                         StringBuilder().append("javascript:PortOne.requestPayment(")
-                            .append("${encodingformat.encodeToString(paymentRequest.toJson())})")
+                            .append(paymentRequest.toJson().toMutableMap().apply { 
+                                this["redirectUrl"] = PortOne.REDIRECT_URL 
+                            }.toJsonString()).append(")")
                             .append(".catch(function(error){")
                             .append("Portone.fail(error.transactionType, error.txId, error.paymentId, error.code, error.message, error.pgCode, error.pgMessage)")
                             .append("})")
@@ -151,7 +153,9 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 if (url == defaultUrl) {
                     view?.evaluateJavascript(
                         StringBuilder().append("javascript:PortOne.requestIssueBillingKey(")
-                            .append("${encodingformat.encodeToString(issueBillingKeyRequest.toJson())})")
+                            .append(issueBillingKeyRequest.toJson().toMutableMap().apply { 
+                                this["redirectUrl"] = PortOne.REDIRECT_URL 
+                            }.toJsonString()).append(")")
                             .append(".catch(function(error){")
                             .append("Portone.fail(error.transactionType, error.billingKey, error.code, error.message, error.pgCode, error.pgMessage)")
                             .append("})")
@@ -249,7 +253,9 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 if (url == defaultUrl) {
                     view?.evaluateJavascript(
                         StringBuilder().append("javascript:PortOne.requestIdentityVerification(")
-                            .append("${encodingformat.encodeToString(identityVerificationRequest.toJson())})")
+                            .append(identityVerificationRequest.toJson().toMutableMap().apply { 
+                                this["redirectUrl"] = PortOne.REDIRECT_URL 
+                            }.toJsonString()).append(")")
                             .append(".catch(function(error){")
                             .append("Portone.fail(error.transactionType, error.identityVerificationTxId, error.identityVerificationId, error.code, error.message, error.pgCode, error.pgMessage)")
                             .append("})")
@@ -339,7 +345,9 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 if (url == defaultUrl) {
                     view?.evaluateJavascript(
                         StringBuilder().append("javascript:PortOne.requestIssueBillingKeyAndPay(")
-                            .append("${encodingformat.encodeToString(issueBillingKeyAndPayRequest.toJson())})")
+                            .append(issueBillingKeyAndPayRequest.toJson().toMutableMap().apply { 
+                                this["redirectUrl"] = PortOne.REDIRECT_URL 
+                            }.toJsonString()).append(")")
                             .append(".catch(function(error){")
                             .append("Portone.fail(error.transactionType, error.txId, error.paymentId, error.billingKey, error.code, error.message, error.pgCode, error.pgMessage)")
                             .append("})")
@@ -431,7 +439,9 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 if (url == loadUIUrl) {
                     view?.evaluateJavascript(
                         StringBuilder().append("javascript:PortOne.loadPaymentUI(")
-                            .append("${encodingformat.encodeToString(loadPaymentUIRequest.toJson())},{")
+                            .append(loadPaymentUIRequest.toJson().toMutableMap().apply { 
+                                this["redirectUrl"] = PortOne.REDIRECT_URL 
+                            }.toJsonString()).append(",{")
                             .append("onPaymentSuccess: (response) => { Portone.success(response.transactionType, response.txId, response.paymentId) },")
                             .append("onPaymentFail: (error) => { Portone.fail(error.transactionType, error.txId, error.paymentId, error.code, error.message, error.pgCode, error.pgMessage)}})")
                             .append(".catch(function(error){")
@@ -532,7 +542,9 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 if (url == loadUIUrl) {
                     view?.evaluateJavascript(
                         StringBuilder().append("javascript:PortOne.loadIssueBillingKeyUI(")
-                            .append("${encodingformat.encodeToString(loadIssueBillingKeyUIRequest.toJson())},{")
+                            .append(loadIssueBillingKeyUIRequest.toJson().toMutableMap().apply { 
+                                this["redirectUrl"] = PortOne.REDIRECT_URL 
+                            }.toJsonString()).append(",{")
                             .append("onIssueBillingKeySuccess: (response) => { Portone.success(response.transactionType, response.billingKey) },")
                             .append("onIssueBillingKeyFail: (error) => { Portone.fail(error.transactionType, error.billingKey, error.code, error.message, error.pgCode, error.pgMessage)}})")
                             .append(".catch(function(error){")

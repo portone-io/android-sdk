@@ -7,14 +7,14 @@ import androidx.appcompat.app.AlertDialog
 import io.portone.portonesdk.databinding.ActivityLoadPaymentUiTestBinding
 import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.payment.PaymentCallback
-import io.portone.sdk.type.entity.PaymentUIType
-import io.portone.sdk.type.response.PaymentResponse
-import io.portone.sdk.type.request.LoadPaymentUIRequest
-import io.portone.sdk.type.entity.Address
-import io.portone.sdk.type.entity.Country
-import io.portone.sdk.type.entity.Currency
-import io.portone.sdk.type.entity.Customer
-import io.portone.sdk.type.entity.Gender
+import io.portone.sdk.android.type.entity.PaymentUIType
+import io.portone.sdk.android.type.response.PaymentResponse
+import io.portone.sdk.android.type.request.LoadPaymentUIRequest
+import io.portone.sdk.android.type.entity.Address
+import io.portone.sdk.android.type.entity.Country
+import io.portone.sdk.android.type.entity.Currency
+import io.portone.sdk.android.type.entity.Customer
+import io.portone.sdk.android.type.entity.Gender
 
 class LoadPaymentUITestActivity : BaseActivity<ActivityLoadPaymentUiTestBinding>() {
     private val loadPaymentUIActivityResultLauncher =

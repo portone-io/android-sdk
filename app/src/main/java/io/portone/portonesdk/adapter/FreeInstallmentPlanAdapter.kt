@@ -10,8 +10,8 @@ import android.widget.Spinner
 import androidx.recyclerview.widget.RecyclerView
 import io.portone.portonesdk.R
 import io.portone.portonesdk.databinding.ItemFreeInstallmentPlanBinding
-import io.portone.sdk.type.entity.CardCompany
-import io.portone.sdk.type.entity.FreeInstallmentPlan
+import io.portone.sdk.android.type.entity.CardCompany
+import io.portone.sdk.android.type.entity.FreeInstallmentPlan
 
 class FreeInstallmentPlanAdapter(
     private val freeInstallmentPlans: MutableList<FreeInstallmentPlan> = mutableListOf()

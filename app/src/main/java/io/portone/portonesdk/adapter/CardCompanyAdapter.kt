@@ -10,7 +10,7 @@ import android.widget.Spinner
 import androidx.recyclerview.widget.RecyclerView
 import io.portone.portonesdk.R
 import io.portone.portonesdk.databinding.ItemSpinnerBinding
-import io.portone.sdk.type.entity.CardCompany
+import io.portone.sdk.android.type.entity.CardCompany
 
 class CardCompanyAdapter(
     private val cardCompanies: MutableList<CardCompany> = mutableListOf()

@@ -11,19 +11,19 @@ import androidx.core.view.WindowInsetsCompat
 import io.portone.portonesdk.databinding.ActivityLoadIssueBillingKeyUiTestBinding
 import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.issuebillingkey.IssueBillingKeyCallback
-import io.portone.sdk.type.entity.IssueBillingKeyUIType
-import io.portone.sdk.type.entity.PaymentUIType
-import io.portone.sdk.type.response.IssueBillingKeyResponse
-import io.portone.sdk.type.request.LoadIssueBillingKeyUIRequest
+import io.portone.sdk.android.type.entity.IssueBillingKeyUIType
+import io.portone.sdk.android.type.entity.PaymentUIType
+import io.portone.sdk.android.type.response.IssueBillingKeyResponse
+import io.portone.sdk.android.type.request.LoadIssueBillingKeyUIRequest
 import io.portone.sdk.android.payment.PaymentCallback
-import io.portone.sdk.type.response.PaymentResponse
-import io.portone.sdk.type.request.LoadPaymentUIRequest
-import io.portone.sdk.type.entity.Address
-import io.portone.sdk.type.entity.BillingKeyMethod
-import io.portone.sdk.type.entity.Country
-import io.portone.sdk.type.entity.Currency
-import io.portone.sdk.type.entity.Customer
-import io.portone.sdk.type.entity.Gender
+import io.portone.sdk.android.type.response.PaymentResponse
+import io.portone.sdk.android.type.request.LoadPaymentUIRequest
+import io.portone.sdk.android.type.entity.Address
+import io.portone.sdk.android.type.entity.BillingKeyMethod
+import io.portone.sdk.android.type.entity.Country
+import io.portone.sdk.android.type.entity.Currency
+import io.portone.sdk.android.type.entity.Customer
+import io.portone.sdk.android.type.entity.Gender
 
 class LoadIssueBillingKeyUITestActivity : BaseActivity<ActivityLoadIssueBillingKeyUiTestBinding>() {
     private val loadIssueBillingKeyUIActivityResultLauncher =

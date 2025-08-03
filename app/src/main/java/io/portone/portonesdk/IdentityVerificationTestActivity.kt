@@ -9,15 +9,15 @@ import io.portone.portonesdk.adapter.CardCompanyAdapter
 import io.portone.portonesdk.databinding.ActivityIdentityVerificationTestBinding
 import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.identityverification.IdentityVerificationCallback
-import io.portone.sdk.type.request.IdentityVerificationRequest
-import io.portone.sdk.type.response.IdentityVerificationResponse
-import io.portone.sdk.type.entity.Address
-import io.portone.sdk.type.entity.CardCompany
-import io.portone.sdk.type.entity.Country
-import io.portone.sdk.type.entity.Currency
-import io.portone.sdk.type.entity.Customer
-import io.portone.sdk.type.entity.Gender
-import io.portone.sdk.type.entity.PaymentPayMethod
+import io.portone.sdk.android.type.request.IdentityVerificationRequest
+import io.portone.sdk.android.type.response.IdentityVerificationResponse
+import io.portone.sdk.android.type.entity.Address
+import io.portone.sdk.android.type.entity.CardCompany
+import io.portone.sdk.android.type.entity.Country
+import io.portone.sdk.android.type.entity.Currency
+import io.portone.sdk.android.type.entity.Customer
+import io.portone.sdk.android.type.entity.Gender
+import io.portone.sdk.android.type.entity.PaymentPayMethod
 import kotlinx.serialization.json.Json
 
 class IdentityVerificationTestActivity : BaseActivity<ActivityIdentityVerificationTestBinding>() {

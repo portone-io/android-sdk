@@ -10,8 +10,8 @@ import io.portone.sdk.android.PortOneWebView
 import io.portone.sdk.android.R
 import io.portone.sdk.android.payment.PaymentCallback
 import io.portone.sdk.android.util.applyInsets
-import io.portone.sdk.type.response.PaymentResponse
-import io.portone.sdk.type.request.LoadPaymentUIRequest
+import io.portone.sdk.android.type.response.PaymentResponse
+import io.portone.sdk.android.type.request.LoadPaymentUIRequest
 
 @SuppressLint("SetJavaScriptEnabled")
 class LoadPaymentUIActivity : AppCompatActivity() {

@@ -13,7 +13,7 @@ import kotlinx.parcelize.Parcelize
 data class HyphenBypass(
     val designCd: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "designCd" to designCd?.let { designCd }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        designCd?.let { put("designCd", designCd) }
+    }
 }

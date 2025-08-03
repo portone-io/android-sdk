@@ -16,7 +16,7 @@ data class KcpV2IdentityVerificationBypass(
      */
     val webSiteid: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "web_siteid" to webSiteid?.let { webSiteid }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        webSiteid?.let { put("web_siteid", webSiteid) }
+    }
 }

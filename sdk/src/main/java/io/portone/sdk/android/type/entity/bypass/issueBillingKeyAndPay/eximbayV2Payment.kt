@@ -20,8 +20,8 @@ data class EximbayV2Payment(
      */
     val multiPaymentMethod: List<String>?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "payment_method" to paymentMethod?.let { paymentMethod },
-        "multi_payment_method" to multiPaymentMethod?.let { multiPaymentMethod }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        paymentMethod?.let { put("payment_method", paymentMethod) }
+        multiPaymentMethod?.let { put("multi_payment_method", multiPaymentMethod) }
+    }
 }

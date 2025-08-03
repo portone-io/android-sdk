@@ -282,44 +282,44 @@ data class PaymentRequest(
     val alipay: PaymentRequestUnionAlipay?,
     val convenienceStore: PaymentRequestUnionConvenienceStore?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "storeId" to storeId,
-        "paymentId" to paymentId,
-        "orderName" to orderName,
-        "totalAmount" to totalAmount,
-        "currency" to currency.toJson(),
-        "payMethod" to payMethod.toJson(),
-        "channelKey" to channelKey?.let { channelKey },
-        "channelGroupId" to channelGroupId?.let { channelGroupId },
-        "taxFreeAmount" to taxFreeAmount?.let { taxFreeAmount },
-        "vatAmount" to vatAmount?.let { vatAmount },
-        "customer" to customer?.let { customer.toJson() },
-        "windowType" to windowType?.let { windowType.toJson() },
-        "noticeUrls" to noticeUrls?.let { noticeUrls },
-        "confirmUrl" to confirmUrl?.let { confirmUrl },
-        "appScheme" to appScheme?.let { appScheme },
-        "isEscrow" to isEscrow?.let { isEscrow },
-        "products" to products?.let { products.map { it.toJson() } },
-        "isCulturalExpense" to isCulturalExpense?.let { isCulturalExpense },
-        "locale" to locale?.let { locale.toJson() },
-        "customData" to customData?.let { customData },
-        "bypass" to bypass?.let { bypass.toJson() },
-        "country" to country?.let { country.toJson() },
-        "productType" to productType?.let { productType.toJson() },
-        "offerPeriod" to offerPeriod?.let { offerPeriod.toJson() },
-        "storeDetails" to storeDetails?.let { storeDetails.toJson() },
-        "shippingAddress" to shippingAddress?.let { shippingAddress.toJson() },
-        "promotionId" to promotionId?.let { promotionId },
-        "popup" to popup?.let { popup.toJson() },
-        "iframe" to iframe?.let { iframe.toJson() },
-        "card" to card?.let { card.toJson() },
-        "virtualAccount" to virtualAccount?.let { virtualAccount.toJson() },
-        "transfer" to transfer?.let { transfer.toJson() },
-        "mobile" to mobile?.let { mobile.toJson() },
-        "giftCertificate" to giftCertificate?.let { giftCertificate.toJson() },
-        "easyPay" to easyPay?.let { easyPay.toJson() },
-        "paypal" to paypal?.let { paypal.toJson() },
-        "alipay" to alipay?.let { alipay.toJson() },
-        "convenienceStore" to convenienceStore?.let { convenienceStore.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        put("storeId", storeId)
+        put("paymentId", paymentId)
+        put("orderName", orderName)
+        put("totalAmount", totalAmount)
+        put("currency", currency.toJson())
+        put("payMethod", payMethod.toJson())
+        channelKey?.let { put("channelKey", channelKey) }
+        channelGroupId?.let { put("channelGroupId", channelGroupId) }
+        taxFreeAmount?.let { put("taxFreeAmount", taxFreeAmount) }
+        vatAmount?.let { put("vatAmount", vatAmount) }
+        customer?.let { put("customer", customer.toJson()) }
+        windowType?.let { put("windowType", windowType.toJson()) }
+        noticeUrls?.let { put("noticeUrls", noticeUrls) }
+        confirmUrl?.let { put("confirmUrl", confirmUrl) }
+        appScheme?.let { put("appScheme", appScheme) }
+        isEscrow?.let { put("isEscrow", isEscrow) }
+        products?.let { put("products", products.map { it.toJson() }) }
+        isCulturalExpense?.let { put("isCulturalExpense", isCulturalExpense) }
+        locale?.let { put("locale", locale.toJson()) }
+        customData?.let { put("customData", customData) }
+        bypass?.let { put("bypass", bypass.toJson()) }
+        country?.let { put("country", country.toJson()) }
+        productType?.let { put("productType", productType.toJson()) }
+        offerPeriod?.let { put("offerPeriod", offerPeriod.toJson()) }
+        storeDetails?.let { put("storeDetails", storeDetails.toJson()) }
+        shippingAddress?.let { put("shippingAddress", shippingAddress.toJson()) }
+        promotionId?.let { put("promotionId", promotionId) }
+        popup?.let { put("popup", popup.toJson()) }
+        iframe?.let { put("iframe", iframe.toJson()) }
+        card?.let { put("card", card.toJson()) }
+        virtualAccount?.let { put("virtualAccount", virtualAccount.toJson()) }
+        transfer?.let { put("transfer", transfer.toJson()) }
+        mobile?.let { put("mobile", mobile.toJson()) }
+        giftCertificate?.let { put("giftCertificate", giftCertificate.toJson()) }
+        easyPay?.let { put("easyPay", easyPay.toJson()) }
+        paypal?.let { put("paypal", paypal.toJson()) }
+        alipay?.let { put("alipay", alipay.toJson()) }
+        convenienceStore?.let { put("convenienceStore", convenienceStore.toJson()) }
+    }
 }

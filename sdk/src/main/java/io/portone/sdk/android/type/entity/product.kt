@@ -49,13 +49,13 @@ data class Product(
      */
     val link: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "id" to id,
-        "name" to name,
-        "code" to code?.let { code },
-        "amount" to amount,
-        "quantity" to quantity,
-        "tag" to tag?.let { tag },
-        "link" to link?.let { link }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        put("id", id)
+        put("name", name)
+        code?.let { put("code", code) }
+        put("amount", amount)
+        put("quantity", quantity)
+        tag?.let { put("tag", tag) }
+        link?.let { put("link", link) }
+    }
 }

@@ -14,7 +14,7 @@ data class PaymentRequestUnionConvenienceStore(
      */
     val paymentDeadline: PaymentRequestUnionConvenienceStorePaymentDeadline?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "paymentDeadline" to paymentDeadline?.let { paymentDeadline.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        paymentDeadline?.let { put("paymentDeadline", paymentDeadline.toJson()) }
+    }
 }

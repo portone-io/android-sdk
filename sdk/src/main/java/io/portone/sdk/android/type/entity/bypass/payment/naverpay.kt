@@ -27,10 +27,10 @@ data class NaverpayPaymentBypass(
      */
     val deliveryFee: Long?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "useCfmYmdt" to useCfmYmdt?.let { useCfmYmdt },
-        "productItems" to productItems.map { it.toJson() },
-        "subMerchantInfo" to subMerchantInfo?.let { subMerchantInfo.toJson() },
-        "deliveryFee" to deliveryFee?.let { deliveryFee }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        useCfmYmdt?.let { put("useCfmYmdt", useCfmYmdt) }
+        put("productItems", productItems.map { it.toJson() })
+        subMerchantInfo?.let { put("subMerchantInfo", subMerchantInfo.toJson()) }
+        deliveryFee?.let { put("deliveryFee", deliveryFee) }
+    }
 }

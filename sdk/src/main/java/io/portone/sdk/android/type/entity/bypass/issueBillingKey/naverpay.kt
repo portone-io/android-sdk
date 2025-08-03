@@ -20,8 +20,8 @@ data class NaverpayIssueBillingKeyBypass(
      */
     val subMerchantId: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "subMerchantName" to subMerchantName?.let { subMerchantName },
-        "subMerchantId" to subMerchantId?.let { subMerchantId }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        subMerchantName?.let { put("subMerchantName", subMerchantName) }
+        subMerchantId?.let { put("subMerchantId", subMerchantId) }
+    }
 }

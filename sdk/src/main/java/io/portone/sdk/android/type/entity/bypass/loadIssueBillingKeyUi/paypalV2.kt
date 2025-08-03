@@ -24,9 +24,9 @@ data class PaypalV2LoadIssueBillingKeyUIBypass(
      */
     val additionalData: List<PaypalV2AdditionalData>?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "style" to style?.let { style.toJson() },
-        "shipping_address" to shippingAddress?.let { shippingAddress.toJson() },
-        "additional_data" to additionalData?.let { additionalData.map { it.toJson() } }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        style?.let { put("style", style.toJson()) }
+        shippingAddress?.let { put("shipping_address", shippingAddress.toJson()) }
+        additionalData?.let { put("additional_data", additionalData.map { it.toJson() }) }
+    }
 }

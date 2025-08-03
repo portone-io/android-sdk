@@ -15,8 +15,8 @@ data class IssueBillingKeyAndPayRequestUnionMobile(
     val carrier: Carrier?,
     val avaliableCarriers: List<Carrier>?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "carrier" to carrier?.let { carrier.toJson() },
-        "avaliableCarriers" to avaliableCarriers?.let { avaliableCarriers.map { it.toJson() } }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        carrier?.let { put("carrier", carrier.toJson()) }
+        avaliableCarriers?.let { put("avaliableCarriers", avaliableCarriers.map { it.toJson() }) }
+    }
 }

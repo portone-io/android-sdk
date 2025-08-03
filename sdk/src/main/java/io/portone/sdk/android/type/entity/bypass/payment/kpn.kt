@@ -20,7 +20,7 @@ data class KpnBypass(
      */
     val cardSelect: List<KpnCardSelect>?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "CardSelect" to cardSelect?.let { cardSelect.map { it.toJson() } }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        cardSelect?.let { put("CardSelect", cardSelect.map { it.toJson() }) }
+    }
 }

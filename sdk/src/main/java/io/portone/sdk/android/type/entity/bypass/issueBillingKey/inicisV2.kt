@@ -17,7 +17,7 @@ data class InicisV2IssueBillingKeyBypass(
      */
     val carduse: InicisV2CardUse?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "carduse" to carduse?.let { carduse.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        carduse?.let { put("carduse", carduse.toJson()) }
+    }
 }

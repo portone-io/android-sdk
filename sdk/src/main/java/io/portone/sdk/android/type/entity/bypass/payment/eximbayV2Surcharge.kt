@@ -21,9 +21,9 @@ data class EximbayV2Surcharge(
      */
     val unitPrice: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "name" to name?.let { name },
-        "quantity" to quantity?.let { quantity },
-        "unit_price" to unitPrice?.let { unitPrice }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        name?.let { put("name", name) }
+        quantity?.let { put("quantity", quantity) }
+        unitPrice?.let { put("unit_price", unitPrice) }
+    }
 }

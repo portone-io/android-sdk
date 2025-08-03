@@ -17,7 +17,7 @@ data class PaymentRequestUnionGiftCertificate(
      */
     val giftCertificateType: GiftCertificateType?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "giftCertificateType" to giftCertificateType?.let { giftCertificateType.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        giftCertificateType?.let { put("giftCertificateType", giftCertificateType.toJson()) }
+    }
 }

@@ -64,15 +64,15 @@ data class IdentityVerificationRequest(
      */
     val iframe: Iframe?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "storeId" to storeId,
-        "identityVerificationId" to identityVerificationId,
-        "channelKey" to channelKey?.let { channelKey },
-        "customer" to customer?.let { customer.toJson() },
-        "windowType" to windowType?.let { windowType.toJson() },
-        "customData" to customData?.let { customData },
-        "bypass" to bypass?.let { bypass.toJson() },
-        "popup" to popup?.let { popup.toJson() },
-        "iframe" to iframe?.let { iframe.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        put("storeId", storeId)
+        put("identityVerificationId", identityVerificationId)
+        channelKey?.let { put("channelKey", channelKey) }
+        customer?.let { put("customer", customer.toJson()) }
+        windowType?.let { put("windowType", windowType.toJson()) }
+        customData?.let { put("customData", customData) }
+        bypass?.let { put("bypass", bypass.toJson()) }
+        popup?.let { put("popup", popup.toJson()) }
+        iframe?.let { put("iframe", iframe.toJson()) }
+    }
 }

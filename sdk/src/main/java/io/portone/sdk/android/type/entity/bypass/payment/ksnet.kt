@@ -21,8 +21,8 @@ data class KsnetPaymentBypass(
      */
     val easyPayDirect: Boolean?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "sndQpayType" to sndQpayType?.let { sndQpayType.toJson() },
-        "easyPayDirect" to easyPayDirect?.let { easyPayDirect }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        sndQpayType?.let { put("sndQpayType", sndQpayType.toJson()) }
+        easyPayDirect?.let { put("easyPayDirect", easyPayDirect) }
+    }
 }

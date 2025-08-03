@@ -97,20 +97,20 @@ data class Customer(
      */
     val lastNameKana: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "customerId" to customerId?.let { customerId },
-        "fullName" to fullName?.let { fullName },
-        "firstName" to firstName?.let { firstName },
-        "lastName" to lastName?.let { lastName },
-        "phoneNumber" to phoneNumber?.let { phoneNumber },
-        "email" to email?.let { email },
-        "address" to address?.let { address.toJson() },
-        "zipcode" to zipcode?.let { zipcode },
-        "gender" to gender?.let { gender.toJson() },
-        "birthYear" to birthYear?.let { birthYear },
-        "birthMonth" to birthMonth?.let { birthMonth },
-        "birthDay" to birthDay?.let { birthDay },
-        "firstNameKana" to firstNameKana?.let { firstNameKana },
-        "lastNameKana" to lastNameKana?.let { lastNameKana }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        customerId?.let { put("customerId", customerId) }
+        fullName?.let { put("fullName", fullName) }
+        firstName?.let { put("firstName", firstName) }
+        lastName?.let { put("lastName", lastName) }
+        phoneNumber?.let { put("phoneNumber", phoneNumber) }
+        email?.let { put("email", email) }
+        address?.let { put("address", address.toJson()) }
+        zipcode?.let { put("zipcode", zipcode) }
+        gender?.let { put("gender", gender.toJson()) }
+        birthYear?.let { put("birthYear", birthYear) }
+        birthMonth?.let { put("birthMonth", birthMonth) }
+        birthDay?.let { put("birthDay", birthDay) }
+        firstNameKana?.let { put("firstNameKana", firstNameKana) }
+        lastNameKana?.let { put("lastNameKana", lastNameKana) }
+    }
 }

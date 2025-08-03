@@ -17,7 +17,7 @@ data class KcpV2IssueBillingKeyBypass(
      */
     val batchSocChoice: KcpV2BatchSocChoice?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "batch_soc_choice" to batchSocChoice?.let { batchSocChoice.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        batchSocChoice?.let { put("batch_soc_choice", batchSocChoice.toJson()) }
+    }
 }

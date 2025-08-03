@@ -11,8 +11,8 @@ data class PaypalV2AdditionalData(
     val key: String,
     val `value`: String
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "key" to key,
-        "value" to `value`
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        put("key", key)
+        put("value", `value`)
+    }
 }

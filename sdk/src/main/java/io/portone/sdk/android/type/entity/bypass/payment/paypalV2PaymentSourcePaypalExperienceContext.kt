@@ -16,10 +16,10 @@ data class PaypalV2PaymentSourcePaypalExperienceContext(
     val landingPage: PaypalV2PaymentSourcePaypalExperienceContextLandingPage?,
     val paymentMethodPreference: PaypalV2PaymentSourcePaypalExperienceContextPaymentMethodPreference?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "brand_name" to brandName?.let { brandName },
-        "shipping_preference" to shippingPreference?.let { shippingPreference.toJson() },
-        "landing_page" to landingPage?.let { landingPage.toJson() },
-        "payment_method_preference" to paymentMethodPreference?.let { paymentMethodPreference.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        brandName?.let { put("brand_name", brandName) }
+        shippingPreference?.let { put("shipping_preference", shippingPreference.toJson()) }
+        landingPage?.let { put("landing_page", landingPage.toJson()) }
+        paymentMethodPreference?.let { put("payment_method_preference", paymentMethodPreference.toJson()) }
+    }
 }

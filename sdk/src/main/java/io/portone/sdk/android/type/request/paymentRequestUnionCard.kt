@@ -86,13 +86,13 @@ data class PaymentRequestUnionCard(
      */
     val useInstallment: Boolean?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "cardCompany" to cardCompany?.let { cardCompany.toJson() },
-        "availableCards" to availableCards?.let { availableCards.map { it.toJson() } },
-        "useFreeInterestFromMall" to useFreeInterestFromMall?.let { useFreeInterestFromMall },
-        "installment" to installment?.let { installment.toJson() },
-        "useCardPoint" to useCardPoint?.let { useCardPoint },
-        "useAppCardOnly" to useAppCardOnly?.let { useAppCardOnly },
-        "useInstallment" to useInstallment?.let { useInstallment }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        cardCompany?.let { put("cardCompany", cardCompany.toJson()) }
+        availableCards?.let { put("availableCards", availableCards.map { it.toJson() }) }
+        useFreeInterestFromMall?.let { put("useFreeInterestFromMall", useFreeInterestFromMall) }
+        installment?.let { put("installment", installment.toJson()) }
+        useCardPoint?.let { put("useCardPoint", useCardPoint) }
+        useAppCardOnly?.let { put("useAppCardOnly", useAppCardOnly) }
+        useInstallment?.let { put("useInstallment", useInstallment) }
+    }
 }

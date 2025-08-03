@@ -193,32 +193,32 @@ data class LoadPaymentUIRequest(
      */
     val promotionIds: List<String>?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "uiType" to uiType.toJson(),
-        "storeId" to storeId,
-        "paymentId" to paymentId,
-        "orderName" to orderName,
-        "totalAmount" to totalAmount,
-        "channelKey" to channelKey,
-        "taxFreeAmount" to taxFreeAmount?.let { taxFreeAmount },
-        "vatAmount" to vatAmount?.let { vatAmount },
-        "customer" to customer?.let { customer.toJson() },
-        "noticeUrls" to noticeUrls?.let { noticeUrls },
-        "confirmUrl" to confirmUrl?.let { confirmUrl },
-        "appScheme" to appScheme?.let { appScheme },
-        "isEscrow" to isEscrow?.let { isEscrow },
-        "products" to products?.let { products.map { it.toJson() } },
-        "isCulturalExpense" to isCulturalExpense?.let { isCulturalExpense },
-        "currency" to currency.toJson(),
-        "locale" to locale?.let { locale.toJson() },
-        "customData" to customData?.let { customData },
-        "offerPeriod" to offerPeriod?.let { offerPeriod.toJson() },
-        "productType" to productType?.let { productType.toJson() },
-        "storeDetails" to storeDetails?.let { storeDetails.toJson() },
-        "bypass" to bypass?.let { bypass.toJson() },
-        "country" to country?.let { country.toJson() },
-        "shippingAddress" to shippingAddress?.let { shippingAddress.toJson() },
-        "promotionGroupId" to promotionGroupId?.let { promotionGroupId },
-        "promotionIds" to promotionIds?.let { promotionIds }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        put("uiType", uiType.toJson())
+        put("storeId", storeId)
+        put("paymentId", paymentId)
+        put("orderName", orderName)
+        put("totalAmount", totalAmount)
+        put("channelKey", channelKey)
+        taxFreeAmount?.let { put("taxFreeAmount", taxFreeAmount) }
+        vatAmount?.let { put("vatAmount", vatAmount) }
+        customer?.let { put("customer", customer.toJson()) }
+        noticeUrls?.let { put("noticeUrls", noticeUrls) }
+        confirmUrl?.let { put("confirmUrl", confirmUrl) }
+        appScheme?.let { put("appScheme", appScheme) }
+        isEscrow?.let { put("isEscrow", isEscrow) }
+        products?.let { put("products", products.map { it.toJson() }) }
+        isCulturalExpense?.let { put("isCulturalExpense", isCulturalExpense) }
+        put("currency", currency.toJson())
+        locale?.let { put("locale", locale.toJson()) }
+        customData?.let { put("customData", customData) }
+        offerPeriod?.let { put("offerPeriod", offerPeriod.toJson()) }
+        productType?.let { put("productType", productType.toJson()) }
+        storeDetails?.let { put("storeDetails", storeDetails.toJson()) }
+        bypass?.let { put("bypass", bypass.toJson()) }
+        country?.let { put("country", country.toJson()) }
+        shippingAddress?.let { put("shippingAddress", shippingAddress.toJson()) }
+        promotionGroupId?.let { put("promotionGroupId", promotionGroupId) }
+        promotionIds?.let { put("promotionIds", promotionIds) }
+    }
 }

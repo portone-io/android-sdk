@@ -25,10 +25,10 @@ data class TossBrandpayBrandpayOptionsUi(
     val labels: TossBrandpayBrandpayOptionsUiLabels?,
     val navigationBar: TossBrandpayBrandpayOptionsUiNavigationBar?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "highlightColor" to highlightColor?.let { highlightColor },
-        "buttonStyle" to buttonStyle?.let { buttonStyle.toJson() },
-        "labels" to labels?.let { labels.toJson() },
-        "navigationBar" to navigationBar?.let { navigationBar.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        highlightColor?.let { put("highlightColor", highlightColor) }
+        buttonStyle?.let { put("buttonStyle", buttonStyle.toJson()) }
+        labels?.let { put("labels", labels.toJson()) }
+        navigationBar?.let { put("navigationBar", navigationBar.toJson()) }
+    }
 }

@@ -103,12 +103,12 @@ data class WelcomePaymentBypass(
      */
     val pReserved: List<String>?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "logo_url" to logoUrl?.let { logoUrl },
-        "logo_2nd" to logo2Nd?.let { logo2Nd },
-        "acceptmethod" to acceptmethod?.let { acceptmethod },
-        "P_CARD_OPTION" to pCardOption?.let { pCardOption },
-        "P_ONLY_EASYPAYCODE" to pOnlyEasypaycode?.let { pOnlyEasypaycode },
-        "P_RESERVED" to pReserved?.let { pReserved }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        logoUrl?.let { put("logo_url", logoUrl) }
+        logo2Nd?.let { put("logo_2nd", logo2Nd) }
+        acceptmethod?.let { put("acceptmethod", acceptmethod) }
+        pCardOption?.let { put("P_CARD_OPTION", pCardOption) }
+        pOnlyEasypaycode?.let { put("P_ONLY_EASYPAYCODE", pOnlyEasypaycode) }
+        pReserved?.let { put("P_RESERVED", pReserved) }
+    }
 }

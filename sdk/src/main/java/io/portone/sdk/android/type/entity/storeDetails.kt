@@ -71,19 +71,19 @@ data class StoreDetails(
      */
     val contactName: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "ceoFullName" to ceoFullName?.let { ceoFullName },
-        "phoneNumber" to phoneNumber?.let { phoneNumber },
-        "address" to address?.let { address },
-        "zipcode" to zipcode?.let { zipcode },
-        "email" to email?.let { email },
-        "businessName" to businessName?.let { businessName },
-        "businessRegistrationNumber" to businessRegistrationNumber?.let { businessRegistrationNumber },
-        "storeName" to storeName?.let { storeName },
-        "storeNameShort" to storeNameShort?.let { storeNameShort },
-        "storeNameEn" to storeNameEn?.let { storeNameEn },
-        "storeNameKana" to storeNameKana?.let { storeNameKana },
-        "openingHours" to openingHours?.let { openingHours.toJson() },
-        "contactName" to contactName?.let { contactName }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        ceoFullName?.let { put("ceoFullName", ceoFullName) }
+        phoneNumber?.let { put("phoneNumber", phoneNumber) }
+        address?.let { put("address", address) }
+        zipcode?.let { put("zipcode", zipcode) }
+        email?.let { put("email", email) }
+        businessName?.let { put("businessName", businessName) }
+        businessRegistrationNumber?.let { put("businessRegistrationNumber", businessRegistrationNumber) }
+        storeName?.let { put("storeName", storeName) }
+        storeNameShort?.let { put("storeNameShort", storeNameShort) }
+        storeNameEn?.let { put("storeNameEn", storeNameEn) }
+        storeNameKana?.let { put("storeNameKana", storeNameKana) }
+        openingHours?.let { put("openingHours", openingHours.toJson()) }
+        contactName?.let { put("contactName", contactName) }
+    }
 }

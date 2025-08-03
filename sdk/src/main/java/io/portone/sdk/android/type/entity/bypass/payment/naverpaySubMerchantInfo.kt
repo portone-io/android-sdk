@@ -36,12 +36,12 @@ data class NaverpaySubMerchantInfo(
      */
     val subMerchantCustomerServiceUrl: String
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "subMerchantName" to subMerchantName,
-        "subMerchantId" to subMerchantId,
-        "subMerchantBusinessNo" to subMerchantBusinessNo,
-        "subMerchantPayId" to subMerchantPayId,
-        "subMerchantTelephoneNo" to subMerchantTelephoneNo,
-        "subMerchantCustomerServiceUrl" to subMerchantCustomerServiceUrl
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        put("subMerchantName", subMerchantName)
+        put("subMerchantId", subMerchantId)
+        put("subMerchantBusinessNo", subMerchantBusinessNo)
+        put("subMerchantPayId", subMerchantPayId)
+        put("subMerchantTelephoneNo", subMerchantTelephoneNo)
+        put("subMerchantCustomerServiceUrl", subMerchantCustomerServiceUrl)
+    }
 }

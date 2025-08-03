@@ -14,7 +14,7 @@ data class IssueBillingKeyRequestUnionCard(
      */
     val cardCompany: CardCompany?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "cardCompany" to cardCompany?.let { cardCompany.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        cardCompany?.let { put("cardCompany", cardCompany.toJson()) }
+    }
 }

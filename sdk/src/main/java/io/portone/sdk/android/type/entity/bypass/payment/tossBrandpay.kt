@@ -30,10 +30,10 @@ data class TossBrandpayPaymentBypass(
      */
     val methodId: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "brandpayOptions" to brandpayOptions?.let { brandpayOptions.toJson() },
-        "widgetOptions" to widgetOptions?.let { widgetOptions.toJson() },
-        "discountCode" to discountCode?.let { discountCode },
-        "methodId" to methodId?.let { methodId }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        brandpayOptions?.let { put("brandpayOptions", brandpayOptions.toJson()) }
+        widgetOptions?.let { put("widgetOptions", widgetOptions.toJson()) }
+        discountCode?.let { put("discountCode", discountCode) }
+        methodId?.let { put("methodId", methodId) }
+    }
 }

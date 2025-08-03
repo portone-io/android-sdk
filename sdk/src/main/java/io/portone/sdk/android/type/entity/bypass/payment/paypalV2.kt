@@ -26,10 +26,10 @@ data class PaypalV2PaymentBypass(
      */
     val additionalData: List<PaypalV2AdditionalData>?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "purchase_units" to purchaseUnits?.let { purchaseUnits.map { it.toJson() } },
-        "payer" to payer?.let { payer.toJson() },
-        "payment_source" to paymentSource?.let { paymentSource.toJson() },
-        "additional_data" to additionalData?.let { additionalData.map { it.toJson() } }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        purchaseUnits?.let { put("purchase_units", purchaseUnits.map { it.toJson() }) }
+        payer?.let { put("payer", payer.toJson()) }
+        paymentSource?.let { put("payment_source", paymentSource.toJson()) }
+        additionalData?.let { put("additional_data", additionalData.map { it.toJson() }) }
+    }
 }

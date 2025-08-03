@@ -138,14 +138,14 @@ data class InicisV2Bypass(
      */
     val pReserved: List<String>?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "logo_url" to logoUrl?.let { logoUrl },
-        "logo_2nd" to logo2Nd?.let { logo2Nd },
-        "parentemail" to parentemail?.let { parentemail },
-        "Ini_SSGPAY_MDN" to iniSsgpayMdn?.let { iniSsgpayMdn },
-        "acceptmethod" to acceptmethod?.let { acceptmethod },
-        "P_CARD_OPTION" to pCardOption?.let { pCardOption },
-        "P_MNAME" to pMname?.let { pMname },
-        "P_RESERVED" to pReserved?.let { pReserved }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        logoUrl?.let { put("logo_url", logoUrl) }
+        logo2Nd?.let { put("logo_2nd", logo2Nd) }
+        parentemail?.let { put("parentemail", parentemail) }
+        iniSsgpayMdn?.let { put("Ini_SSGPAY_MDN", iniSsgpayMdn) }
+        acceptmethod?.let { put("acceptmethod", acceptmethod) }
+        pCardOption?.let { put("P_CARD_OPTION", pCardOption) }
+        pMname?.let { put("P_MNAME", pMname) }
+        pReserved?.let { put("P_RESERVED", pReserved) }
+    }
 }

@@ -13,8 +13,8 @@ data class TossBrandpayWidgetOptionsUiPromotionSection(
     val summary: TossBrandpayWidgetOptionsUiPromotionSectionSummary?,
     val description: TossBrandpayWidgetOptionsUiPromotionSectionDescription?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "summary" to summary?.let { summary.toJson() },
-        "description" to description?.let { description.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        summary?.let { put("summary", summary.toJson()) }
+        description?.let { put("description", description.toJson()) }
+    }
 }

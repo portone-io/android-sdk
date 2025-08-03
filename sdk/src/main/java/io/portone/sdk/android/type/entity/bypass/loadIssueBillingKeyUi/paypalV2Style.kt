@@ -40,12 +40,12 @@ data class PaypalV2Style(
      */
     val tagline: Boolean?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "color" to color?.let { color.toJson() },
-        "height" to height?.let { height },
-        "label" to label?.let { label.toJson() },
-        "layout" to layout?.let { layout.toJson() },
-        "shape" to shape?.let { shape.toJson() },
-        "tagline" to tagline?.let { tagline }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        color?.let { put("color", color.toJson()) }
+        height?.let { put("height", height) }
+        label?.let { put("label", label.toJson()) }
+        layout?.let { put("layout", layout.toJson()) }
+        shape?.let { put("shape", shape.toJson()) }
+        tagline?.let { put("tagline", tagline) }
+    }
 }

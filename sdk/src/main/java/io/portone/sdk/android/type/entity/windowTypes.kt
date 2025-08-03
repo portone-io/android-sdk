@@ -19,8 +19,8 @@ data class WindowTypes(
     val pc: WindowType?,
     val mobile: WindowType?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "pc" to pc?.let { pc.toJson() },
-        "mobile" to mobile?.let { mobile.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        pc?.let { put("pc", pc.toJson()) }
+        mobile?.let { put("mobile", mobile.toJson()) }
+    }
 }

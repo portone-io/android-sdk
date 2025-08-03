@@ -17,8 +17,8 @@ data class PaypalV2PayerTaxInfo(
     val taxId: String,
     val taxIdType: String
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "tax_id" to taxId,
-        "tax_id_type" to taxIdType
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        put("tax_id", taxId)
+        put("tax_id_type", taxIdType)
+    }
 }

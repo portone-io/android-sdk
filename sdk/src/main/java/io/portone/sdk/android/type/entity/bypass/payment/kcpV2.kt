@@ -35,15 +35,15 @@ data class KcpV2Bypass(
      */
     val deliTerm: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "skin_indx" to skinIndx?.let { skinIndx },
-        "site_logo" to siteLogo?.let { siteLogo },
-        "shop_user_id" to shopUserId,
-        "kcp_pay_title" to kcpPayTitle?.let { kcpPayTitle },
-        "complex_pnt_yn" to complexPntYn?.let { complexPntYn.toJson() },
-        "pt_memcorp_cd" to ptMemcorpCd?.let { ptMemcorpCd },
-        "disp_tax_yn" to dispTaxYn?.let { dispTaxYn.toJson() },
-        "site_name" to siteName?.let { siteName },
-        "deli_term" to deliTerm?.let { deliTerm }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        skinIndx?.let { put("skin_indx", skinIndx) }
+        siteLogo?.let { put("site_logo", siteLogo) }
+        put("shop_user_id", shopUserId)
+        kcpPayTitle?.let { put("kcp_pay_title", kcpPayTitle) }
+        complexPntYn?.let { put("complex_pnt_yn", complexPntYn.toJson()) }
+        ptMemcorpCd?.let { put("pt_memcorp_cd", ptMemcorpCd) }
+        dispTaxYn?.let { put("disp_tax_yn", dispTaxYn.toJson()) }
+        siteName?.let { put("site_name", siteName) }
+        deliTerm?.let { put("deli_term", deliTerm) }
+    }
 }

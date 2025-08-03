@@ -72,17 +72,17 @@ data class NiceV2PaymentBypass(
      */
     val samPayMallType: NiceV2SamPayMallType?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "LogoImage" to logoImage?.let { logoImage },
-        "NPDisableScroll" to npDisableScroll?.let { npDisableScroll.toJson() },
-        "SkinType" to skinType?.let { skinType.toJson() },
-        "UserCI" to userCi?.let { userCi },
-        "MallUserID" to mallUserId?.let { mallUserId },
-        "DirectCouponYN" to directCouponYn?.let { directCouponYn.toJson() },
-        "DirectShowOpt" to directShowOpt?.let { directShowOpt.toJson() },
-        "CardShowOpt" to cardShowOpt?.let { cardShowOpt },
-        "PaycoClientId" to paycoClientId?.let { paycoClientId },
-        "PaycoAccessToken" to paycoAccessToken?.let { paycoAccessToken },
-        "SamPayMallType" to samPayMallType?.let { samPayMallType.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        logoImage?.let { put("LogoImage", logoImage) }
+        npDisableScroll?.let { put("NPDisableScroll", npDisableScroll.toJson()) }
+        skinType?.let { put("SkinType", skinType.toJson()) }
+        userCi?.let { put("UserCI", userCi) }
+        mallUserId?.let { put("MallUserID", mallUserId) }
+        directCouponYn?.let { put("DirectCouponYN", directCouponYn.toJson()) }
+        directShowOpt?.let { put("DirectShowOpt", directShowOpt.toJson()) }
+        cardShowOpt?.let { put("CardShowOpt", cardShowOpt) }
+        paycoClientId?.let { put("PaycoClientId", paycoClientId) }
+        paycoAccessToken?.let { put("PaycoAccessToken", paycoAccessToken) }
+        samPayMallType?.let { put("SamPayMallType", samPayMallType.toJson()) }
+    }
 }

@@ -84,21 +84,21 @@ data class LoadIssueBillingKeyUIRequest(
     val productType: ProductType?,
     val bypass: LoadIssueBillingKeyUIBypass?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "uiType" to uiType.toJson(),
-        "displayAmount" to displayAmount?.let { displayAmount },
-        "currency" to currency?.let { currency.toJson() },
-        "storeId" to storeId,
-        "channelKey" to channelKey,
-        "billingKeyMethod" to billingKeyMethod.toJson(),
-        "issueName" to issueName?.let { issueName },
-        "issueId" to issueId?.let { issueId },
-        "customer" to customer?.let { customer.toJson() },
-        "locale" to locale?.let { locale.toJson() },
-        "customData" to customData?.let { customData },
-        "appScheme" to appScheme?.let { appScheme },
-        "noticeUrls" to noticeUrls?.let { noticeUrls },
-        "productType" to productType?.let { productType.toJson() },
-        "bypass" to bypass?.let { bypass.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        put("uiType", uiType.toJson())
+        displayAmount?.let { put("displayAmount", displayAmount) }
+        currency?.let { put("currency", currency.toJson()) }
+        put("storeId", storeId)
+        put("channelKey", channelKey)
+        put("billingKeyMethod", billingKeyMethod.toJson())
+        issueName?.let { put("issueName", issueName) }
+        issueId?.let { put("issueId", issueId) }
+        customer?.let { put("customer", customer.toJson()) }
+        locale?.let { put("locale", locale.toJson()) }
+        customData?.let { put("customData", customData) }
+        appScheme?.let { put("appScheme", appScheme) }
+        noticeUrls?.let { put("noticeUrls", noticeUrls) }
+        productType?.let { put("productType", productType.toJson()) }
+        bypass?.let { put("bypass", bypass.toJson()) }
+    }
 }

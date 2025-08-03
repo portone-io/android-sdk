@@ -47,13 +47,13 @@ data class EximbayV2Bypass(
      */
     val settings: EximbayV2Settings?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "payment" to payment?.let { payment.toJson() },
-        "merchant" to merchant?.let { merchant.toJson() },
-        "tax" to tax?.let { tax.toJson() },
-        "surcharge" to surcharge?.let { surcharge.map { it.toJson() } },
-        "ship_to" to shipTo?.let { shipTo.toJson() },
-        "bill_to" to billTo?.let { billTo.toJson() },
-        "settings" to settings?.let { settings.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        payment?.let { put("payment", payment.toJson()) }
+        merchant?.let { put("merchant", merchant.toJson()) }
+        tax?.let { put("tax", tax.toJson()) }
+        surcharge?.let { put("surcharge", surcharge.map { it.toJson() }) }
+        shipTo?.let { put("ship_to", shipTo.toJson()) }
+        billTo?.let { put("bill_to", billTo.toJson()) }
+        settings?.let { put("settings", settings.toJson()) }
+    }
 }

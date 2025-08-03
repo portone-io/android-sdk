@@ -99,23 +99,23 @@ data class PaymentBypass(
      */
     val payletterGlobal: PayletterGlobalBypass?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "tosspayments" to tosspayments?.let { tosspayments.toJson() },
-        "ksnet" to ksnet?.let { ksnet.toJson() },
-        "paypal_v2" to paypalV2?.let { paypalV2.toJson() },
-        "kakaopay" to kakaopay?.let { kakaopay.toJson() },
-        "smartro_v2" to smartroV2?.let { smartroV2.toJson() },
-        "naverpay" to naverpay?.let { naverpay.toJson() },
-        "nice_v2" to niceV2?.let { niceV2.toJson() },
-        "toss_brandpay" to tossBrandpay?.let { tossBrandpay.toJson() },
-        "welcome" to welcome?.let { welcome.toJson() },
-        "tosspay_v2" to tosspayV2?.let { tosspayV2.toJson() },
-        "inicis_v2" to inicisV2?.let { inicisV2.toJson() },
-        "kpn" to kpn?.let { kpn.toJson() },
-        "kcp_v2" to kcpV2?.let { kcpV2.toJson() },
-        "hyphen" to hyphen?.let { hyphen.toJson() },
-        "eximbay_v2" to eximbayV2?.let { eximbayV2.toJson() },
-        "inicis_jp" to inicisJp?.let { inicisJp.toJson() },
-        "payletter_global" to payletterGlobal?.let { payletterGlobal.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        tosspayments?.let { put("tosspayments", tosspayments.toJson()) }
+        ksnet?.let { put("ksnet", ksnet.toJson()) }
+        paypalV2?.let { put("paypal_v2", paypalV2.toJson()) }
+        kakaopay?.let { put("kakaopay", kakaopay.toJson()) }
+        smartroV2?.let { put("smartro_v2", smartroV2.toJson()) }
+        naverpay?.let { put("naverpay", naverpay.toJson()) }
+        niceV2?.let { put("nice_v2", niceV2.toJson()) }
+        tossBrandpay?.let { put("toss_brandpay", tossBrandpay.toJson()) }
+        welcome?.let { put("welcome", welcome.toJson()) }
+        tosspayV2?.let { put("tosspay_v2", tosspayV2.toJson()) }
+        inicisV2?.let { put("inicis_v2", inicisV2.toJson()) }
+        kpn?.let { put("kpn", kpn.toJson()) }
+        kcpV2?.let { put("kcp_v2", kcpV2.toJson()) }
+        hyphen?.let { put("hyphen", hyphen.toJson()) }
+        eximbayV2?.let { put("eximbay_v2", eximbayV2.toJson()) }
+        inicisJp?.let { put("inicis_jp", inicisJp.toJson()) }
+        payletterGlobal?.let { put("payletter_global", payletterGlobal.toJson()) }
+    }
 }

@@ -13,7 +13,7 @@ data class EximbayV2Merchant(
      */
     val shop: String
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "shop" to shop
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        put("shop", shop)
+    }
 }

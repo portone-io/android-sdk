@@ -27,8 +27,8 @@ data class PayletterGlobalIssueBillingKeyAndPayBypass(
      */
     val servicename: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "pginfo" to pginfo?.let { pginfo },
-        "servicename" to servicename?.let { servicename }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        pginfo?.let { put("pginfo", pginfo) }
+        servicename?.let { put("servicename", servicename) }
+    }
 }

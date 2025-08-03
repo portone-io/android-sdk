@@ -14,7 +14,7 @@ data class LoadPaymentUIBypass(
      */
     val paypalV2: PaypalV2LoadPaymentUIBypass?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "paypal_v2" to paypalV2?.let { paypalV2.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        paypalV2?.let { put("paypal_v2", paypalV2.toJson()) }
+    }
 }

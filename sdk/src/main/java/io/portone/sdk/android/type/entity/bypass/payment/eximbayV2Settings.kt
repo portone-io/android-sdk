@@ -25,9 +25,9 @@ data class EximbayV2Settings(
      */
     val virtualaccountExpiryDate: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "call_from_app" to callFromApp?.let { callFromApp.toJson() },
-        "issuer_country" to issuerCountry?.let { issuerCountry },
-        "virtualaccount_expiry_date" to virtualaccountExpiryDate?.let { virtualaccountExpiryDate }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        callFromApp?.let { put("call_from_app", callFromApp.toJson()) }
+        issuerCountry?.let { put("issuer_country", issuerCountry) }
+        virtualaccountExpiryDate?.let { put("virtualaccount_expiry_date", virtualaccountExpiryDate) }
+    }
 }

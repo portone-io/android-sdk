@@ -54,13 +54,13 @@ data class IdentityVerificationResponse(
      */
     val pgMessage: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "transactionType" to transactionType,
-        "identityVerificationId" to identityVerificationId,
-        "identityVerificationTxId" to identityVerificationTxId,
-        "code" to code?.let { code },
-        "message" to message?.let { message },
-        "pgCode" to pgCode?.let { pgCode },
-        "pgMessage" to pgMessage?.let { pgMessage }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        put("transactionType", transactionType)
+        put("identityVerificationId", identityVerificationId)
+        put("identityVerificationTxId", identityVerificationTxId)
+        code?.let { put("code", code) }
+        message?.let { put("message", message) }
+        pgCode?.let { put("pgCode", pgCode) }
+        pgMessage?.let { put("pgMessage", pgMessage) }
+    }
 }

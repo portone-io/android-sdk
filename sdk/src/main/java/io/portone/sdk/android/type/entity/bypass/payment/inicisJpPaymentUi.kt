@@ -40,8 +40,8 @@ data class InicisJpPaymentUI(
      */
     val logoUrl: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "colorTheme" to colorTheme?.let { colorTheme },
-        "logoUrl" to logoUrl?.let { logoUrl }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        colorTheme?.let { put("colorTheme", colorTheme) }
+        logoUrl?.let { put("logoUrl", logoUrl) }
+    }
 }

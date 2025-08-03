@@ -17,7 +17,7 @@ data class PaypalV2PurchaseUnitShipping(
      */
     val address: PaypalV2PurchaseUnitShippingAddress?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "address" to address?.let { address.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        address?.let { put("address", address.toJson()) }
+    }
 }

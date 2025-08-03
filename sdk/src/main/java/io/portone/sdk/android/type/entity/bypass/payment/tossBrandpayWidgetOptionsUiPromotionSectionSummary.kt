@@ -13,7 +13,7 @@ data class TossBrandpayWidgetOptionsUiPromotionSectionSummary(
      */
     val visible: Boolean?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "visible" to visible?.let { visible }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        visible?.let { put("visible", visible) }
+    }
 }

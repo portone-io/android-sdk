@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 data class PaypalV2PaymentSourcePaypal(
     val experienceContext: PaypalV2PaymentSourcePaypalExperienceContext?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "experience_context" to experienceContext?.let { experienceContext.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        experienceContext?.let { put("experience_context", experienceContext.toJson()) }
+    }
 }

@@ -16,7 +16,7 @@ data class Iframe(
      */
     val dim: Boolean?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "dim" to dim?.let { dim }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        dim?.let { put("dim", dim) }
+    }
 }

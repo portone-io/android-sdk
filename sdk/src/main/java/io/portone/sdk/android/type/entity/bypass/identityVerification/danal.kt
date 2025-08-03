@@ -37,9 +37,9 @@ data class DanalIdentityVerificationBypass(
      */
     val isCarrier: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "CPTITLE" to cptitle?.let { cptitle },
-        "AGELIMIT" to agelimit?.let { agelimit },
-        "IsCarrier" to isCarrier?.let { isCarrier }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        cptitle?.let { put("CPTITLE", cptitle) }
+        agelimit?.let { put("AGELIMIT", agelimit) }
+        isCarrier?.let { put("IsCarrier", isCarrier) }
+    }
 }

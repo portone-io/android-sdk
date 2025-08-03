@@ -24,9 +24,9 @@ data class IssueBillingKeyAndPayBypass(
      */
     val eximbayV2: EximbayV2IssueBillingKeyAndPayBypass?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "welcome" to welcome?.let { welcome.toJson() },
-        "payletter_global" to payletterGlobal?.let { payletterGlobal.toJson() },
-        "eximbay_v2" to eximbayV2?.let { eximbayV2.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        welcome?.let { put("welcome", welcome.toJson()) }
+        payletterGlobal?.let { put("payletter_global", payletterGlobal.toJson()) }
+        eximbayV2?.let { put("eximbay_v2", eximbayV2.toJson()) }
+    }
 }

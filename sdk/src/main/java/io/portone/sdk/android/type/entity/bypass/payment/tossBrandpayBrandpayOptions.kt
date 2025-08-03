@@ -14,7 +14,7 @@ import kotlinx.parcelize.Parcelize
 data class TossBrandpayBrandpayOptions(
     val ui: TossBrandpayBrandpayOptionsUi?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "ui" to ui?.let { ui.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        ui?.let { put("ui", ui.toJson()) }
+    }
 }

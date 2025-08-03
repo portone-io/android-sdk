@@ -113,15 +113,15 @@ data class PaymentRequestUnionEasyPay(
      */
     val useInstallment: Boolean?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "easyPayProvider" to easyPayProvider?.let { easyPayProvider.toJson() },
-        "useFreeInterestFromMall" to useFreeInterestFromMall?.let { useFreeInterestFromMall },
-        "availableCards" to availableCards?.let { availableCards.map { it.toJson() } },
-        "installment" to installment?.let { installment.toJson() },
-        "cashReceiptType" to cashReceiptType?.let { cashReceiptType.toJson() },
-        "customerIdentifier" to customerIdentifier?.let { customerIdentifier },
-        "useCardPoint" to useCardPoint?.let { useCardPoint },
-        "availablePayMethods" to availablePayMethods?.let { availablePayMethods.map { it.toJson() } },
-        "useInstallment" to useInstallment?.let { useInstallment }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        easyPayProvider?.let { put("easyPayProvider", easyPayProvider.toJson()) }
+        useFreeInterestFromMall?.let { put("useFreeInterestFromMall", useFreeInterestFromMall) }
+        availableCards?.let { put("availableCards", availableCards.map { it.toJson() }) }
+        installment?.let { put("installment", installment.toJson()) }
+        cashReceiptType?.let { put("cashReceiptType", cashReceiptType.toJson()) }
+        customerIdentifier?.let { put("customerIdentifier", customerIdentifier) }
+        useCardPoint?.let { put("useCardPoint", useCardPoint) }
+        availablePayMethods?.let { put("availablePayMethods", availablePayMethods.map { it.toJson() }) }
+        useInstallment?.let { put("useInstallment", useInstallment) }
+    }
 }

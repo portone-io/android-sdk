@@ -20,8 +20,8 @@ data class StoreDetailsOpeningHours(
      */
     val close: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "open" to `open`?.let { `open` },
-        "close" to close?.let { close }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        `open`?.let { put("open", `open`) }
+        close?.let { put("close", close) }
+    }
 }

@@ -25,8 +25,8 @@ data class TosspayV2PaymentBypass(
      */
     val cashReceiptTradeOption: TosspayV2CashReceiptTradeOption?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "expiredTime" to expiredTime?.let { expiredTime },
-        "cashReceiptTradeOption" to cashReceiptTradeOption?.let { cashReceiptTradeOption.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        expiredTime?.let { put("expiredTime", expiredTime) }
+        cashReceiptTradeOption?.let { put("cashReceiptTradeOption", cashReceiptTradeOption.toJson()) }
+    }
 }

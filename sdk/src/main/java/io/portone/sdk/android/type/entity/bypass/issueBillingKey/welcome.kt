@@ -20,8 +20,8 @@ data class WelcomeIssueBillingKeyBypass(
      */
     val logo2Nd: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "logo_url" to logoUrl?.let { logoUrl },
-        "logo_2nd" to logo2Nd?.let { logo2Nd }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        logoUrl?.let { put("logo_url", logoUrl) }
+        logo2Nd?.let { put("logo_2nd", logo2Nd) }
+    }
 }

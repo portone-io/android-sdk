@@ -30,9 +30,9 @@ data class SmartroV2PaymentBypass(
      */
     val openType: SmartroV2OpenType?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "GoodsCnt" to goodsCnt?.let { goodsCnt },
-        "SkinColor" to skinColor?.let { skinColor.toJson() },
-        "OpenType" to openType?.let { openType.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        goodsCnt?.let { put("GoodsCnt", goodsCnt) }
+        skinColor?.let { put("SkinColor", skinColor.toJson()) }
+        openType?.let { put("OpenType", openType.toJson()) }
+    }
 }

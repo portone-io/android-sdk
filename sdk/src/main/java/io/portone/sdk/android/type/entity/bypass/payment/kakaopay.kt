@@ -16,7 +16,7 @@ data class KakaopayPaymentBypass(
      */
     val customMessage: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "custom_message" to customMessage?.let { customMessage }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        customMessage?.let { put("custom_message", customMessage) }
+    }
 }

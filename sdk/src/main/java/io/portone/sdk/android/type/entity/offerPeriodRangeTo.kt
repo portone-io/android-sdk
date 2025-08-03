@@ -17,7 +17,7 @@ data class OfferPeriodRangeTo(
      */
     val to: String
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "to" to to
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        put("to", to)
+    }
 }

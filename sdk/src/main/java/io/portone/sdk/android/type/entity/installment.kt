@@ -87,8 +87,8 @@ data class Installment(
      */
     val monthOption: InstallmentMonthOption?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "freeInstallmentPlans" to freeInstallmentPlans?.let { freeInstallmentPlans.map { it.toJson() } },
-        "monthOption" to monthOption?.let { monthOption.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        freeInstallmentPlans?.let { put("freeInstallmentPlans", freeInstallmentPlans.map { it.toJson() }) }
+        monthOption?.let { put("monthOption", monthOption.toJson()) }
+    }
 }

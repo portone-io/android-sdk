@@ -44,14 +44,14 @@ data class EximbayV2BillTo(
      */
     val street1: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "city" to city?.let { city },
-        "country" to country?.let { country },
-        "first_name" to firstName?.let { firstName },
-        "last_name" to lastName?.let { lastName },
-        "phone_number" to phoneNumber?.let { phoneNumber },
-        "postal_code" to postalCode?.let { postalCode },
-        "state" to state?.let { state },
-        "street1" to street1?.let { street1 }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        city?.let { put("city", city) }
+        country?.let { put("country", country) }
+        firstName?.let { put("first_name", firstName) }
+        lastName?.let { put("last_name", lastName) }
+        phoneNumber?.let { put("phone_number", phoneNumber) }
+        postalCode?.let { put("postal_code", postalCode) }
+        state?.let { put("state", state) }
+        street1?.let { put("street1", street1) }
+    }
 }

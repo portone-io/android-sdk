@@ -60,8 +60,8 @@ data class WelcomeIssueBillingKeyAndPayBypass(
      */
     val pReserved: List<String>?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "acceptmethod" to acceptmethod?.let { acceptmethod },
-        "P_RESERVED" to pReserved?.let { pReserved }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        acceptmethod?.let { put("acceptmethod", acceptmethod) }
+        pReserved?.let { put("P_RESERVED", pReserved) }
+    }
 }

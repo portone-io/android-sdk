@@ -16,7 +16,7 @@ data class TosspayV2IssueBillingKeyBypass(
      */
     val encryptedUserCi: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "encryptedUserCi" to encryptedUserCi?.let { encryptedUserCi }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        encryptedUserCi?.let { put("encryptedUserCi", encryptedUserCi) }
+    }
 }

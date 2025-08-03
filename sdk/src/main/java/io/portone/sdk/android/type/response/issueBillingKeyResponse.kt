@@ -46,12 +46,12 @@ data class IssueBillingKeyResponse(
      */
     val pgMessage: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "transactionType" to transactionType,
-        "billingKey" to billingKey,
-        "code" to code?.let { code },
-        "message" to message?.let { message },
-        "pgCode" to pgCode?.let { pgCode },
-        "pgMessage" to pgMessage?.let { pgMessage }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        put("transactionType", transactionType)
+        put("billingKey", billingKey)
+        code?.let { put("code", code) }
+        message?.let { put("message", message) }
+        pgCode?.let { put("pgCode", pgCode) }
+        pgMessage?.let { put("pgMessage", pgMessage) }
+    }
 }

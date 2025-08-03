@@ -22,8 +22,8 @@ data class SmartroV2IssueBillingKeyBypass(
      */
     val isPwdPass: SmartroV2IsPwdPass?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "SkinColor" to skinColor?.let { skinColor.toJson() },
-        "IsPwdPass" to isPwdPass?.let { isPwdPass.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        skinColor?.let { put("SkinColor", skinColor.toJson()) }
+        isPwdPass?.let { put("IsPwdPass", isPwdPass.toJson()) }
+    }
 }

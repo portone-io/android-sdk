@@ -20,8 +20,8 @@ data class TosspaymentsPaymentBypass(
      */
     val useInternationalCardOnly: Boolean?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "discountCode" to discountCode?.let { discountCode },
-        "useInternationalCardOnly" to useInternationalCardOnly?.let { useInternationalCardOnly }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        discountCode?.let { put("discountCode", discountCode) }
+        useInternationalCardOnly?.let { put("useInternationalCardOnly", useInternationalCardOnly) }
+    }
 }

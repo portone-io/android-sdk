@@ -17,8 +17,8 @@ data class TossBrandpayBrandpayOptionsUiNavigationBar(
      */
     val paddingTop: Long?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "visible" to visible?.let { visible },
-        "paddingTop" to paddingTop?.let { paddingTop }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        visible?.let { put("visible", visible) }
+        paddingTop?.let { put("paddingTop", paddingTop) }
+    }
 }

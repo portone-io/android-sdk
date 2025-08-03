@@ -21,9 +21,9 @@ data class IssueBillingKeyRequestUnionEasyPay(
      */
     val availablePayMethods: List<EasyPayPaymentMethod>?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "availableCards" to availableCards?.let { availableCards.map { it.toJson() } },
-        "easyPayProvider" to easyPayProvider?.let { easyPayProvider.toJson() },
-        "availablePayMethods" to availablePayMethods?.let { availablePayMethods.map { it.toJson() } }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        availableCards?.let { put("availableCards", availableCards.map { it.toJson() }) }
+        easyPayProvider?.let { put("easyPayProvider", easyPayProvider.toJson()) }
+        availablePayMethods?.let { put("availablePayMethods", availablePayMethods.map { it.toJson() }) }
+    }
 }

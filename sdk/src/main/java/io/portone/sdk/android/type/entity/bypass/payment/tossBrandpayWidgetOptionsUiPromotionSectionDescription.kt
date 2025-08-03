@@ -17,8 +17,8 @@ data class TossBrandpayWidgetOptionsUiPromotionSectionDescription(
      */
     val defaultOpen: Boolean?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "visible" to visible?.let { visible },
-        "defaultOpen" to defaultOpen?.let { defaultOpen }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        visible?.let { put("visible", visible) }
+        defaultOpen?.let { put("defaultOpen", defaultOpen) }
+    }
 }

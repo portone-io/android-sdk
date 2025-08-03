@@ -34,11 +34,11 @@ data class EximbayV2IssueBillingKeyAndPayBypass(
      */
     val billTo: EximbayV2BillTo?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "payment" to payment?.let { payment.toJson() },
-        "merchant" to merchant?.let { merchant.toJson() },
-        "surcharge" to surcharge?.let { surcharge.map { it.toJson() } },
-        "shipTo" to shipTo?.let { shipTo.toJson() },
-        "billTo" to billTo?.let { billTo.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        payment?.let { put("payment", payment.toJson()) }
+        merchant?.let { put("merchant", merchant.toJson()) }
+        surcharge?.let { put("surcharge", surcharge.map { it.toJson() }) }
+        shipTo?.let { put("shipTo", shipTo.toJson()) }
+        billTo?.let { put("billTo", billTo.toJson()) }
+    }
 }

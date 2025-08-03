@@ -46,15 +46,15 @@ data class NaverpayProductItem(
      */
     val count: Long
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "categoryType" to categoryType,
-        "categoryId" to categoryId,
-        "uid" to uid,
-        "name" to name,
-        "payReferrer" to payReferrer?.let { payReferrer.toJson() },
-        "startDate" to startDate?.let { startDate },
-        "endDate" to endDate?.let { endDate },
-        "sellerId" to sellerId?.let { sellerId },
-        "count" to count
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        put("categoryType", categoryType)
+        put("categoryId", categoryId)
+        put("uid", uid)
+        put("name", name)
+        payReferrer?.let { put("payReferrer", payReferrer.toJson()) }
+        startDate?.let { put("startDate", startDate) }
+        endDate?.let { put("endDate", endDate) }
+        sellerId?.let { put("sellerId", sellerId) }
+        put("count", count)
+    }
 }

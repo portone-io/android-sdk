@@ -10,11 +10,17 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonDecoder
 import kotlinx.serialization.json.JsonEncoder
 import kotlinx.serialization.json.JsonUnquotedLiteral
+import org.json.JSONObject
 
 val encodingformat = Json {
     explicitNulls = false
     encodeDefaults = true
     ignoreUnknownKeys = true
+}
+
+// Map을 JSON 문자열로 변환하는 확장 함수
+fun Map<String, Any?>.toJsonString(): String {
+    return JSONObject(this).toString()
 }
 
 internal object RawJsonStringSerializer : KSerializer<String> {

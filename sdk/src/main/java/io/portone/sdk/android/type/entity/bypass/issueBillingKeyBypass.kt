@@ -44,13 +44,13 @@ data class IssueBillingKeyBypass(
      */
     val kcpV2: KcpV2IssueBillingKeyBypass?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "kakaopay" to kakaopay?.let { kakaopay.toJson() },
-        "smartro_v2" to smartroV2?.let { smartroV2.toJson() },
-        "naverpay" to naverpay?.let { naverpay.toJson() },
-        "welcome" to welcome?.let { welcome.toJson() },
-        "tosspay_v2" to tosspayV2?.let { tosspayV2.toJson() },
-        "inicis_v2" to inicisV2?.let { inicisV2.toJson() },
-        "kcp_v2" to kcpV2?.let { kcpV2.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        kakaopay?.let { put("kakaopay", kakaopay.toJson()) }
+        smartroV2?.let { put("smartro_v2", smartroV2.toJson()) }
+        naverpay?.let { put("naverpay", naverpay.toJson()) }
+        welcome?.let { put("welcome", welcome.toJson()) }
+        tosspayV2?.let { put("tosspay_v2", tosspayV2.toJson()) }
+        inicisV2?.let { put("inicis_v2", inicisV2.toJson()) }
+        kcpV2?.let { put("kcp_v2", kcpV2.toJson()) }
+    }
 }

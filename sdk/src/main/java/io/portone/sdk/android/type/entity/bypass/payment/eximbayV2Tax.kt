@@ -17,7 +17,7 @@ data class EximbayV2Tax(
      */
     val receiptStatus: EximbayV2TaxReceiptStatus?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "receipt_status" to receiptStatus?.let { receiptStatus.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        receiptStatus?.let { put("receipt_status", receiptStatus.toJson()) }
+    }
 }

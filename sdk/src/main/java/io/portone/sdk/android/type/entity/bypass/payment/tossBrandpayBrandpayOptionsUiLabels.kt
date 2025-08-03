@@ -13,7 +13,7 @@ data class TossBrandpayBrandpayOptionsUiLabels(
      */
     val oneTouchPay: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "oneTouchPay" to oneTouchPay?.let { oneTouchPay }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        oneTouchPay?.let { put("oneTouchPay", oneTouchPay) }
+    }
 }

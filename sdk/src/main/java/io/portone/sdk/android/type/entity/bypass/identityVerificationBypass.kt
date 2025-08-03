@@ -27,9 +27,9 @@ data class IdentityVerificationBypass(
      */
     val kcpV2: KcpV2IdentityVerificationBypass?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "danal" to danal?.let { danal.toJson() },
-        "inicisUnified" to inicisUnified?.let { inicisUnified.toJson() },
-        "kcpV2" to kcpV2?.let { kcpV2.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        danal?.let { put("danal", danal.toJson()) }
+        inicisUnified?.let { put("inicisUnified", inicisUnified.toJson()) }
+        kcpV2?.let { put("kcpV2", kcpV2.toJson()) }
+    }
 }

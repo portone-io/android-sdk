@@ -49,11 +49,11 @@ data class InicisUnifiedIdentityVerificationBypass(
      */
     val frgndInfo: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "directAgency" to directAgency?.let { directAgency.toJson() },
-        "flgFixedUser" to flgFixedUser.toJson(),
-        "logoUrl" to logoUrl?.let { logoUrl },
-        "DI_CODE" to diCode?.let { diCode },
-        "FRGNDInfo" to frgndInfo?.let { frgndInfo }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        directAgency?.let { put("directAgency", directAgency.toJson()) }
+        put("flgFixedUser", flgFixedUser.toJson())
+        logoUrl?.let { put("logoUrl", logoUrl) }
+        diCode?.let { put("DI_CODE", diCode) }
+        frgndInfo?.let { put("FRGNDInfo", frgndInfo) }
+    }
 }

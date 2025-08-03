@@ -47,8 +47,8 @@ data class FreeInstallmentPlan(
      */
     val months: List<Long>
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "cardCompany" to cardCompany.toJson(),
-        "months" to months
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        put("cardCompany", cardCompany.toJson())
+        put("months", months)
+    }
 }

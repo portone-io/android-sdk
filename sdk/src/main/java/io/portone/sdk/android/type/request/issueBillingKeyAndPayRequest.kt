@@ -202,31 +202,31 @@ data class IssueBillingKeyAndPayRequest(
     val iframe: Iframe?,
     val mobile: IssueBillingKeyAndPayRequestUnionMobile?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "storeId" to storeId,
-        "paymentId" to paymentId,
-        "orderName" to orderName,
-        "totalAmount" to totalAmount,
-        "currency" to currency.toJson(),
-        "channelKey" to channelKey?.let { channelKey },
-        "billingKeyAndPayMethod" to billingKeyAndPayMethod.toJson(),
-        "taxFreeAmount" to taxFreeAmount?.let { taxFreeAmount },
-        "vatAmount" to vatAmount?.let { vatAmount },
-        "customer" to customer?.let { customer.toJson() },
-        "products" to products?.let { products.map { it.toJson() } },
-        "windowType" to windowType?.let { windowType.toJson() },
-        "noticeUrls" to noticeUrls?.let { noticeUrls },
-        "locale" to locale?.let { locale.toJson() },
-        "isCulturalExpense" to isCulturalExpense?.let { isCulturalExpense },
-        "customData" to customData?.let { customData },
-        "offerPeriod" to offerPeriod?.let { offerPeriod.toJson() },
-        "appScheme" to appScheme?.let { appScheme },
-        "productType" to productType?.let { productType.toJson() },
-        "storeDetails" to storeDetails?.let { storeDetails.toJson() },
-        "country" to country?.let { country.toJson() },
-        "bypass" to bypass?.let { bypass.toJson() },
-        "popup" to popup?.let { popup.toJson() },
-        "iframe" to iframe?.let { iframe.toJson() },
-        "mobile" to mobile?.let { mobile.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        put("storeId", storeId)
+        put("paymentId", paymentId)
+        put("orderName", orderName)
+        put("totalAmount", totalAmount)
+        put("currency", currency.toJson())
+        channelKey?.let { put("channelKey", channelKey) }
+        put("billingKeyAndPayMethod", billingKeyAndPayMethod.toJson())
+        taxFreeAmount?.let { put("taxFreeAmount", taxFreeAmount) }
+        vatAmount?.let { put("vatAmount", vatAmount) }
+        customer?.let { put("customer", customer.toJson()) }
+        products?.let { put("products", products.map { it.toJson() }) }
+        windowType?.let { put("windowType", windowType.toJson()) }
+        noticeUrls?.let { put("noticeUrls", noticeUrls) }
+        locale?.let { put("locale", locale.toJson()) }
+        isCulturalExpense?.let { put("isCulturalExpense", isCulturalExpense) }
+        customData?.let { put("customData", customData) }
+        offerPeriod?.let { put("offerPeriod", offerPeriod.toJson()) }
+        appScheme?.let { put("appScheme", appScheme) }
+        productType?.let { put("productType", productType.toJson()) }
+        storeDetails?.let { put("storeDetails", storeDetails.toJson()) }
+        country?.let { put("country", country.toJson()) }
+        bypass?.let { put("bypass", bypass.toJson()) }
+        popup?.let { put("popup", popup.toJson()) }
+        iframe?.let { put("iframe", iframe.toJson()) }
+        mobile?.let { put("mobile", mobile.toJson()) }
+    }
 }

@@ -19,7 +19,7 @@ data class Popup(
      */
     val center: Boolean?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "center" to center?.let { center }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        center?.let { put("center", center) }
+    }
 }

@@ -23,9 +23,9 @@ data class TossBrandpayWidgetOptions(
     val methodId: String?,
     val ui: TossBrandpayWidgetOptionsUi?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "methodType" to methodType?.let { methodType.toJson() },
-        "methodId" to methodId?.let { methodId },
-        "ui" to ui?.let { ui.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        methodType?.let { put("methodType", methodType.toJson()) }
+        methodId?.let { put("methodId", methodId) }
+        ui?.let { put("ui", ui.toJson()) }
+    }
 }

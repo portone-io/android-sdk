@@ -48,12 +48,12 @@ data class PaymentRequestUnionVirtualAccount(
      */
     val availableBanks: List<Bank>?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "cashReceiptType" to cashReceiptType?.let { cashReceiptType.toJson() },
-        "customerIdentifier" to customerIdentifier?.let { customerIdentifier },
-        "fixedOption" to fixedOption?.let { fixedOption.toJson() },
-        "bankCode" to bankCode?.let { bankCode.toJson() },
-        "accountExpiry" to accountExpiry?.let { accountExpiry.toJson() },
-        "availableBanks" to availableBanks?.let { availableBanks.map { it.toJson() } }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        cashReceiptType?.let { put("cashReceiptType", cashReceiptType.toJson()) }
+        customerIdentifier?.let { put("customerIdentifier", customerIdentifier) }
+        fixedOption?.let { put("fixedOption", fixedOption.toJson()) }
+        bankCode?.let { put("bankCode", bankCode.toJson()) }
+        accountExpiry?.let { put("accountExpiry", accountExpiry.toJson()) }
+        availableBanks?.let { put("availableBanks", availableBanks.map { it.toJson() }) }
+    }
 }

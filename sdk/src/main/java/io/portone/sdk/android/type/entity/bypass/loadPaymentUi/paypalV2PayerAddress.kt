@@ -27,12 +27,12 @@ data class PaypalV2PayerAddress(
      */
     val countryCode: Country
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "address_line_1" to addressLine1?.let { addressLine1 },
-        "address_line_2" to addressLine2?.let { addressLine2 },
-        "admin_area_1" to adminArea1?.let { adminArea1 },
-        "admin_area_2" to adminArea2?.let { adminArea2 },
-        "postal_code" to postalCode?.let { postalCode },
-        "country_code" to countryCode.toJson()
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        addressLine1?.let { put("address_line_1", addressLine1) }
+        addressLine2?.let { put("address_line_2", addressLine2) }
+        adminArea1?.let { put("admin_area_1", adminArea1) }
+        adminArea2?.let { put("admin_area_2", adminArea2) }
+        postalCode?.let { put("postal_code", postalCode) }
+        put("country_code", countryCode.toJson())
+    }
 }

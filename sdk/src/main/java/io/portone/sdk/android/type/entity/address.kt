@@ -35,11 +35,11 @@ data class Address(
      */
     val province: String?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "country" to country?.let { country.toJson() },
-        "addressLine1" to addressLine1,
-        "addressLine2" to addressLine2,
-        "city" to city?.let { city },
-        "province" to province?.let { province }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        country?.let { put("country", country.toJson()) }
+        put("addressLine1", addressLine1)
+        put("addressLine2", addressLine2)
+        city?.let { put("city", city) }
+        province?.let { put("province", province) }
+    }
 }

@@ -28,9 +28,9 @@ data class PaymentRequestUnionTransfer(
      */
     val bankCode: Bank?
 ) : Parcelable {
-    fun toJson(): Map<String, Any?> = mapOf(
-        "cashReceiptType" to cashReceiptType?.let { cashReceiptType.toJson() },
-        "customerIdentifier" to customerIdentifier?.let { customerIdentifier },
-        "bankCode" to bankCode?.let { bankCode.toJson() }
-    )
+    fun toJson(): Map<String, Any> = buildMap {
+        cashReceiptType?.let { put("cashReceiptType", cashReceiptType.toJson()) }
+        customerIdentifier?.let { put("customerIdentifier", customerIdentifier) }
+        bankCode?.let { put("bankCode", bankCode.toJson()) }
+    }
 }

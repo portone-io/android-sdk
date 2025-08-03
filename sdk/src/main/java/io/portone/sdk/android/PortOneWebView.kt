@@ -21,7 +21,6 @@ import io.portone.sdk.android.issuebillingkeyui.LoadIssueBillingKeyUIJavascriptI
 import io.portone.sdk.android.payment.PaymentCallback
 import io.portone.sdk.android.payment.PaymentJavascriptInterface
 import io.portone.sdk.android.paymentui.LoadPaymentUIJavascriptInterface
-import kotlinx.serialization.encodeToString
 import java.net.URISyntaxException
 import io.portone.sdk.android.type.response.IdentityVerificationResponse
 import io.portone.sdk.android.type.request.IdentityVerificationRequest

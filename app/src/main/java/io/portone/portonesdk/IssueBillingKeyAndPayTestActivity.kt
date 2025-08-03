@@ -27,7 +27,6 @@ import io.portone.sdk.android.type.entity.EasyPayProvider
 import io.portone.sdk.android.type.entity.Gender
 import io.portone.sdk.android.type.entity.GiftCertificateType
 
-import kotlinx.serialization.json.Json
 import java.time.Instant
 import java.util.UUID
 

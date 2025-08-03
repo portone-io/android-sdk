@@ -18,7 +18,6 @@ import io.portone.sdk.android.type.entity.Currency
 import io.portone.sdk.android.type.entity.Customer
 import io.portone.sdk.android.type.entity.Gender
 import io.portone.sdk.android.type.entity.PaymentPayMethod
-import kotlinx.serialization.json.Json
 
 class IdentityVerificationTestActivity : BaseActivity<ActivityIdentityVerificationTestBinding>() {
     private val identityVerificationActivityResultLauncher =

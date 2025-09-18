@@ -8,12 +8,15 @@ import androidx.appcompat.app.AppCompatActivity
 import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.PortOneWebView
 import io.portone.sdk.android.R
+import io.portone.sdk.android.util.applyInsets
 
 @SuppressLint("SetJavaScriptEnabled")
 class PaymentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
+        applyInsets(findViewById(R.id.main))
+
         val paymentRequest = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(PortOne.REQUEST, PaymentRequest::class.java)
         } else {

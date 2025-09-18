@@ -9,11 +9,14 @@ import io.portone.sdk.android.PortOneWebView
 import io.portone.sdk.android.R
 import io.portone.sdk.android.issuebillingkey.IssueBillingKeyCallback
 import io.portone.sdk.android.issuebillingkey.IssueBillingKeyResponse
+import io.portone.sdk.android.util.applyInsets
 
 class LoadIssueBillingKeyUIActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_load_issue_billing_key_ui_activity)
+        applyInsets(findViewById(R.id.main))
+
         val loadIssueBillingKeyUIRequest = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(PortOne.REQUEST, LoadIssueBillingKeyUIRequest::class.java)
         } else {

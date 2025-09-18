@@ -7,17 +7,19 @@ import androidx.appcompat.app.AppCompatActivity
 import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.PortOneWebView
 import io.portone.sdk.android.R
+import io.portone.sdk.android.util.applyInsets
 
 class IdentityVerificationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_identity_verification)
-        val identityVerificationRequest = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(PortOne.REQUEST, IdentityVerificationRequest::class.java)
-        } else {
-            intent.getParcelableExtra(PortOne.REQUEST)
-
-        }
+        applyInsets(findViewById(R.id.main))
+        val identityVerificationRequest =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getParcelableExtra(PortOne.REQUEST, IdentityVerificationRequest::class.java)
+            } else {
+                intent.getParcelableExtra(PortOne.REQUEST)
+            }
         val webView = findViewById<PortOneWebView>(R.id.web_view_identity_verification)
         if (identityVerificationRequest != null) {
             webView.requestIdentityVerification(

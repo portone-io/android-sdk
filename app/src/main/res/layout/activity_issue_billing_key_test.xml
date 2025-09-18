@@ -24,7 +24,7 @@
             android:paddingTop="5dp"
             android:paddingEnd="10dp"
             android:paddingBottom="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/et_layout_payment_id"
+            app:layout_constraintBottom_toTopOf="@+id/et_layout_issue_id"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"

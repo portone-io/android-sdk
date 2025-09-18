@@ -10,7 +10,6 @@ import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.webkit.WebViewAssetLoader
 import io.portone.sdk.android.identityverification.IdentityVerificationCallback
 import io.portone.sdk.android.identityverification.IdentityVerificationJavascriptInterface
@@ -89,7 +88,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                             true
                         }
 
-                        "intent" -> {
+                        "intent", "nidlogin" -> {
                             view.context.startSchemeIntent(url.toString())
                         }
 
@@ -173,7 +172,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                             true
                         }
 
-                        "intent" -> {
+                        "intent", "nidlogin" -> {
                             view.context.startSchemeIntent(url.toString())
                         }
 
@@ -267,7 +266,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                             true
                         }
 
-                        "intent" -> {
+                        "intent", "nidlogin" -> {
                             view.context.startSchemeIntent(url.toString())
                         }
 
@@ -354,7 +353,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                             true
                         }
 
-                        "intent" -> {
+                        "intent", "nidlogin" -> {
                             view.context.startSchemeIntent(url.toString())
                         }
 
@@ -437,7 +436,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 val shouldOverride = if (request.url != null) {
                     val url = request.url
                     when (url.scheme) {
-                        "intent" -> {
+                        "intent", "nidlogin" -> {
                             view.context.startSchemeIntent(url.toString())
                         }
 
@@ -533,7 +532,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 val shouldOverride = if (request.url != null) {
                     val url = request.url
                     when (url.scheme) {
-                        "intent" -> {
+                        "intent", "nidlogin" -> {
                             view.context.startSchemeIntent(url.toString())
                         }
 

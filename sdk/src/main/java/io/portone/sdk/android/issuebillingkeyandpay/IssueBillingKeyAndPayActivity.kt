@@ -7,11 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.PortOneWebView
 import io.portone.sdk.android.R
+import io.portone.sdk.android.util.applyInsets
 
 class IssueBillingKeyAndPayActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_issue_billing_key_and_pay)
+        applyInsets(findViewById(R.id.main))
         val issueBillingKeyAndPayRequest = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(PortOne.REQUEST, IssueBillingKeyAndPayRequest::class.java)
         } else {

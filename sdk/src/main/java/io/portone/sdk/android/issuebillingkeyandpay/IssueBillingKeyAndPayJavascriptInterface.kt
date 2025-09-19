@@ -7,6 +7,8 @@ interface IssueBillingKeyAndPayJavascriptInterface {
         paymentId: String?,
         billingKey: String?,
         code: String,
-        message: String
+        message: String,
+        pgCode: String?,
+        pgMessage: String?,
     )
 }

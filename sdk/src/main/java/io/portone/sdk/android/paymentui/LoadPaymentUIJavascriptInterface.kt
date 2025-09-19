@@ -7,7 +7,10 @@ interface LoadPaymentUIJavascriptInterface {
         paymentId: String?,
         code: String,
         message: String,
+        pgCode: String?,
+        pgMessage: String?,
     )
+
     fun success(
         transactionType: String,
         txId: String,

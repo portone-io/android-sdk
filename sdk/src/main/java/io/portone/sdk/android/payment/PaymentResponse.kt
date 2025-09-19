@@ -14,6 +14,8 @@ sealed interface PaymentResponse : Parcelable {
         val paymentId: String?,
         val code: String,
         val message: String,
+        val pgCode: String?,
+        val pgMessage: String?,
     ): PaymentResponse
     @Parcelize
     data class Success(
@@ -28,5 +30,7 @@ sealed interface PaymentResponse : Parcelable {
         const val PAYMENT_ID = "paymentId"
         const val CODE = "code"
         const val MESSAGE = "message"
+        const val PG_CODE = "pgCode"
+        const val PG_MESSAGE = "pgMessage"
     }
 }

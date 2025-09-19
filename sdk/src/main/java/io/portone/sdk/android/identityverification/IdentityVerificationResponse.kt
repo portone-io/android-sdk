@@ -13,6 +13,8 @@ sealed interface IdentityVerificationResponse : Parcelable {
         val identityVerificationTxId: String?,
         val code: String,
         val message: String,
+        val pgCode: String?,
+        val pgMessage: String?,
     ) : IdentityVerificationResponse
 
     @Parcelize
@@ -28,5 +30,7 @@ sealed interface IdentityVerificationResponse : Parcelable {
         const val IDENTITY_VERIFICATION_TX_ID = "identityVerificationTxId"
         const val CODE = "code"
         const val MESSAGE = "message"
+        const val PG_CODE = "pgCode"
+        const val PG_MESSAGE = "pgMessage"
     }
 }

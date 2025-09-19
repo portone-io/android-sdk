@@ -119,14 +119,18 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 txId: String?,
                 paymentId: String?,
                 code: String,
-                message: String
+                message: String,
+                pgCode: String?,
+                pgMessage: String?,
             ) {
                 val fail = PaymentResponse.Fail(
                     transactionType?.let { TransactionType.valueOf(it) },
                     txId,
                     paymentId,
                     code,
-                    message
+                    message,
+                    pgCode,
+                    pgMessage,
                 )
                 paymentCallback.onFail(fail)
             }
@@ -192,9 +196,12 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                         else -> {
                             // 삼성카드 백신 앱 onestore 대응
                             val requestedUrl = url.toString()
-                            if (requestedUrl.startsWith("https://m.onestore") || requestedUrl.startsWith("https://onesto.re")) {
+                            if (requestedUrl.startsWith("https://m.onestore") || requestedUrl.startsWith(
+                                    "https://onesto.re"
+                                )
+                            ) {
                                 context.startActivity(Intent(Intent.ACTION_VIEW, url))
-                                 true
+                                true
                             } else {
                                 false
                             }
@@ -214,13 +221,17 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 transactionType: String?,
                 billingKey: String?,
                 code: String,
-                message: String
+                message: String,
+                pgCode: String?,
+                pgMessage: String?
             ) {
                 val fail = IssueBillingKeyResponse.Fail(
                     transactionType?.let { TransactionType.valueOf(it) },
                     billingKey,
                     code,
-                    message
+                    message,
+                    pgCode,
+                    pgMessage,
                 )
                 issueBillingKeyCallback.onFail(fail)
             }
@@ -301,13 +312,17 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 transactionType: String?,
                 identityVerificationTxId: String?,
                 code: String,
-                message: String
+                message: String,
+                pgCode: String?,
+                pgMessage: String?
             ) {
                 val fail = IdentityVerificationResponse.Fail(
                     transactionType?.let { TransactionType.valueOf(it) },
                     identityVerificationTxId,
                     code,
-                    message
+                    message,
+                    pgCode,
+                    pgMessage,
                 )
                 identityVerificationCallback.onFail(fail)
             }
@@ -390,7 +405,9 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 paymentId: String?,
                 billingKey: String?,
                 code: String,
-                message: String
+                message: String,
+                pgCode: String?,
+                pgMessage: String?
             ) {
                 val fail = IssueBillingKeyAndPayResponse.Fail(
                     transactionType?.let { TransactionType.valueOf(it) },
@@ -398,7 +415,9 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                     paymentId,
                     billingKey,
                     code,
-                    message
+                    message,
+                    pgCode,
+                    pgMessage
                 )
                 issueBillingKeyAndPayCallback.onFail(fail)
             }
@@ -472,14 +491,18 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 txId: String?,
                 paymentId: String?,
                 code: String,
-                message: String
+                message: String,
+                pgCode: String?,
+                pgMessage: String?,
             ) {
                 val fail = PaymentResponse.Fail(
                     transactionType?.let { TransactionType.valueOf(it) },
                     txId,
                     paymentId,
                     code,
-                    message
+                    message,
+                    pgCode,
+                    pgMessage,
                 )
                 paymentCallback.onFail(fail)
             }
@@ -573,7 +596,9 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                     transactionType?.let { TransactionType.valueOf(it) },
                     billingKey,
                     code,
-                    message
+                    message,
+                    pgCode = null,
+                    pgMessage = null,
                 )
                 issueBillingKeyCallback.onFail(fail)
             }
@@ -605,7 +630,9 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 txId = responseUrl.getQueryParameter(PaymentResponse.TX_ID).orEmpty(),
                 paymentId = responseUrl.getQueryParameter(PaymentResponse.PAYMENT_ID).orEmpty(),
                 code = responseUrl.getQueryParameter(PaymentResponse.CODE).orEmpty(),
-                message = responseUrl.getQueryParameter(PaymentResponse.MESSAGE).orEmpty()
+                message = responseUrl.getQueryParameter(PaymentResponse.MESSAGE).orEmpty(),
+                pgCode = responseUrl.getQueryParameter(PaymentResponse.PG_CODE).orEmpty(),
+                pgMessage = responseUrl.getQueryParameter(PaymentResponse.PG_MESSAGE).orEmpty()
             )
         } else {
             PaymentResponse.Success(
@@ -632,7 +659,10 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 billingKey = responseUrl.getQueryParameter(IssueBillingKeyResponse.BILLING_KEY)
                     .orEmpty(),
                 code = responseUrl.getQueryParameter(IssueBillingKeyResponse.CODE).orEmpty(),
-                message = responseUrl.getQueryParameter(IssueBillingKeyResponse.MESSAGE).orEmpty()
+                message = responseUrl.getQueryParameter(IssueBillingKeyResponse.MESSAGE).orEmpty(),
+                pgCode = responseUrl.getQueryParameter(IssueBillingKeyResponse.PG_CODE).orEmpty(),
+                pgMessage = responseUrl.getQueryParameter(IssueBillingKeyResponse.PG_MESSAGE)
+                    .orEmpty(),
             )
         } else {
             IssueBillingKeyResponse.Success(
@@ -662,7 +692,11 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                     .orEmpty(),
                 code = responseUrl.getQueryParameter(IdentityVerificationResponse.CODE).orEmpty(),
                 message = responseUrl.getQueryParameter(IdentityVerificationResponse.MESSAGE)
-                    .orEmpty()
+                    .orEmpty(),
+                pgCode = responseUrl.getQueryParameter(IdentityVerificationResponse.PG_CODE)
+                    .orEmpty(),
+                pgMessage = responseUrl.getQueryParameter(IdentityVerificationResponse.PG_MESSAGE)
+                    .orEmpty(),
             )
         } else {
             IdentityVerificationResponse.Success(
@@ -698,7 +732,11 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                     .orEmpty(),
                 code = responseUrl.getQueryParameter(IssueBillingKeyAndPayResponse.CODE).orEmpty(),
                 message = responseUrl.getQueryParameter(IssueBillingKeyAndPayResponse.MESSAGE)
-                    .orEmpty()
+                    .orEmpty(),
+                pgCode = responseUrl.getQueryParameter(IssueBillingKeyAndPayResponse.PG_CODE)
+                    .orEmpty(),
+                pgMessage = responseUrl.getQueryParameter(IssueBillingKeyAndPayResponse.PG_MESSAGE)
+                    .orEmpty(),
             )
         } else {
             IssueBillingKeyAndPayResponse.Success(

@@ -5,6 +5,8 @@ interface IdentityVerificationJavascriptInterface {
         transactionType: String?,
         identityVerificationTxId: String?,
         code: String,
-        message: String
+        message: String,
+        pgCode: String?,
+        pgMessage: String?,
     )
 }

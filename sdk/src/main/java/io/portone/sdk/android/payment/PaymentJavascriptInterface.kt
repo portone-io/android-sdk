@@ -7,5 +7,7 @@ interface PaymentJavascriptInterface {
         paymentId: String?,
         code: String,
         message: String,
+        pgCode: String?,
+        pgMessage: String?,
     )
 }

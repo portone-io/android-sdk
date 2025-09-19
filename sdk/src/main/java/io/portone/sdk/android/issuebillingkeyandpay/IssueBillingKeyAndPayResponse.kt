@@ -15,6 +15,8 @@ sealed interface IssueBillingKeyAndPayResponse : Parcelable {
         val billingKey: String?,
         val code: String,
         val message: String,
+        val pgCode: String?,
+        val pgMessage: String?,
     ) : IssueBillingKeyAndPayResponse
 
     @Parcelize
@@ -32,5 +34,7 @@ sealed interface IssueBillingKeyAndPayResponse : Parcelable {
         const val TX_ID = "txId"
         const val CODE = "code"
         const val MESSAGE = "message"
+        const val PG_CODE = "pgCode"
+        const val PG_MESSAGE = "pgMessage"
     }
 }

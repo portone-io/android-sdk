@@ -13,6 +13,8 @@ sealed interface IssueBillingKeyResponse : Parcelable {
         val billingKey: String?,
         val code: String,
         val message: String,
+        val pgCode: String?,
+        val pgMessage: String?,
     ): IssueBillingKeyResponse
     @Parcelize
     data class Success(
@@ -25,5 +27,7 @@ sealed interface IssueBillingKeyResponse : Parcelable {
         const val BILLING_KEY = "billingKey"
         const val CODE = "code"
         const val MESSAGE = "message"
+        const val PG_CODE = "pgCode"
+        const val PG_MESSAGE = "pgMessage"
     }
 }

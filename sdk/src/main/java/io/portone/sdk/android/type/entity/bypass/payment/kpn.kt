@@ -18,7 +18,7 @@ data class KpnBypass(
      * - 구인증 : `LEGACY_AUTH`
      * - 키인 : `KEY_IN`
      */
-    val cardSelect: List<KpnCardSelect>?
+    val cardSelect: List<KpnCardSelect>? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         cardSelect?.let { put("CardSelect", cardSelect.map { it.toJson() }) }

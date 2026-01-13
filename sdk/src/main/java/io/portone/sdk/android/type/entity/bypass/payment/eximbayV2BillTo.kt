@@ -14,35 +14,35 @@ data class EximbayV2BillTo(
     /**
      * 청구지 도시
      */
-    val city: String?,
+    val city: String? = null,
     /**
      * 청구지 국가 (ISO 3166 두 자리 국가 코드)
      */
-    val country: String?,
+    val country: String? = null,
     /**
      * 청구 카드 명의자의 성을 제외한 이름
      */
-    val firstName: String?,
+    val firstName: String? = null,
     /**
      * 청구 카드 명의자의 성
      */
-    val lastName: String?,
+    val lastName: String? = null,
     /**
      * 청구 카드 명의자의 전화번호
      */
-    val phoneNumber: String?,
+    val phoneNumber: String? = null,
     /**
      * 청구지 우편번호
      */
-    val postalCode: String?,
+    val postalCode: String? = null,
     /**
      * 청구지가 미국 혹은 캐나다인 경우, 청구지 주 정보
      */
-    val state: String?,
+    val state: String? = null,
     /**
      * 청구지 상세 주소
      */
-    val street1: String?
+    val street1: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         city?.let { put("city", city) }

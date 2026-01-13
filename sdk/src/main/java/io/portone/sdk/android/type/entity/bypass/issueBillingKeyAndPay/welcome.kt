@@ -34,7 +34,7 @@ data class WelcomeIssueBillingKeyAndPayBypass(
      * - 수정 불가능으로 설정하려면 `hppnofix(Y)`를 전달합니다.
      * - 수정 가능으로 설정하려면 `hppnofix(N)`를 전달합니다. (기본값)
      */
-    val acceptmethod: List<String>?,
+    val acceptmethod: List<String>? = null,
     /**
      * `P_RESERVED` 파라미터는 휴대폰 소액결제 시 기본 선택할 통신사를 설정하며, 추가로 `buyer_tel` 값의 수정 가능 여부를 지정할 수 있습니다.
      * 
@@ -58,7 +58,7 @@ data class WelcomeIssueBillingKeyAndPayBypass(
      * - 수정 불가능으로 설정하려면 `hpp_nofix=Y`를 전달합니다.
      * - 수정 가능으로 설정하려면 `hpp_nofix=N`를 전달합니다. (기본값)
      */
-    val pReserved: List<String>?
+    val pReserved: List<String>? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         acceptmethod?.let { put("acceptmethod", acceptmethod) }

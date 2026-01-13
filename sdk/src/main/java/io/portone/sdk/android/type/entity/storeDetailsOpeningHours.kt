@@ -14,11 +14,11 @@ data class StoreDetailsOpeningHours(
     /**
      * 영업 시작 시간
      */
-    val `open`: String?,
+    val `open`: String? = null,
     /**
      * 영업 종료 시간
      */
-    val close: String?
+    val close: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         `open`?.let { put("open", `open`) }

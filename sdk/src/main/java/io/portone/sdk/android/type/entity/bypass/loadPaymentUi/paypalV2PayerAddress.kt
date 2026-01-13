@@ -12,14 +12,14 @@ data class PaypalV2PayerAddress(
     /**
      * 구매자 주소지 정보
      */
-    val addressLine1: String?,
-    val addressLine2: String?,
-    val adminArea1: String?,
-    val adminArea2: String?,
+    val addressLine1: String? = null,
+    val addressLine2: String? = null,
+    val adminArea1: String? = null,
+    val adminArea2: String? = null,
     /**
      * 우편번호
      */
-    val postalCode: String?,
+    val postalCode: String? = null,
     /**
      * **국가**
      * 

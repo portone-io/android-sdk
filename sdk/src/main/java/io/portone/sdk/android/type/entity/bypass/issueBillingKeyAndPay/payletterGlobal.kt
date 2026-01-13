@@ -14,18 +14,18 @@ data class PayletterGlobalIssueBillingKeyAndPayBypass(
     /**
      * **결제수단 지정용 파라미터**
      * 
-     * - 해외카드 인증 : `PLCreditCard`
-     * - 해외카드 비인증(3DS) : `PLCreditCardMpi`
+     * - 해외카드 비인증 : `PLCreditCard`
+     * - 해외카드 인증(3DS) : `PLCreditCardMpi`
      * - 유니온페이 : `PLUnionPay_HC`
      * - 위챗페이 PC결제: `WeChatPayQRCodePayment`
      * - 위챗페이 모바일결제 : `WeChatPayH5Payment`
      * - 알리페이 : `ICBAlipay`
      */
-    val pginfo: String?,
+    val pginfo: String? = null,
     /**
      * 고객사 서비스명, WeChatPay, Alipay 이용 시 필수 입력
      */
-    val servicename: String?
+    val servicename: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         pginfo?.let { put("pginfo", pginfo) }

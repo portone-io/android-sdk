@@ -10,8 +10,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class TossBrandpayWidgetOptionsUiPromotionSection(
-    val summary: TossBrandpayWidgetOptionsUiPromotionSectionSummary?,
-    val description: TossBrandpayWidgetOptionsUiPromotionSectionDescription?
+    val summary: TossBrandpayWidgetOptionsUiPromotionSectionSummary? = null,
+    val description: TossBrandpayWidgetOptionsUiPromotionSectionDescription? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         summary?.let { put("summary", summary.toJson()) }

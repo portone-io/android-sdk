@@ -72,7 +72,7 @@ data class IssueBillingKeyAndPayRequest(
      * 
      * 채널 키와 채널 그룹 ID 중 하나를 지정해야 합니다.
      */
-    val channelKey: String?,
+    val channelKey: String? = null,
     /**
      * 빌링키 발급 및 초회결제 수단
      */
@@ -82,18 +82,18 @@ data class IssueBillingKeyAndPayRequest(
      * 
      * 미입력 시 0으로 취급됩니다.
      */
-    val taxFreeAmount: Long?,
+    val taxFreeAmount: Long? = null,
     /**
      * **부가세 금액**
      * 
      * 미입력 시 과세 금액의 1/11로 자동 계산됩니다.
      */
-    val vatAmount: Long?,
-    val customer: Customer?,
+    val vatAmount: Long? = null,
+    val customer: Customer? = null,
     /**
      * **구매 상품 정보**
      */
-    val products: List<Product>?,
+    val products: List<Product>? = null,
     /**
      * **환경 별 제공되는 결제/본인인증 창 유형**
      * 
@@ -101,29 +101,29 @@ data class IssueBillingKeyAndPayRequest(
      * - 전달되지 않았을 때 결정되는 기본 창이 다릅니다.
      * - 미입력 시, 해당 PG사의 기본 창 방식을 따릅니다.
      */
-    val windowType: WindowTypes?,
+    val windowType: WindowTypes? = null,
     /**
      * **웹훅 URL**
      * 
      * 웹훅을 받을 URL 목록입니다. 값이 있으면 관리자 콘솔에 설정한 URL로는 웹훅이 발송되지 않습니다.
      */
-    val noticeUrls: List<String>?,
+    val noticeUrls: List<String>? = null,
     /**
      * **UI 언어**
      * 
      * KG이니시스, 스마트로, KSNET, 웰컴페이먼츠 (PC), 한국결제네트웍스, 엑심베이에서 설정 가능하며, PG마다 지원하는 언어 목록은 차이가 있습니다.
      */
-    val locale: Locale?,
+    val locale: Locale? = null,
     /**
      * **문화비 지출 여부**
      * 
      * 도서, 공연, 박물관 등 문화비 지출 여부
      */
-    val isCulturalExpense: Boolean?,
+    val isCulturalExpense: Boolean? = null,
     /**
      * **결제 정보와 함께 관리하고 싶은 고객사 커스텀 JSON 데이터**
      */
-    val customData: @RawValue Map<String, Any?>?,
+    val customData: @RawValue Map<String, Any?>? = null,
     /**
      * **서비스 제공 기간**
      * 
@@ -166,15 +166,15 @@ data class IssueBillingKeyAndPayRequest(
      * 예6) 1년 주기
      * `interval: '1y'`
      */
-    val offerPeriod: OfferPeriod?,
+    val offerPeriod: OfferPeriod? = null,
     /**
      * **앱 URL 스킴**
      */
-    val appScheme: String?,
+    val appScheme: String? = null,
     /**
      * **상품 유형**
      */
-    val productType: ProductType?,
+    val productType: ProductType? = null,
     /**
      * **상점 정보**
      * 
@@ -182,25 +182,25 @@ data class IssueBillingKeyAndPayRequest(
      * - 나이스페이먼츠의 경우 매출 전표에 표기 할 용도로 선택 입력
      * - KG이니시스 일본결제의 경우 JPPG(gmoPayment) 결제의 상점정보로 사용되거나 편의점 결제 시 영수증 표시 정보로 사용됨.
      */
-    val storeDetails: StoreDetails?,
+    val storeDetails: StoreDetails? = null,
     /**
      * **국가**
      * 
      * [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) 코드입니다.
      */
-    val country: Country?,
-    val bypass: IssueBillingKeyAndPayBypass?,
+    val country: Country? = null,
+    val bypass: IssueBillingKeyAndPayBypass? = null,
     /**
      * **팝업 관련 필드**
      * 
      * UI가 팝업 창으로 열릴 때 적용되는 속성입니다.
      */
-    val popup: Popup?,
+    val popup: Popup? = null,
     /**
      * **결제창이 iframe 방식일 경우 결제창에 적용할 속성**
      */
-    val iframe: Iframe?,
-    val mobile: IssueBillingKeyAndPayRequestUnionMobile?
+    val iframe: Iframe? = null,
+    val mobile: IssueBillingKeyAndPayRequestUnionMobile? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         put("storeId", storeId)

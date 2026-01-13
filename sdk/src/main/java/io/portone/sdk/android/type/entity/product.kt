@@ -21,10 +21,8 @@ data class Product(
     val name: String,
     /**
      * **상품 코드**
-     * 
-     * - 토스페이먼츠의 경우 필수로 입력해주세요.
      */
-    val code: String?,
+    val code: String? = null,
     /**
      * **상품 단위 가격**
      * 
@@ -43,11 +41,11 @@ data class Product(
     /**
      * **상품 태그**
      */
-    val tag: String?,
+    val tag: String? = null,
     /**
      * **상품 판매 URL**
      */
-    val link: String?
+    val link: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         put("id", id)

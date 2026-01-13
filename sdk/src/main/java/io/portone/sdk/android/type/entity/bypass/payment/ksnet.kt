@@ -15,11 +15,11 @@ data class KsnetPaymentBypass(
     /**
      * 간편 결제 표시 구분
      */
-    val sndQpayType: KsnetSndQpayType?,
+    val sndQpayType: KsnetSndQpayType? = null,
     /**
      * **KSNET 간편결제 다이렉트 여부**
      */
-    val easyPayDirect: Boolean?
+    val easyPayDirect: Boolean? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         sndQpayType?.let { put("sndQpayType", sndQpayType.toJson()) }

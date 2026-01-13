@@ -15,7 +15,7 @@ data class PaypalV2PurchaseUnitShipping(
     /**
      * 수령지 정보
      */
-    val address: PaypalV2PurchaseUnitShippingAddress?
+    val address: PaypalV2PurchaseUnitShippingAddress? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         address?.let { put("address", address.toJson()) }

@@ -17,12 +17,12 @@ data class PaypalV2LoadIssueBillingKeyUIBypass(
     /**
      * 페이팔 빌링키 발급 UI 호출 시 필요한 파라미터
      */
-    val style: PaypalV2Style?,
-    val shippingAddress: PaypalV2ShippingAddress?,
+    val style: PaypalV2Style? = null,
+    val shippingAddress: PaypalV2ShippingAddress? = null,
     /**
      * STC 파라미터
      */
-    val additionalData: List<PaypalV2AdditionalData>?
+    val additionalData: List<PaypalV2AdditionalData>? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         style?.let { put("style", style.toJson()) }

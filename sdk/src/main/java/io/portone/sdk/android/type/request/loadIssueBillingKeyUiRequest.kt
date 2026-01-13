@@ -20,7 +20,7 @@ data class LoadIssueBillingKeyUIRequest(
     /**
      * 빌링 등록 UI에 표시되는 금액
      */
-    val displayAmount: Long?,
+    val displayAmount: Long? = null,
     /**
      * **화폐**
      * 
@@ -28,7 +28,7 @@ data class LoadIssueBillingKeyUIRequest(
      * 
      * 대한민국 원, 일본 엔이 아닌 화폐를 사용할 때에는 금액을 minor unit 단위로 입력해야 함에 유의하세요.
      */
-    val currency: Currency?,
+    val currency: Currency? = null,
     /**
      * **상점 아이디**
      * 
@@ -52,37 +52,37 @@ data class LoadIssueBillingKeyUIRequest(
     /**
      * **주문명**
      */
-    val issueName: String?,
+    val issueName: String? = null,
     /**
      * **빌링 등록 주문 번호**
      */
-    val issueId: String?,
-    val customer: Customer?,
+    val issueId: String? = null,
+    val customer: Customer? = null,
     /**
      * **UI 언어**
      * 
      * KG이니시스, 스마트로, KSNET, 웰컴페이먼츠 (PC), 한국결제네트웍스, 엑심베이에서 설정 가능하며, PG마다 지원하는 언어 목록은 차이가 있습니다.
      */
-    val locale: Locale?,
+    val locale: Locale? = null,
     /**
      * **빌링키 커스텀 JSON 데이터**
      * 
      * 자유롭게 데이터를 넣어 이후 조회할 수 있습니다.
      */
-    val customData: @RawValue Map<String, Any?>?,
+    val customData: @RawValue Map<String, Any?>? = null,
     /**
      * **앱 URL 스킴**
      */
-    val appScheme: String?,
+    val appScheme: String? = null,
     /**
      * **웹훅 URL**
      */
-    val noticeUrls: List<String>?,
+    val noticeUrls: List<String>? = null,
     /**
      * **상품 유형**
      */
-    val productType: ProductType?,
-    val bypass: LoadIssueBillingKeyUIBypass?
+    val productType: ProductType? = null,
+    val bypass: LoadIssueBillingKeyUIBypass? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         put("uiType", uiType.toJson())

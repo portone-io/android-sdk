@@ -16,5 +16,8 @@ enum class NiceV2SamPayMallType {
      */
     _99;
 
-    fun toJson(): String = name
+    fun toJson(): String = when (this) {
+        _01 -> "01"
+        _99 -> "99"
+    }
 }

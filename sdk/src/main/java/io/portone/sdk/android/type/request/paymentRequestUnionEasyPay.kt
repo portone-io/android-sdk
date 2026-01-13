@@ -16,17 +16,17 @@ data class PaymentRequestUnionEasyPay(
     /**
      * PG 제휴로 간편결제를 이용할 때, 간편결제 UI를 직접 호출할 수 있는 간편결제
      */
-    val easyPayProvider: EasyPayProvider?,
+    val easyPayProvider: EasyPayProvider? = null,
     /**
      * **상점분담 무이자 활성화 여부**
      */
-    val useFreeInterestFromMall: Boolean?,
+    val useFreeInterestFromMall: Boolean? = null,
     /**
      * **일부 카드사만 노출 설정**
      * 
      * 일부 카드사만을 선택 가능하게 하고 싶은 경우 사용하는 옵션입니다.
      */
-    val availableCards: List<CardCompany>?,
+    val availableCards: List<CardCompany>? = null,
     /**
      * **할부 설정**
      * 
@@ -72,11 +72,11 @@ data class PaymentRequestUnionEasyPay(
      * - 카드 다이렉트 호출 시 고정 할부만 가능한 PG사가 있습니다
      * - 무이자 할부는 가맹점이 수수료를 부담하는 방식입니다
      */
-    val installment: Installment?,
+    val installment: Installment? = null,
     /**
      * **현금영수증 발급 유형**
      */
-    val cashReceiptType: CashReceiptType?,
+    val cashReceiptType: CashReceiptType? = null,
     /**
      * **현금영수증 구매자 번호**
      * 
@@ -84,7 +84,7 @@ data class PaymentRequestUnionEasyPay(
      * 
      * `cashReceiptType`이 있고 `ANONYMOUS`가 아닐 때 필수입니다.
      */
-    val customerIdentifier: String?,
+    val customerIdentifier: String? = null,
     /**
      * **카드사 포인트 사용 여부**
      * 
@@ -93,7 +93,7 @@ data class PaymentRequestUnionEasyPay(
      * 이외의 경우 구매자가 카드사 포인트 사용 여부를 선택할 수 있습니다.
      * 토스페이먼츠와의 추가 게약이 필요합니다.
      */
-    val useCardPoint: Boolean?,
+    val useCardPoint: Boolean? = null,
     /**
      * **표시할 간편결제 수단 목록**
      * 
@@ -105,13 +105,13 @@ data class PaymentRequestUnionEasyPay(
      * 
      * 단, 나이스페이먼츠를 통해 네이버페이 UI를 직접 호출할 때에는 **필수**임에 유의합니다.
      */
-    val availablePayMethods: List<EasyPayPaymentMethod>?,
+    val availablePayMethods: List<EasyPayPaymentMethod>? = null,
     /**
      * **할부 사용 가능 여부**
      * 
      * `false`로 지정하면 신용카드 할부 사용을 금지합니다. 토스페이(직계약)에서 지원합니다.
      */
-    val useInstallment: Boolean?
+    val useInstallment: Boolean? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         easyPayProvider?.let { put("easyPayProvider", easyPayProvider.toJson()) }

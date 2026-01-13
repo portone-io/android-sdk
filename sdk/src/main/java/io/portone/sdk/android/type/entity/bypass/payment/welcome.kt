@@ -14,11 +14,11 @@ data class WelcomePaymentBypass(
     /**
      * 메인 로고 URL (크기: 89x19)
      */
-    val logoUrl: String?,
+    val logoUrl: String? = null,
     /**
      * 서브 로고 URL (크기: 64x13)
      */
-    val logo2Nd: String?,
+    val logo2Nd: String? = null,
     /**
      * 다양한 결제 옵션을 설정하기 위한 파라미터 배열입니다.
      * 
@@ -52,7 +52,7 @@ data class WelcomePaymentBypass(
      * - `N`: 수정 가능 (기본값)
      * - **va\_ckprice**: 가상계좌 발급 시, 주민번호 채번할 때 금액 체크 기능
      */
-    val acceptmethod: List<String>?,
+    val acceptmethod: List<String>? = null,
     /**
      * 1. **신용카드 우선 선택 옵션**
      * 
@@ -69,7 +69,7 @@ data class WelcomePaymentBypass(
      * - ISP: `isp`
      * - 간편결제: `easypay`
      */
-    val pCardOption: String?,
+    val pCardOption: String? = null,
     /**
      * 카드 결제창에 렌더링될 간편 결제 리스트를 지정합니다.
      * 
@@ -80,7 +80,7 @@ data class WelcomePaymentBypass(
      * - 페이코: `PAYCO`
      * - 토스페이: `TOSSPAY`
      */
-    val pOnlyEasypaycode: String?,
+    val pOnlyEasypaycode: String? = null,
     /**
      * 결제창 동작을 제어하기 위한 파라미터들을 설정하는 배열입니다.
      * 
@@ -101,7 +101,7 @@ data class WelcomePaymentBypass(
      * - `Y`: 수정 불가능
      * - `N`: 수정 가능 (기본값)
      */
-    val pReserved: List<String>?
+    val pReserved: List<String>? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         logoUrl?.let { put("logo_url", logoUrl) }

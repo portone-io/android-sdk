@@ -16,5 +16,8 @@ enum class KsnetSndQpayType {
      */
     _0;
 
-    fun toJson(): String = name
+    fun toJson(): String = when (this) {
+        _1 -> "1"
+        _0 -> "0"
+    }
 }

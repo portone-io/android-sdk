@@ -7,16 +7,16 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 /**
- * **토스페이 bypass 파라미터**
+ * **갤럭시아 bypass 파라미터**
  */
 @Parcelize
-data class TosspayV2IssueBillingKeyBypass(
+data class GalaxiaIssueBillingKeyBypass(
     /**
-     * 암호화된 사용자 CI
+     * 구매 상품 코드
      */
-    val encryptedUserCi: String? = null
+    val itemCode: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
-        encryptedUserCi?.let { put("encryptedUserCi", encryptedUserCi) }
+        itemCode?.let { put("ITEM_CODE", itemCode) }
     }
 }

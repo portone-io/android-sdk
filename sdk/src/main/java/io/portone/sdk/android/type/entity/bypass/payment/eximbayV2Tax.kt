@@ -15,7 +15,7 @@ data class EximbayV2Tax(
     /**
      * 현금영수증 발급 여부
      */
-    val receiptStatus: EximbayV2TaxReceiptStatus?
+    val receiptStatus: EximbayV2TaxReceiptStatus? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         receiptStatus?.let { put("receipt_status", receiptStatus.toJson()) }

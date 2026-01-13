@@ -11,15 +11,15 @@ data class EximbayV2Surcharge(
     /**
      * 항목명
      */
-    val name: String?,
+    val name: String? = null,
     /**
      * 수량
      */
-    val quantity: String?,
+    val quantity: String? = null,
     /**
      * 단가 (음수 가능)
      */
-    val unitPrice: String?
+    val unitPrice: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         name?.let { put("name", name) }

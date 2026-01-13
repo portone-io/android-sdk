@@ -16,19 +16,19 @@ data class TossBrandpayPaymentBypass(
     /**
      * loadBrandpay 호출시 전달하는 세번째 파라미터
      */
-    val brandpayOptions: TossBrandpayBrandpayOptions?,
+    val brandpayOptions: TossBrandpayBrandpayOptions? = null,
     /**
      * 브랜드페이 위젯 render() 함수 호출시 전달하는 두번째 파라미터
      */
-    val widgetOptions: TossBrandpayWidgetOptions?,
+    val widgetOptions: TossBrandpayWidgetOptions? = null,
     /**
      * 카드사 할인코드
      */
-    val discountCode: String?,
+    val discountCode: String? = null,
     /**
      * 등록되어 있는 결제수단 중 하나를 지정해서 바로 결제하고 싶을 때 사용
      */
-    val methodId: String?
+    val methodId: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         brandpayOptions?.let { put("brandpayOptions", brandpayOptions.toJson()) }

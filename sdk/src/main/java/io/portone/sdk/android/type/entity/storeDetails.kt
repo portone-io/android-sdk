@@ -19,57 +19,57 @@ data class StoreDetails(
     /**
      * **대표자 이름**
      */
-    val ceoFullName: String?,
+    val ceoFullName: String? = null,
     /**
      * **전화번호**
      */
-    val phoneNumber: String?,
+    val phoneNumber: String? = null,
     /**
      * **주소**
      */
-    val address: String?,
+    val address: String? = null,
     /**
      * 우편번호
      */
-    val zipcode: String?,
+    val zipcode: String? = null,
     /**
      * 이메일
      */
-    val email: String?,
+    val email: String? = null,
     /**
      * **사업자명 (상호)**
      */
-    val businessName: String?,
+    val businessName: String? = null,
     /**
      * **사업자 등록 번호**
      */
-    val businessRegistrationNumber: String?,
+    val businessRegistrationNumber: String? = null,
     /**
      * **상점명**
      */
-    val storeName: String?,
+    val storeName: String? = null,
     /**
      * 상점명 약어
      */
-    val storeNameShort: String?,
+    val storeNameShort: String? = null,
     /**
      * 상점명 영문
      */
-    val storeNameEn: String?,
+    val storeNameEn: String? = null,
     /**
      * 상점명 후리카나 (일본어 읽는법 표기)
      */
-    val storeNameKana: String?,
+    val storeNameKana: String? = null,
     /**
      * 상점 영업시간 (HH:mm)
      */
-    val openingHours: StoreDetailsOpeningHours?,
+    val openingHours: StoreDetailsOpeningHours? = null,
     /**
      * **상점 연락처 정보 이름**
      * 
      * ex: 문의창구, 연락처, 지원창구
      */
-    val contactName: String?
+    val contactName: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         ceoFullName?.let { put("ceoFullName", ceoFullName) }

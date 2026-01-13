@@ -18,24 +18,24 @@ data class PaypalV2LoadPaymentUIBypass(
     /**
      * SPB 버튼 렌더링에 필요한 파라미터
      */
-    val style: PaypalV2Style?,
+    val style: PaypalV2Style? = null,
     /**
      * 허용할 결제 수단 (예: "card, credit, bancontact")
      */
-    val enableFunding: String?,
+    val enableFunding: String? = null,
     /**
      * 차단할 결제 수단 (예: "venmo, mercadopago")
      */
-    val disableFunding: String?,
+    val disableFunding: String? = null,
     /**
      * create order API 호출에 필요한 파라미터
      */
-    val purchaseUnits: List<PaypalV2PurchaseUnit>?,
-    val payer: PaypalV2Payer?,
+    val purchaseUnits: List<PaypalV2PurchaseUnit>? = null,
+    val payer: PaypalV2Payer? = null,
     /**
      * STC 파라미터
      */
-    val additionalData: List<PaypalV2AdditionalData>?
+    val additionalData: List<PaypalV2AdditionalData>? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         style?.let { put("style", style.toJson()) }

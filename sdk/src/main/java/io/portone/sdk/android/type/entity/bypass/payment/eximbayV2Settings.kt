@@ -15,15 +15,15 @@ data class EximbayV2Settings(
     /**
      * 인앱 웹뷰 여부
      */
-    val callFromApp: EximbayV2SettingsCallFromApp?,
+    val callFromApp: EximbayV2SettingsCallFromApp? = null,
     /**
      * 해외 결제 가맹점에서 국내 결제를 사용할 경우 `KR`
      */
-    val issuerCountry: String?,
+    val issuerCountry: String? = null,
     /**
      * 입금 만료 일자 (yyyyMMddHH)
      */
-    val virtualaccountExpiryDate: String?
+    val virtualaccountExpiryDate: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         callFromApp?.let { put("call_from_app", callFromApp.toJson()) }

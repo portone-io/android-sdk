@@ -5,6 +5,7 @@ package io.portone.sdk.android.type.entity.bypass
 
 import android.os.Parcelable
 import io.portone.sdk.android.type.entity.bypass.issueBillingKeyAndPay.EximbayV2IssueBillingKeyAndPayBypass
+import io.portone.sdk.android.type.entity.bypass.issueBillingKeyAndPay.GalaxiaIssueBillingKeyAndPayBypass
 import io.portone.sdk.android.type.entity.bypass.issueBillingKeyAndPay.PayletterGlobalIssueBillingKeyAndPayBypass
 import io.portone.sdk.android.type.entity.bypass.issueBillingKeyAndPay.WelcomeIssueBillingKeyAndPayBypass
 import kotlinx.parcelize.Parcelize
@@ -14,19 +15,24 @@ data class IssueBillingKeyAndPayBypass(
     /**
      * **웰컴페이먼츠 bypass 파라미터**
      */
-    val welcome: WelcomeIssueBillingKeyAndPayBypass?,
+    val welcome: WelcomeIssueBillingKeyAndPayBypass? = null,
     /**
      * **페이레터 해외결제 bypass 파라미터**
      */
-    val payletterGlobal: PayletterGlobalIssueBillingKeyAndPayBypass?,
+    val payletterGlobal: PayletterGlobalIssueBillingKeyAndPayBypass? = null,
     /**
      * **엑심베이 bypass 파라미터**
      */
-    val eximbayV2: EximbayV2IssueBillingKeyAndPayBypass?
+    val eximbayV2: EximbayV2IssueBillingKeyAndPayBypass? = null,
+    /**
+     * **갤럭시아 bypass 파라미터**
+     */
+    val galaxia: GalaxiaIssueBillingKeyAndPayBypass? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         welcome?.let { put("welcome", welcome.toJson()) }
         payletterGlobal?.let { put("payletter_global", payletterGlobal.toJson()) }
         eximbayV2?.let { put("eximbay_v2", eximbayV2.toJson()) }
+        galaxia?.let { put("galaxia", galaxia.toJson()) }
     }
 }

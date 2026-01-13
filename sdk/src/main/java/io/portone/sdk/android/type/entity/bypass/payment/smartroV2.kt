@@ -16,19 +16,19 @@ data class SmartroV2PaymentBypass(
     /**
      * 결제 상품 품목 개수
      */
-    val goodsCnt: Long?,
+    val goodsCnt: Long? = null,
     /**
      * UI 스타일 (기본값: `"RED"`)
      * 
      * `"RED"`, `"GREEN"`, `"BLUE"`, `"PURPLE"` 중 하나의 값으로 입력해주세요.
      */
-    val skinColor: SmartroV2SkinColor?,
+    val skinColor: SmartroV2SkinColor? = null,
     /**
      * 해외 카드만 결제를 허용할지 여부(기본값: `"KR"`)
      * 
      * `"KR"`, `"EN"` 중 하나의 값으로 입력해주세요.
      */
-    val openType: SmartroV2OpenType?
+    val openType: SmartroV2OpenType? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         goodsCnt?.let { put("GoodsCnt", goodsCnt) }

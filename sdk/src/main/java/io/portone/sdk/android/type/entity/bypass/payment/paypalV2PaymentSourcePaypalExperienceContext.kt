@@ -11,10 +11,10 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PaypalV2PaymentSourcePaypalExperienceContext(
-    val brandName: String?,
-    val shippingPreference: PaypalV2PaymentSourcePaypalExperienceContextShippingPreference?,
-    val landingPage: PaypalV2PaymentSourcePaypalExperienceContextLandingPage?,
-    val paymentMethodPreference: PaypalV2PaymentSourcePaypalExperienceContextPaymentMethodPreference?
+    val brandName: String? = null,
+    val shippingPreference: PaypalV2PaymentSourcePaypalExperienceContextShippingPreference? = null,
+    val landingPage: PaypalV2PaymentSourcePaypalExperienceContextLandingPage? = null,
+    val paymentMethodPreference: PaypalV2PaymentSourcePaypalExperienceContextPaymentMethodPreference? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         brandName?.let { put("brand_name", brandName) }

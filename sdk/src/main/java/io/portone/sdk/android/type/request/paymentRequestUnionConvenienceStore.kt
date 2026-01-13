@@ -12,7 +12,7 @@ data class PaymentRequestUnionConvenienceStore(
     /**
      * **편의점결제 지불기한**
      */
-    val paymentDeadline: PaymentRequestUnionConvenienceStorePaymentDeadline?
+    val paymentDeadline: PaymentRequestUnionConvenienceStorePaymentDeadline? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         paymentDeadline?.let { put("paymentDeadline", paymentDeadline.toJson()) }

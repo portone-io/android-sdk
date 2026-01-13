@@ -11,11 +11,11 @@ data class TossBrandpayBrandpayOptionsUiNavigationBar(
     /**
      * 내비게이션 바 사용 여부. (기본값: true)
      */
-    val visible: Boolean?,
+    val visible: Boolean? = null,
     /**
      * 내비게이션 바 위쪽에 설정할 여백 값. 값의 단위는 px
      */
-    val paddingTop: Long?
+    val paddingTop: Long? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         visible?.let { put("visible", visible) }

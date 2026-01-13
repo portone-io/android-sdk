@@ -8,38 +8,17 @@ package io.portone.sdk.android.type.entity
  */
 enum class EasyPayProvider {
     /**
-     * 페이코
+     * 네이버페이
      * 
      * - 토스페이먼츠
      * - 나이스페이먼츠
      * - KG이니시스
      * - 스마트로
-     * - KSNET
-     * - 한국결제네트웍스
-     * - 웰컴페이먼츠
-     */
-    PAYCO,
-    /**
-     * 삼성페이
-     * 
-     * - 토스페이먼츠
-     * - 나이스페이먼츠
-     * - KG이니시스
-     * - NHN KCP
-     * - 스마트로
-     * - 한국결제네트웍스
-     */
-    SAMSUNGPAY,
-    /**
-     * SSG페이
-     * 
-     * - 토스페이먼츠
-     * - 나이스페이먼츠
-     * - KG이니시스
      * - NHN KCP
      * - KSNET
+     * - 한국결제네트웍스
      */
-    SSGPAY,
+    NAVERPAY,
     /**
      * 카카오페이
      * 
@@ -54,17 +33,28 @@ enum class EasyPayProvider {
      */
     KAKAOPAY,
     /**
-     * 네이버페이
+     * 토스페이
+     * 
+     * - 토스페이먼츠
+     * - KG이니시스
+     * - NHN KCP
+     * - 스마트로
+     * - 한국결제네트웍스
+     * - 웰컴페이먼츠
+     */
+    TOSSPAY,
+    /**
+     * 페이코
      * 
      * - 토스페이먼츠
      * - 나이스페이먼츠
      * - KG이니시스
      * - 스마트로
-     * - NHN KCP
      * - KSNET
      * - 한국결제네트웍스
+     * - 웰컴페이먼츠
      */
-    NAVERPAY,
+    PAYCO,
     /**
      * 차이페이
      */
@@ -85,22 +75,26 @@ enum class EasyPayProvider {
      */
     KPAY,
     /**
-     * 토스페이
+     * SSG페이
      * 
      * - 토스페이먼츠
+     * - 나이스페이먼츠
+     * - KG이니시스
+     * - NHN KCP
+     * - KSNET
+     */
+    SSGPAY,
+    /**
+     * 삼성페이
+     * 
+     * - 토스페이먼츠
+     * - 나이스페이먼츠
      * - KG이니시스
      * - NHN KCP
      * - 스마트로
      * - 한국결제네트웍스
-     * - 웰컴페이먼츠
      */
-    TOSSPAY,
-    /**
-     * LG페이
-     * 
-     * - 토스페이먼츠
-     */
-    LGPAY,
+    SAMSUNGPAY,
     /**
      * 애플페이
      * 
@@ -111,17 +105,23 @@ enum class EasyPayProvider {
      */
     APPLEPAY,
     /**
-     * 핀페이
+     * LG페이
      * 
-     * - 스마트로
+     * - 토스페이먼츠
      */
-    PINPAY,
+    LGPAY,
     /**
      * SK페이
      * 
      * - 나이스페이먼츠
      */
     SKPAY,
+    /**
+     * 핀페이
+     * 
+     * - 스마트로
+     */
+    PINPAY,
     /**
      * 토스 브랜드페이
      */

@@ -28,19 +28,19 @@ data class NaverpayProductItem(
     /**
      * 결제 상품 유입경로
      */
-    val payReferrer: NaverpayProductItemPayReferrer?,
+    val payReferrer: NaverpayProductItemPayReferrer? = null,
     /**
      * 시작일(YYYYMMDD)
      */
-    val startDate: String?,
+    val startDate: String? = null,
     /**
      * 종료일(YYYYMMDD)
      */
-    val endDate: String?,
+    val endDate: String? = null,
     /**
      * 하위 판매자 식별키
      */
-    val sellerId: String?,
+    val sellerId: String? = null,
     /**
      * 결제 상품 개수
      */

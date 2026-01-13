@@ -16,11 +16,11 @@ data class SmartroV2IssueBillingKeyBypass(
     /**
      * UI 스타일(기본: RED)
      */
-    val skinColor: SmartroV2SkinColor?,
+    val skinColor: SmartroV2SkinColor? = null,
     /**
      * 결제 비밀번호 등록 Skip 여부
      */
-    val isPwdPass: SmartroV2IsPwdPass?
+    val isPwdPass: SmartroV2IsPwdPass? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         skinColor?.let { put("SkinColor", skinColor.toJson()) }

@@ -16,8 +16,8 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 data class WindowTypes(
-    val pc: WindowType?,
-    val mobile: WindowType?
+    val pc: WindowType? = null,
+    val mobile: WindowType? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         pc?.let { put("pc", pc.toJson()) }

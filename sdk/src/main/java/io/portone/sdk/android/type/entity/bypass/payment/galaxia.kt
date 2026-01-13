@@ -6,14 +6,17 @@ package io.portone.sdk.android.type.entity.bypass.payment
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
+/**
+ * 갤럭시아 bypass 파라미터
+ */
 @Parcelize
-data class TossBrandpayBrandpayOptionsUiLabels(
+data class GalaxiaPaymentBypass(
     /**
-     * UI에 표시되는 원터치 결제를 대신해 사용할 텍스트. (기본값: "원터치 결제")
+     * 구매 상품 코드
      */
-    val oneTouchPay: String? = null
+    val itemCode: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
-        oneTouchPay?.let { put("oneTouchPay", oneTouchPay) }
+        itemCode?.let { put("ITEM_CODE", itemCode) }
     }
 }

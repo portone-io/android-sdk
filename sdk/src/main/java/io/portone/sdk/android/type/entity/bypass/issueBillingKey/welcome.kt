@@ -14,11 +14,11 @@ data class WelcomeIssueBillingKeyBypass(
     /**
      * 메인 로고 URL (크기: 89x19)
      */
-    val logoUrl: String?,
+    val logoUrl: String? = null,
     /**
      * 서브 로고 URL (크기: 64x13)
      */
-    val logo2Nd: String?
+    val logo2Nd: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         logoUrl?.let { put("logo_url", logoUrl) }

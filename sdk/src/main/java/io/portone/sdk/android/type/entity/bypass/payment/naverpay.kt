@@ -16,16 +16,16 @@ data class NaverpayPaymentBypass(
     /**
      * 이용 완료일(YYYYMMDD)
      */
-    val useCfmYmdt: String?,
+    val useCfmYmdt: String? = null,
     val productItems: List<NaverpayProductItem>,
     /**
      * 하부 가맹점 정보. PG 업종 가맹점인 경우에만 필수 값
      */
-    val subMerchantInfo: NaverpaySubMerchantInfo?,
+    val subMerchantInfo: NaverpaySubMerchantInfo? = null,
     /**
      * 배송비
      */
-    val deliveryFee: Long?
+    val deliveryFee: Long? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         useCfmYmdt?.let { put("useCfmYmdt", useCfmYmdt) }

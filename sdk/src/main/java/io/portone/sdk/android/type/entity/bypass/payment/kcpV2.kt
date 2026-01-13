@@ -13,27 +13,27 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 data class KcpV2Bypass(
-    val skinIndx: String?,
-    val siteLogo: String?,
+    val skinIndx: String? = null,
+    val siteLogo: String? = null,
     val shopUserId: String,
-    val kcpPayTitle: String?,
+    val kcpPayTitle: String? = null,
     /**
      * 포인트 결제의 경우 신용카드 + 포인트 결제인데, N으로 설정 시 포인트로만 결제가 이루어짐
      */
-    val complexPntYn: KcpV2ComplexPnt?,
-    val ptMemcorpCd: String?,
+    val complexPntYn: KcpV2ComplexPnt? = null,
+    val ptMemcorpCd: String? = null,
     /**
      * 가상계좌, 계좌이체 시 현금영수증 노출 여부
      */
-    val dispTaxYn: KcpV2DispTax?,
+    val dispTaxYn: KcpV2DispTax? = null,
     /**
      * 결제창에 노출될 고객사 상호명
      */
-    val siteName: String?,
+    val siteName: String? = null,
     /**
      * 에스크로 배송 예상 소요일
      */
-    val deliTerm: String?
+    val deliTerm: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         skinIndx?.let { put("skin_indx", skinIndx) }

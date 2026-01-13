@@ -21,7 +21,7 @@ data class InicisV2Bypass(
      * 결제창 중앙 상단에 표시됩니다.
      * 이미지 권장 사이즈는 89\*18 입니다.
      */
-    val logoUrl: String?,
+    val logoUrl: String? = null,
     /**
      * **PC용 파라미터**
      * 
@@ -30,7 +30,7 @@ data class InicisV2Bypass(
      * 결제창 우측 상단에 표시됩니다.
      * 이미지 권장 사이즈는 64\*13 입니다.
      */
-    val logo2Nd: String?,
+    val logo2Nd: String? = null,
     /**
      * **PC용 파라미터**
      * 
@@ -39,7 +39,7 @@ data class InicisV2Bypass(
      * 14세 미만 고객의 경우 필수 입력입니다.
      * "@", "." 외의 특수문자는 입력 불가합니다.
      */
-    val parentemail: String?,
+    val parentemail: String? = null,
     /**
      * **PC용 파라미터**
      * 
@@ -47,7 +47,7 @@ data class InicisV2Bypass(
      * 
      * `-` 없이 숫자만 허용합니다.
      */
-    val iniSsgpayMdn: String?,
+    val iniSsgpayMdn: String? = null,
     /**
      * **PC용 파라미터**
      * 
@@ -97,7 +97,7 @@ data class InicisV2Bypass(
      * 카드사 코드는 [KG이니시스 통합 코드](https://manual.inicis.com/pay/code.html) 페이지에서
      * "결제요청 시 카드코드" 섹션을 참고하시기 바랍니다.
      */
-    val acceptmethod: List<String>?,
+    val acceptmethod: List<String>? = null,
     /**
      * **모바일용 파라미터**
      * 
@@ -106,13 +106,13 @@ data class InicisV2Bypass(
      * 설정한 카드코드에 해당하는 카드가 선택된 채로 Display 됩니다.
      * `selcode=카드코드` 형식으로 입력합니다. (ex. `selcode=14`)
      */
-    val pCardOption: String?,
+    val pCardOption: String? = null,
     /**
      * **모바일용 파라미터**
      * 
      * 가맹점 이름
      */
-    val pMname: String?,
+    val pMname: String? = null,
     /**
      * **모바일용 파라미터**
      * 
@@ -136,7 +136,7 @@ data class InicisV2Bypass(
      * 
      * (android의 경우) custom url scheme 대신 intent schema(intent://) 호출
      */
-    val pReserved: List<String>?
+    val pReserved: List<String>? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         logoUrl?.let { put("logo_url", logoUrl) }

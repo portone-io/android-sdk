@@ -68,38 +68,38 @@ data class LoadPaymentUIRequest(
      * 
      * 미입력 시 0으로 취급됩니다.
      */
-    val taxFreeAmount: Long?,
+    val taxFreeAmount: Long? = null,
     /**
      * **부가세 금액**
      * 
      * 미입력 시 과세 금액의 1/11로 자동 계산됩니다.
      */
-    val vatAmount: Long?,
-    val customer: Customer?,
+    val vatAmount: Long? = null,
+    val customer: Customer? = null,
     /**
      * 웹훅 URL
      */
-    val noticeUrls: List<String>?,
+    val noticeUrls: List<String>? = null,
     /**
      * Confirm URL
      */
-    val confirmUrl: String?,
+    val confirmUrl: String? = null,
     /**
      * 앱 URL Scheme
      */
-    val appScheme: String?,
+    val appScheme: String? = null,
     /**
      * 에스크로 결제 여부
      */
-    val isEscrow: Boolean?,
+    val isEscrow: Boolean? = null,
     /**
-     * **구매 상품 정보**
+     * 구매 상품 정보
      */
-    val products: List<Product>?,
+    val products: List<Product>? = null,
     /**
      * 문화비 지출 여부
      */
-    val isCulturalExpense: Boolean?,
+    val isCulturalExpense: Boolean? = null,
     /**
      * **화폐**
      * 
@@ -113,11 +113,11 @@ data class LoadPaymentUIRequest(
      * 
      * KG이니시스, 스마트로, KSNET, 웰컴페이먼츠 (PC), 한국결제네트웍스, 엑심베이에서 설정 가능하며, PG마다 지원하는 언어 목록은 차이가 있습니다.
      */
-    val locale: Locale?,
+    val locale: Locale? = null,
     /**
      * **결제 정보와 함께 관리하고 싶은 고객사 커스텀 JSON 데이터**
      */
-    val customData: @RawValue Map<String, Any?>?,
+    val customData: @RawValue Map<String, Any?>? = null,
     /**
      * **서비스 제공 기간**
      * 
@@ -160,11 +160,11 @@ data class LoadPaymentUIRequest(
      * 예6) 1년 주기
      * `interval: '1y'`
      */
-    val offerPeriod: OfferPeriod?,
+    val offerPeriod: OfferPeriod? = null,
     /**
      * **상품 유형**
      */
-    val productType: ProductType?,
+    val productType: ProductType? = null,
     /**
      * **상점 정보**
      * 
@@ -172,26 +172,26 @@ data class LoadPaymentUIRequest(
      * - 나이스페이먼츠의 경우 매출 전표에 표기 할 용도로 선택 입력
      * - KG이니시스 일본결제의 경우 JPPG(gmoPayment) 결제의 상점정보로 사용되거나 편의점 결제 시 영수증 표시 정보로 사용됨.
      */
-    val storeDetails: StoreDetails?,
-    val bypass: LoadPaymentUIBypass?,
+    val storeDetails: StoreDetails? = null,
+    val bypass: LoadPaymentUIBypass? = null,
     /**
      * **국가**
      * 
      * [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) 코드입니다.
      */
-    val country: Country?,
+    val country: Country? = null,
     /**
      * **주소 정보**
      */
-    val shippingAddress: Address?,
+    val shippingAddress: Address? = null,
     /**
      * 프로모션 그룹 ID
      */
-    val promotionGroupId: String?,
+    val promotionGroupId: String? = null,
     /**
      * 프로모션 ID 목록
      */
-    val promotionIds: List<String>?
+    val promotionIds: List<String>? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         put("uiType", uiType.toJson())

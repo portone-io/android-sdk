@@ -14,11 +14,11 @@ data class NaverpayIssueBillingKeyBypass(
     /**
      * 하부 가맹점 명
      */
-    val subMerchantName: String?,
+    val subMerchantName: String? = null,
     /**
      * 하부 가맹점 ID
      */
-    val subMerchantId: String?
+    val subMerchantId: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         subMerchantName?.let { put("subMerchantName", subMerchantName) }

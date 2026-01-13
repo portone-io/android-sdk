@@ -12,7 +12,7 @@ data class PaypalV2ShippingAddress(
     /**
      * 수령인 이름
      */
-    val recipientName: String?,
+    val recipientName: String? = null,
     /**
      * 도로명 주소
      */
@@ -20,7 +20,7 @@ data class PaypalV2ShippingAddress(
     /**
      * 아파트 동 호수
      */
-    val line2: String?,
+    val line2: String? = null,
     /**
      * 도시 이름
      */
@@ -28,11 +28,11 @@ data class PaypalV2ShippingAddress(
     /**
      * 주 이름 (아르헨티나, 브라질, 캐나다, 중국, 인도, 이탈리아, 일본, 멕시코, 태국 또는 미국의 경우 필수)
      */
-    val state: String?,
+    val state: String? = null,
     /**
      * 우편번호
      */
-    val postalCode: String?,
+    val postalCode: String? = null,
     /**
      * **페이팔 V2 국가 코드**
      */

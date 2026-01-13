@@ -12,8 +12,8 @@ data class IssueBillingKeyRequestUnionMobile(
     /**
      * 통신사 코드
      */
-    val carrier: Carrier?,
-    val avaliableCarriers: List<Carrier>?
+    val carrier: Carrier? = null,
+    val avaliableCarriers: List<Carrier>? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         carrier?.let { put("carrier", carrier.toJson()) }

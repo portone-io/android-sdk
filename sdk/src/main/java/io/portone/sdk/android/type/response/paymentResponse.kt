@@ -28,34 +28,41 @@ data class PaymentResponse(
      */
     val paymentId: String,
     /**
+     * **결제 토큰**
+     * 
+     * 수동 승인 사용시 수동 승인 API 호출에 필요한 토큰입니다.
+     */
+    val paymentToken: String? = null,
+    /**
      * **오류 코드**
      * 
      * 실패한 경우 오류 코드입니다.
      */
-    val code: String?,
+    val code: String? = null,
     /**
      * **오류 메시지**
      * 
      * 실패한 경우 오류 메시지입니다.
      */
-    val message: String?,
+    val message: String? = null,
     /**
      * **PG 오류 코드**
      * 
      * PG에서 오류 코드를 내려 주는 경우 이 오류 코드를 그대로 반환합니다.
      */
-    val pgCode: String?,
+    val pgCode: String? = null,
     /**
      * **PG 오류 메시지**
      * 
      * PG에서 오류 메시지를 내려 주는 경우 이 오류 메시지를 그대로 반환합니다.
      */
-    val pgMessage: String?
+    val pgMessage: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         put("transactionType", transactionType)
         put("txId", txId)
         put("paymentId", paymentId)
+        paymentToken?.let { put("paymentToken", paymentToken) }
         code?.let { put("code", code) }
         message?.let { put("message", message) }
         pgCode?.let { put("pgCode", pgCode) }

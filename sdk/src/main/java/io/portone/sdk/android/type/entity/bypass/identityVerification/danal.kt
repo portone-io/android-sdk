@@ -19,13 +19,13 @@ data class DanalIdentityVerificationBypass(
      * - 웹 서비스 URL 자체가 존재하지 않는 경우 서비스 이름 (app 이름) 입력. Ex) `마켓A`
      * - 해당 값을 넘기지 않을 경우 `포트원`으로 default 값을 채웁니다.
      */
-    val cptitle: String?,
+    val cptitle: String? = null,
     /**
      * **본인인증을 진행할 수 있는 최소 만 나이**
      * 
      * 해당 값을 채워서 요청할 경우 본인인증을 진행할 수 있는 최소 만 나이를 설정할 수 있습니다.
      */
-    val agelimit: Long?,
+    val agelimit: Long? = null,
     /**
      * **통신사 정보**
      * 
@@ -35,7 +35,7 @@ data class DanalIdentityVerificationBypass(
      * 
      * 여러 개의 통신사를 활성화시키려면 위 값들을 semicolon(`;`) 으로 이어야 합니다. ex) `SKT;KTF`
      */
-    val isCarrier: String?
+    val isCarrier: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         cptitle?.let { put("CPTITLE", cptitle) }

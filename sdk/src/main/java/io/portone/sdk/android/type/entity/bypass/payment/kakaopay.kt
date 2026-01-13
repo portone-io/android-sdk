@@ -14,7 +14,7 @@ data class KakaopayPaymentBypass(
     /**
      * 카카오페이 결제창에 띄워줄 사용자 정의 문구
      */
-    val customMessage: String?
+    val customMessage: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         customMessage?.let { put("custom_message", customMessage) }

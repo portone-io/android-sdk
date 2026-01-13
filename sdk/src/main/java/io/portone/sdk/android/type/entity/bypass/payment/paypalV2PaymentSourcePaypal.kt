@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PaypalV2PaymentSourcePaypal(
-    val experienceContext: PaypalV2PaymentSourcePaypalExperienceContext?
+    val experienceContext: PaypalV2PaymentSourcePaypalExperienceContext? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         experienceContext?.let { put("experience_context", experienceContext.toJson()) }

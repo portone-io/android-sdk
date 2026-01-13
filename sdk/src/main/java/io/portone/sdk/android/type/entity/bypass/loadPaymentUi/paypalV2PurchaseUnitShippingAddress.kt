@@ -16,13 +16,13 @@ data class PaypalV2PurchaseUnitShippingAddress(
      * 수령지 주소. 미 입력 시 입력된 주소로 override되지 않음
      */
     val addressLine1: String,
-    val addressLine2: String?,
-    val adminArea1: String?,
+    val addressLine2: String? = null,
+    val adminArea1: String? = null,
     /**
      * 필수 입력. 미 입력 시 create order 실패
      */
     val adminArea2: String,
-    val postalCode: String?,
+    val postalCode: String? = null,
     /**
      * **국가**
      * 

@@ -14,11 +14,11 @@ data class EximbayV2Merchant(
     /**
      * 상점명
      */
-    val shop: String?,
+    val shop: String? = null,
     /**
      * 파트너 코드
      */
-    val partnerCode: String?
+    val partnerCode: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         shop?.let { put("shop", shop) }

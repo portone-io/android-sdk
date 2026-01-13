@@ -58,7 +58,7 @@ data class Installment(
     /**
      * **무이자 할부 설정**
      */
-    val freeInstallmentPlans: List<FreeInstallmentPlan>?,
+    val freeInstallmentPlans: List<FreeInstallmentPlan>? = null,
     /**
      * **할부 개월 수 설정**
      * 
@@ -85,7 +85,7 @@ data class Installment(
      * }
      * ```
      */
-    val monthOption: InstallmentMonthOption?
+    val monthOption: InstallmentMonthOption? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         freeInstallmentPlans?.let { put("freeInstallmentPlans", freeInstallmentPlans.map { it.toJson() }) }

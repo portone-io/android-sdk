@@ -15,7 +15,7 @@ data class TosspayV2PaymentBypass(
     /**
      * 결제 만료 기한 (yyyy-MM-dd HH:mm:ss)
      */
-    val expiredTime: String?,
+    val expiredTime: String? = null,
     /**
      * 현금영수증 발급타입
      * 
@@ -23,7 +23,7 @@ data class TosspayV2PaymentBypass(
      * - GENERAL: 일반 (기본값)
      * - PUBLIC\_TP: 교통비
      */
-    val cashReceiptTradeOption: TosspayV2CashReceiptTradeOption?
+    val cashReceiptTradeOption: TosspayV2CashReceiptTradeOption? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         expiredTime?.let { put("expiredTime", expiredTime) }

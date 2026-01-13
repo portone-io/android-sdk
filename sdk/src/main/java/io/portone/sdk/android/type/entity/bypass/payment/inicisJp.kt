@@ -15,7 +15,7 @@ data class InicisJpBypass(
     /**
      * 결제창 UI 설정
      */
-    val paymentUi: InicisJpPaymentUI?
+    val paymentUi: InicisJpPaymentUI? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         paymentUi?.let { put("paymentUI", paymentUi.toJson()) }

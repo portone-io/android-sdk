@@ -32,13 +32,13 @@ data class InicisJpPaymentUI(
      * - `blue5`
      * - `blue6`
      */
-    val colorTheme: String?,
+    val colorTheme: String? = null,
     /**
      * **가맹점 로고 이미지 URL**
      * 
      * 69 \* 20 픽셀 크기의 이미지 URL
      */
-    val logoUrl: String?
+    val logoUrl: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         colorTheme?.let { put("colorTheme", colorTheme) }

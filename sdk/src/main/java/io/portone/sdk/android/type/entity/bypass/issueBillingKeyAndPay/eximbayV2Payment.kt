@@ -14,11 +14,11 @@ data class EximbayV2Payment(
     /**
      * 결제수단 단독 노출
      */
-    val paymentMethod: String?,
+    val paymentMethod: String? = null,
     /**
      * 결제수단 노출 목록
      */
-    val multiPaymentMethod: List<String>?
+    val multiPaymentMethod: List<String>? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         paymentMethod?.let { put("payment_method", paymentMethod) }

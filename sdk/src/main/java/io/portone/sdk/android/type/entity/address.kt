@@ -17,7 +17,7 @@ data class Address(
      * 
      * [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) 코드입니다.
      */
-    val country: Country?,
+    val country: Country? = null,
     /**
      * **주소 첫째 줄**
      */
@@ -29,11 +29,11 @@ data class Address(
     /**
      * **도시**
      */
-    val city: String?,
+    val city: String? = null,
     /**
      * **주, 도, 시**
      */
-    val province: String?
+    val province: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         country?.let { put("country", country.toJson()) }

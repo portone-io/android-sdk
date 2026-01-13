@@ -14,7 +14,7 @@ data class Iframe(
     /**
      * `false`로 설정하면 결제창 배경이 투명해집니다.
      */
-    val dim: Boolean?
+    val dim: Boolean? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         dim?.let { put("dim", dim) }

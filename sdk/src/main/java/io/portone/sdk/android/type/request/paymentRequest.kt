@@ -89,7 +89,7 @@ data class PaymentRequest(
      * 
      * 채널 키와 채널 그룹 ID 중 하나를 지정해야 합니다.
      */
-    val channelKey: String?,
+    val channelKey: String? = null,
     /**
      * **채널 그룹 ID**
      * 
@@ -97,20 +97,20 @@ data class PaymentRequest(
      * 
      * 채널 키와 채널 그룹 ID 중 하나를 지정해야 합니다.
      */
-    val channelGroupId: String?,
+    val channelGroupId: String? = null,
     /**
      * **면세 금액**
      * 
      * 미입력 시 0으로 취급됩니다.
      */
-    val taxFreeAmount: Long?,
+    val taxFreeAmount: Long? = null,
     /**
      * **부가세 금액**
      * 
      * 미입력 시 과세 금액의 1/11로 자동 계산됩니다.
      */
-    val vatAmount: Long?,
-    val customer: Customer?,
+    val vatAmount: Long? = null,
+    val customer: Customer? = null,
     /**
      * **환경 별 제공되는 결제/본인인증 창 유형**
      * 
@@ -118,7 +118,7 @@ data class PaymentRequest(
      * - 전달되지 않았을 때 결정되는 기본 창이 다릅니다.
      * - 미입력 시, 해당 PG사의 기본 창 방식을 따릅니다.
      */
-    val windowType: WindowTypes?,
+    val windowType: WindowTypes? = null,
     /**
      * **웹훅 수신 URL**
      * 
@@ -126,7 +126,7 @@ data class PaymentRequest(
      * 
      * 올바른 HTTP(S) URL이어야 합니다.
      */
-    val noticeUrls: List<String>?,
+    val noticeUrls: List<String>? = null,
     /**
      * **결제 승인 여부 확인 URL**
      * 
@@ -136,14 +136,14 @@ data class PaymentRequest(
      * 
      * 별도 요청이 필요합니다. (<tech.support@portone.io>)
      */
-    val confirmUrl: String?,
+    val confirmUrl: String? = null,
     /**
      * **모바일 결제 후 고객사 앱으로 복귀를 위한 URL scheme**
      * 
      * - WebView 환경 결제시 필수설정 항목 입니다.
      * - ISP/앱카드 앱에서 결제정보인증 후 기존 앱으로 복귀할 때 사용합니다.
      */
-    val appScheme: String?,
+    val appScheme: String? = null,
     /**
      * **에스크로 결제 여부**
      * 
@@ -151,41 +151,37 @@ data class PaymentRequest(
      * 
      * - 에스크로 설정은 PG사와 협의 이후 진행되어야 합니다.
      */
-    val isEscrow: Boolean?,
+    val isEscrow: Boolean? = null,
     /**
      * **구매 상품 정보**
      */
-    val products: List<Product>?,
+    val products: List<Product>? = null,
     /**
      * **문화비 지출 여부**
      * 
      * 도서, 공연, 박물관 등 문화비 지출 여부
      */
-    val isCulturalExpense: Boolean?,
+    val isCulturalExpense: Boolean? = null,
     /**
      * **UI 언어**
      * 
      * KG이니시스, 스마트로, KSNET, 웰컴페이먼츠 (PC), 한국결제네트웍스, 엑심베이에서 설정 가능하며, PG마다 지원하는 언어 목록은 차이가 있습니다.
      */
-    val locale: Locale?,
+    val locale: Locale? = null,
     /**
      * **결제 정보에 포함할 고객사 커스텀 JSON 데이터**
      */
-    val customData: @RawValue Map<String, Any?>?,
-    /**
-     * **PG사 결제창 호출 시 PG사로 그대로 bypass할 값들의 모음**
-     */
-    val bypass: PaymentBypass?,
+    val customData: @RawValue Map<String, Any?>? = null,
     /**
      * **국가**
      * 
      * [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) 코드입니다.
      */
-    val country: Country?,
+    val country: Country? = null,
     /**
      * **상품 유형**
      */
-    val productType: ProductType?,
+    val productType: ProductType? = null,
     /**
      * **서비스 제공 기간**
      * 
@@ -228,7 +224,7 @@ data class PaymentRequest(
      * 예6) 1년 주기
      * `interval: '1y'`
      */
-    val offerPeriod: OfferPeriod?,
+    val offerPeriod: OfferPeriod? = null,
     /**
      * **상점 정보**
      * 
@@ -236,51 +232,55 @@ data class PaymentRequest(
      * - 나이스페이먼츠의 경우 매출 전표에 표기 할 용도로 선택 입력
      * - KG이니시스 일본결제의 경우 JPPG(gmoPayment) 결제의 상점정보로 사용되거나 편의점 결제 시 영수증 표시 정보로 사용됨.
      */
-    val storeDetails: StoreDetails?,
+    val storeDetails: StoreDetails? = null,
     /**
      * **주소 정보**
      */
-    val shippingAddress: Address?,
+    val shippingAddress: Address? = null,
     /**
      * **프로모션 아이디**
      * 
      * 포트원의 프로모션 기능 이용시 지정합니다.
      */
-    val promotionId: String?,
+    val promotionId: String? = null,
     /**
      * **팝업 관련 필드**
      * 
      * UI가 팝업 창으로 열릴 때 적용되는 속성입니다.
      */
-    val popup: Popup?,
+    val popup: Popup? = null,
     /**
      * **결제창이 iframe 방식일 경우 결제창에 적용할 속성**
      */
-    val iframe: Iframe?,
+    val iframe: Iframe? = null,
+    /**
+     * **PG사 결제창 호출 시 PG사로 그대로 bypass할 값들의 모음**
+     */
+    val bypass: PaymentBypass? = null,
     /**
      * **카드 결제 설정**
      */
-    val card: PaymentRequestUnionCard?,
+    val card: PaymentRequestUnionCard? = null,
     /**
      * **가상계좌 결제 설정**
      */
-    val virtualAccount: PaymentRequestUnionVirtualAccount?,
+    val virtualAccount: PaymentRequestUnionVirtualAccount? = null,
     /**
      * **계좌이체 결제 설정**
      */
-    val transfer: PaymentRequestUnionTransfer?,
+    val transfer: PaymentRequestUnionTransfer? = null,
     /**
      * **휴대전화 결제 설정**
      */
-    val mobile: PaymentRequestUnionMobile?,
+    val mobile: PaymentRequestUnionMobile? = null,
     /**
      * **상품권 결제 설정**
      */
-    val giftCertificate: PaymentRequestUnionGiftCertificate?,
-    val easyPay: PaymentRequestUnionEasyPay?,
-    val paypal: PaymentRequestUnionPaypal?,
-    val alipay: PaymentRequestUnionAlipay?,
-    val convenienceStore: PaymentRequestUnionConvenienceStore?
+    val giftCertificate: PaymentRequestUnionGiftCertificate? = null,
+    val easyPay: PaymentRequestUnionEasyPay? = null,
+    val paypal: PaymentRequestUnionPaypal? = null,
+    val alipay: PaymentRequestUnionAlipay? = null,
+    val convenienceStore: PaymentRequestUnionConvenienceStore? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         put("storeId", storeId)
@@ -303,7 +303,6 @@ data class PaymentRequest(
         isCulturalExpense?.let { put("isCulturalExpense", isCulturalExpense) }
         locale?.let { put("locale", locale.toJson()) }
         customData?.let { put("customData", customData) }
-        bypass?.let { put("bypass", bypass.toJson()) }
         country?.let { put("country", country.toJson()) }
         productType?.let { put("productType", productType.toJson()) }
         offerPeriod?.let { put("offerPeriod", offerPeriod.toJson()) }
@@ -312,6 +311,7 @@ data class PaymentRequest(
         promotionId?.let { put("promotionId", promotionId) }
         popup?.let { put("popup", popup.toJson()) }
         iframe?.let { put("iframe", iframe.toJson()) }
+        bypass?.let { put("bypass", bypass.toJson()) }
         card?.let { put("card", card.toJson()) }
         virtualAccount?.let { put("virtualAccount", virtualAccount.toJson()) }
         transfer?.let { put("transfer", transfer.toJson()) }

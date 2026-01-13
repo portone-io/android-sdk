@@ -5,6 +5,7 @@ package io.portone.sdk.android.type.request
 
 import android.os.Parcelable
 import io.portone.sdk.android.type.entity.CardCompany
+import io.portone.sdk.android.type.entity.CardPromotion
 import io.portone.sdk.android.type.entity.Installment
 import kotlinx.parcelize.Parcelize
 
@@ -16,17 +17,17 @@ data class PaymentRequestUnionCard(
     /**
      * 카드 결제시 사용되는 카드사 코드
      */
-    val cardCompany: CardCompany?,
+    val cardCompany: CardCompany? = null,
     /**
      * **일부 카드사만 노출 설정**
      * 
      * 일부 카드사만을 선택 가능하게 하고 싶은 경우 사용하는 옵션입니다.
      */
-    val availableCards: List<CardCompany>?,
+    val availableCards: List<CardCompany>? = null,
     /**
      * **상점분담 무이자 활성화 여부**
      */
-    val useFreeInterestFromMall: Boolean?,
+    val useFreeInterestFromMall: Boolean? = null,
     /**
      * **할부 설정**
      * 
@@ -72,19 +73,27 @@ data class PaymentRequestUnionCard(
      * - 카드 다이렉트 호출 시 고정 할부만 가능한 PG사가 있습니다
      * - 무이자 할부는 가맹점이 수수료를 부담하는 방식입니다
      */
-    val installment: Installment?,
+    val installment: Installment? = null,
     /**
      * **카드 포인트 사용 설정**
      */
-    val useCardPoint: Boolean?,
+    val useCardPoint: Boolean? = null,
     /**
      * **앱 카드만 허용할지 여부**
      */
-    val useAppCardOnly: Boolean?,
+    val useAppCardOnly: Boolean? = null,
     /**
      * 할부 사용 가능 여부
      */
-    val useInstallment: Boolean?
+    val useInstallment: Boolean? = null,
+    /**
+     * **카드 프로모션 정보**
+     * 
+     * 카드사 다이렉트 호출 시 적용할 카드사 할인 쿠폰 정보입니다.
+     * 
+     * 현재 KCP\_V2 채널에서만 사용 가능합니다.
+     */
+    val cardPromotion: CardPromotion? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         cardCompany?.let { put("cardCompany", cardCompany.toJson()) }
@@ -94,5 +103,6 @@ data class PaymentRequestUnionCard(
         useCardPoint?.let { put("useCardPoint", useCardPoint) }
         useAppCardOnly?.let { put("useAppCardOnly", useAppCardOnly) }
         useInstallment?.let { put("useInstallment", useInstallment) }
+        cardPromotion?.let { put("cardPromotion", cardPromotion.toJson()) }
     }
 }

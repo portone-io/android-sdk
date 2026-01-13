@@ -17,15 +17,15 @@ data class IdentityVerificationBypass(
     /**
      * **다날 bypass 파라미터**
      */
-    val danal: DanalIdentityVerificationBypass?,
+    val danal: DanalIdentityVerificationBypass? = null,
     /**
      * **KG이니시스 bypass 파라미터**
      */
-    val inicisUnified: InicisUnifiedIdentityVerificationBypass?,
+    val inicisUnified: InicisUnifiedIdentityVerificationBypass? = null,
     /**
      * **KCP bypass 파라미터**
      */
-    val kcpV2: KcpV2IdentityVerificationBypass?
+    val kcpV2: KcpV2IdentityVerificationBypass? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         danal?.let { put("danal", danal.toJson()) }

@@ -14,11 +14,11 @@ data class TosspaymentsPaymentBypass(
     /**
      * 토스페이먼츠 <-> 고객사 계약에 따라 프로모션 적용이 가능한 코드
      */
-    val discountCode: String?,
+    val discountCode: String? = null,
     /**
      * 해외 카드로만 결제가 가능하도록 할 지 여부
      */
-    val useInternationalCardOnly: Boolean?
+    val useInternationalCardOnly: Boolean? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         discountCode?.let { put("discountCode", discountCode) }

@@ -16,12 +16,12 @@ data class TossBrandpayWidgetOptions(
     /**
      * 위젯에 보여줄 결제 수단. 예) 카드 전달시 등록한 결제 수단 중 카드만 노출 됨
      */
-    val methodType: TossBrandpayWidgetOptionsMethodType?,
+    val methodType: TossBrandpayWidgetOptionsMethodType? = null,
     /**
      * 위젯에서 기본 결제 수단으로 선택할 결제 수단의 ID
      */
-    val methodId: String?,
-    val ui: TossBrandpayWidgetOptionsUi?
+    val methodId: String? = null,
+    val ui: TossBrandpayWidgetOptionsUi? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         methodType?.let { put("methodType", methodType.toJson()) }

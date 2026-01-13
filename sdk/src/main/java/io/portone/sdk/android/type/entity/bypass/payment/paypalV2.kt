@@ -18,13 +18,13 @@ data class PaypalV2PaymentBypass(
     /**
      * create order API 호출에 필요한 파라미터
      */
-    val purchaseUnits: List<PaypalV2PurchaseUnit>?,
-    val payer: PaypalV2Payer?,
-    val paymentSource: PaypalV2PaymentSource?,
+    val purchaseUnits: List<PaypalV2PurchaseUnit>? = null,
+    val payer: PaypalV2Payer? = null,
+    val paymentSource: PaypalV2PaymentSource? = null,
     /**
      * STC 파라미터
      */
-    val additionalData: List<PaypalV2AdditionalData>?
+    val additionalData: List<PaypalV2AdditionalData>? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         purchaseUnits?.let { put("purchase_units", purchaseUnits.map { it.toJson() }) }

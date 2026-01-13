@@ -13,8 +13,8 @@ data class PaypalV2Payer(
     /**
      * 구매자 정보
      */
-    val taxInfo: PaypalV2PayerTaxInfo?,
-    val address: PaypalV2PayerAddress?
+    val taxInfo: PaypalV2PayerTaxInfo? = null,
+    val address: PaypalV2PayerAddress? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         taxInfo?.let { put("tax_info", taxInfo.toJson()) }

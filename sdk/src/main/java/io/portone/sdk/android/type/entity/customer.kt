@@ -17,49 +17,49 @@ data class Customer(
      * 
      * 토스페이먼츠와 스마트로의 빌링키 발급에서 사용합니다.
      */
-    val customerId: String?,
+    val customerId: String? = null,
     /**
      * **구매자 전체 이름**
      * 
      * `fullName`이 사용되는 PG에서 `fullName`이 없고 `firstName`과 `lastName`이 있는 경우 `${lastName} ${firstName}`이 대신 사용됩니다.
      */
-    val fullName: String?,
+    val fullName: String? = null,
     /**
      * **구매자 성이 아닌 이름**
      * 
      * 페이팔에서 구매자 페이팔 계정 소유자의 이름을 지정합니다.
      */
-    val firstName: String?,
+    val firstName: String? = null,
     /**
      * **구매자 성**
      * 
      * 페이팔에서 구매자 페이팔 계정 소유자의 성을 지정합니다.
      */
-    val lastName: String?,
+    val lastName: String? = null,
     /**
      * **구매자 휴대전화 번호**
      * 
      * 숫자만 입력합니다.
      */
-    val phoneNumber: String?,
+    val phoneNumber: String? = null,
     /**
      * **구매자 이메일 주소**
      * 
      * 올바른 형식의 이메일 주소여야 합니다.
      */
-    val email: String?,
+    val email: String? = null,
     /**
      * **주소 정보**
      */
-    val address: Address?,
+    val address: Address? = null,
     /**
      * **구매자 우편번호**
      */
-    val zipcode: String?,
+    val zipcode: String? = null,
     /**
      * 구매자 성별
      */
-    val gender: Gender?,
+    val gender: Gender? = null,
     /**
      * **구매자 출생년도**
      * 
@@ -67,7 +67,7 @@ data class Customer(
      * 
      * KG이니시스 통합인증에서 `flgFixedUser`가 `Y`인 경우 필수입니다.
      */
-    val birthYear: String?,
+    val birthYear: String? = null,
     /**
      * **구매자 출생월**
      * 
@@ -75,7 +75,7 @@ data class Customer(
      * 
      * KG이니시스 통합인증에서 `flgFixedUser`가 `Y`인 경우 필수입니다.
      */
-    val birthMonth: String?,
+    val birthMonth: String? = null,
     /**
      * **구매자 출생일**
      * 
@@ -83,19 +83,19 @@ data class Customer(
      * 
      * KG이니시스 통합인증에서 `flgFixedUser`가 `Y`인 경우 필수입니다.
      */
-    val birthDay: String?,
+    val birthDay: String? = null,
     /**
      * **구매자 일본어 성이 아닌 이름 후리가나(읽는 법)**
      * 
      * KG이니시스 JPPG 일본 편의점 결제에서 필수입니다. 최대 20바이트입니다.
      */
-    val firstNameKana: String?,
+    val firstNameKana: String? = null,
     /**
      * **구매자 일본어 성 후리가나(읽는 법)**
      * 
      * KG이니시스 JPPG 일본 편의점 결제에서 필수입니다. 최대 20바이트입니다.
      */
-    val lastNameKana: String?
+    val lastNameKana: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         customerId?.let { put("customerId", customerId) }

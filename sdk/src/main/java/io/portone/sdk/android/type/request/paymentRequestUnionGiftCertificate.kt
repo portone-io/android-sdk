@@ -15,7 +15,7 @@ data class PaymentRequestUnionGiftCertificate(
     /**
      * **상품권 종류**
      */
-    val giftCertificateType: GiftCertificateType?
+    val giftCertificateType: GiftCertificateType? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         giftCertificateType?.let { put("giftCertificateType", giftCertificateType.toJson()) }

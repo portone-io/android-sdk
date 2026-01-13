@@ -10,5 +10,8 @@ enum class TossBrandpayWidgetOptionsMethodType {
     CARD,
     ACCOUNT;
 
-    fun toJson(): String = name
+    fun toJson(): String = when (this) {
+        CARD -> "카드"
+        ACCOUNT -> "계좌"
+    }
 }

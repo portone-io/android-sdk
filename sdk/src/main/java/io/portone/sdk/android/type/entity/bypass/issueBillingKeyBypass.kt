@@ -4,6 +4,7 @@
 package io.portone.sdk.android.type.entity.bypass
 
 import android.os.Parcelable
+import io.portone.sdk.android.type.entity.bypass.issueBillingKey.GalaxiaIssueBillingKeyBypass
 import io.portone.sdk.android.type.entity.bypass.issueBillingKey.InicisV2IssueBillingKeyBypass
 import io.portone.sdk.android.type.entity.bypass.issueBillingKey.KcpV2IssueBillingKeyBypass
 import io.portone.sdk.android.type.entity.bypass.issueBillingKey.NaverpayIssueBillingKeyBypass
@@ -16,41 +17,46 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class IssueBillingKeyBypass(
     /**
-     * 카카오페이 bypass 파라미터
-     */
-    val kakaopay: KakaopayPaymentBypass?,
-    /**
-     * **스마트로 bypass 파라미터**
-     */
-    val smartroV2: SmartroV2IssueBillingKeyBypass?,
-    /**
-     * **네이버페이 bypass 파라미터**
-     */
-    val naverpay: NaverpayIssueBillingKeyBypass?,
-    /**
-     * **웰컴페이먼츠 bypass 파라미터**
-     */
-    val welcome: WelcomeIssueBillingKeyBypass?,
-    /**
-     * **토스페이 bypass 파라미터**
-     */
-    val tosspayV2: TosspayV2IssueBillingKeyBypass?,
-    /**
      * **KG이니시스 bypass 파라미터**
      */
-    val inicisV2: InicisV2IssueBillingKeyBypass?,
+    val inicisV2: InicisV2IssueBillingKeyBypass? = null,
     /**
      * **KCP bypass 파라미터**
      */
-    val kcpV2: KcpV2IssueBillingKeyBypass?
+    val kcpV2: KcpV2IssueBillingKeyBypass? = null,
+    /**
+     * **스마트로 bypass 파라미터**
+     */
+    val smartroV2: SmartroV2IssueBillingKeyBypass? = null,
+    /**
+     * **웰컴페이먼츠 bypass 파라미터**
+     */
+    val welcome: WelcomeIssueBillingKeyBypass? = null,
+    /**
+     * **갤럭시아 bypass 파라미터**
+     */
+    val galaxia: GalaxiaIssueBillingKeyBypass? = null,
+    /**
+     * **네이버페이 bypass 파라미터**
+     */
+    val naverpay: NaverpayIssueBillingKeyBypass? = null,
+    /**
+     * 카카오페이 bypass 파라미터
+     */
+    val kakaopay: KakaopayPaymentBypass? = null,
+    /**
+     * **토스페이 bypass 파라미터**
+     */
+    val tosspayV2: TosspayV2IssueBillingKeyBypass? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
-        kakaopay?.let { put("kakaopay", kakaopay.toJson()) }
-        smartroV2?.let { put("smartro_v2", smartroV2.toJson()) }
-        naverpay?.let { put("naverpay", naverpay.toJson()) }
-        welcome?.let { put("welcome", welcome.toJson()) }
-        tosspayV2?.let { put("tosspay_v2", tosspayV2.toJson()) }
         inicisV2?.let { put("inicis_v2", inicisV2.toJson()) }
         kcpV2?.let { put("kcp_v2", kcpV2.toJson()) }
+        smartroV2?.let { put("smartro_v2", smartroV2.toJson()) }
+        welcome?.let { put("welcome", welcome.toJson()) }
+        galaxia?.let { put("galaxia", galaxia.toJson()) }
+        naverpay?.let { put("naverpay", naverpay.toJson()) }
+        kakaopay?.let { put("kakaopay", kakaopay.toJson()) }
+        tosspayV2?.let { put("tosspay_v2", tosspayV2.toJson()) }
     }
 }

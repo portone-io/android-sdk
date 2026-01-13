@@ -12,7 +12,7 @@ data class IssueBillingKeyRequestUnionCard(
     /**
      * 카드 결제시 사용되는 카드사 코드
      */
-    val cardCompany: CardCompany?
+    val cardCompany: CardCompany? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         cardCompany?.let { put("cardCompany", cardCompany.toJson()) }

@@ -21,5 +21,10 @@ enum class KpnCardSelect {
      */
     KEY_IN;
 
-    fun toJson(): String = name
+    fun toJson(): String = when (this) {
+        GLOBAL -> "GLOBAL"
+        _11PAY -> "11PAY"
+        LEGACY_AUTH -> "LEGACY_AUTH"
+        KEY_IN -> "KEY_IN"
+    }
 }

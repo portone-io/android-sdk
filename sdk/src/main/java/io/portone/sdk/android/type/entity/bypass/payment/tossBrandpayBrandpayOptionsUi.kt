@@ -14,16 +14,16 @@ data class TossBrandpayBrandpayOptionsUi(
     /**
      * UI의 메인 색상. (기본값: #3182f6)
      */
-    val highlightColor: String?,
+    val highlightColor: String? = null,
     /**
      * 버튼 스타일
      * 
      * - default(기본값): 모서리가 둥글고 주변에 여백을 가진 버튼
      * - full: 하단 영역이 전부 채워지는 형태의 버튼
      */
-    val buttonStyle: TossBrandpayBrandpayOptionsUiButtonStyle?,
-    val labels: TossBrandpayBrandpayOptionsUiLabels?,
-    val navigationBar: TossBrandpayBrandpayOptionsUiNavigationBar?
+    val buttonStyle: TossBrandpayBrandpayOptionsUiButtonStyle? = null,
+    val labels: TossBrandpayBrandpayOptionsUiLabels? = null,
+    val navigationBar: TossBrandpayBrandpayOptionsUiNavigationBar? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         highlightColor?.let { put("highlightColor", highlightColor) }

@@ -34,25 +34,25 @@ data class IdentityVerificationResponse(
      * 
      * 실패한 경우 오류 코드입니다.
      */
-    val code: String?,
+    val code: String? = null,
     /**
      * **오류 메시지**
      * 
      * 실패한 경우 오류 메시지입니다.
      */
-    val message: String?,
+    val message: String? = null,
     /**
      * **PG 오류 코드**
      * 
      * PG에서 오류 코드를 내려 주는 경우 이 오류 코드를 그대로 반환합니다.
      */
-    val pgCode: String?,
+    val pgCode: String? = null,
     /**
      * **PG 오류 메시지**
      * 
      * PG에서 오류 메시지를 내려 주는 경우 이 오류 메시지를 그대로 반환합니다.
      */
-    val pgMessage: String?
+    val pgMessage: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         put("transactionType", transactionType)

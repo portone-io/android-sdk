@@ -15,7 +15,7 @@ data class KcpV2IssueBillingKeyBypass(
     /**
      * 결제창에서 주민번호/사업자 번호 고정여부 설정
      */
-    val batchSocChoice: KcpV2BatchSocChoice?
+    val batchSocChoice: KcpV2BatchSocChoice? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         batchSocChoice?.let { put("batch_soc_choice", batchSocChoice.toJson()) }

@@ -18,7 +18,7 @@ data class InicisUnifiedIdentityVerificationBypass(
      * 
      * 인증 업체 선택 화면 없이 설정한 인증 업체를 통해 인증하도록 합니다.
      */
-    val directAgency: InicisUnifiedDirectAgency?,
+    val directAgency: InicisUnifiedDirectAgency? = null,
     /**
      * **인증 창에서 고객 정보를 미리 채울지 여부**
      * 
@@ -35,11 +35,11 @@ data class InicisUnifiedIdentityVerificationBypass(
      * 
      * HTTPS URL을 입력합니다. (HTTP URL인 경우 표시되지 않을 수 있습니다.)
      */
-    val logoUrl: String?,
+    val logoUrl: String? = null,
     /**
      * DI를 생성할 때 사용할 salt
      */
-    val diCode: String?,
+    val diCode: String? = null,
     /**
      * **성별 및 외국인 정보 별도 입력 여부**
      * 
@@ -47,7 +47,7 @@ data class InicisUnifiedIdentityVerificationBypass(
      * 
      * `N`인 경우 네이버, 카카오에서 사용자가 성별 및 외국인 정보를 입력하는 칸을 표시하지 않습니다.
      */
-    val frgndInfo: String?
+    val frgndInfo: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         directAgency?.let { put("directAgency", directAgency.toJson()) }

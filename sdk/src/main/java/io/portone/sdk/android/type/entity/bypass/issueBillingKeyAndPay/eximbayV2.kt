@@ -19,20 +19,20 @@ data class EximbayV2IssueBillingKeyAndPayBypass(
     /**
      * 결제 정보
      */
-    val payment: EximbayV2Payment?,
-    val merchant: EximbayV2Merchant?,
+    val payment: EximbayV2Payment? = null,
+    val merchant: EximbayV2Merchant? = null,
     /**
      * **최대 3개의 추가 비용 목록**
      */
-    val surcharge: List<EximbayV2Surcharge>?,
+    val surcharge: List<EximbayV2Surcharge>? = null,
     /**
      * **배송지 정보**
      */
-    val shipTo: EximbayV2ShipTo?,
+    val shipTo: EximbayV2ShipTo? = null,
     /**
      * **청구지 정보**
      */
-    val billTo: EximbayV2BillTo?
+    val billTo: EximbayV2BillTo? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         payment?.let { put("payment", payment.toJson()) }

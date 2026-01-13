@@ -26,7 +26,7 @@ data class IssueBillingKeyRequest(
     /**
      * 빌링키 발급 창에 디스플레이 용으로 띄우는 금액
      */
-    val displayAmount: Long?,
+    val displayAmount: Long? = null,
     /**
      * **화폐**
      * 
@@ -34,7 +34,7 @@ data class IssueBillingKeyRequest(
      * 
      * 대한민국 원, 일본 엔이 아닌 화폐를 사용할 때에는 금액을 minor unit 단위로 입력해야 함에 유의하세요.
      */
-    val currency: Currency?,
+    val currency: Currency? = null,
     /**
      * **상점 아이디**
      * 
@@ -50,7 +50,7 @@ data class IssueBillingKeyRequest(
      * 
      * 채널 키와 채널 그룹 ID 중 하나를 지정해야 합니다.
      */
-    val channelKey: String?,
+    val channelKey: String? = null,
     /**
      * 빌링키 발급 수단
      */
@@ -58,12 +58,12 @@ data class IssueBillingKeyRequest(
     /**
      * 빌링키 발급 주문 명
      */
-    val issueName: String?,
+    val issueName: String? = null,
     /**
      * 빌링키 발급 주문 고유 번호
      */
-    val issueId: String?,
-    val customer: Customer?,
+    val issueId: String? = null,
+    val customer: Customer? = null,
     /**
      * **환경 별 제공되는 결제/본인인증 창 유형**
      * 
@@ -71,17 +71,17 @@ data class IssueBillingKeyRequest(
      * - 전달되지 않았을 때 결정되는 기본 창이 다릅니다.
      * - 미입력 시, 해당 PG사의 기본 창 방식을 따릅니다.
      */
-    val windowType: WindowTypes?,
+    val windowType: WindowTypes? = null,
     /**
      * **UI 언어**
      * 
      * KG이니시스, 스마트로, KSNET, 웰컴페이먼츠 (PC), 한국결제네트웍스, 엑심베이에서 설정 가능하며, PG마다 지원하는 언어 목록은 차이가 있습니다.
      */
-    val locale: Locale?,
+    val locale: Locale? = null,
     /**
      * **빌링키 발급 정보와 함께 관리하고 싶은 고객사 커스텀 JSON 데이터**
      */
-    val customData: @RawValue Map<String, Any?>?,
+    val customData: @RawValue Map<String, Any?>? = null,
     /**
      * **서비스 제공 기간**
      * 
@@ -124,34 +124,34 @@ data class IssueBillingKeyRequest(
      * 예6) 1년 주기
      * `interval: '1y'`
      */
-    val offerPeriod: OfferPeriod?,
+    val offerPeriod: OfferPeriod? = null,
     /**
      * 앱 URL Scheme
      */
-    val appScheme: String?,
+    val appScheme: String? = null,
     /**
      * 웹훅 URL
      */
-    val noticeUrls: List<String>?,
+    val noticeUrls: List<String>? = null,
     /**
      * **상품 유형**
      */
-    val productType: ProductType?,
-    val bypass: IssueBillingKeyBypass?,
+    val productType: ProductType? = null,
+    val bypass: IssueBillingKeyBypass? = null,
     /**
      * **팝업 관련 필드**
      * 
      * UI가 팝업 창으로 열릴 때 적용되는 속성입니다.
      */
-    val popup: Popup?,
+    val popup: Popup? = null,
     /**
      * **결제창이 iframe 방식일 경우 결제창에 적용할 속성**
      */
-    val iframe: Iframe?,
-    val card: IssueBillingKeyRequestUnionCard?,
-    val mobile: IssueBillingKeyRequestUnionMobile?,
-    val easyPay: IssueBillingKeyRequestUnionEasyPay?,
-    val paypal: IssueBillingKeyRequestUnionPaypal?
+    val iframe: Iframe? = null,
+    val card: IssueBillingKeyRequestUnionCard? = null,
+    val mobile: IssueBillingKeyRequestUnionMobile? = null,
+    val easyPay: IssueBillingKeyRequestUnionEasyPay? = null,
+    val paypal: IssueBillingKeyRequestUnionPaypal? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         displayAmount?.let { put("displayAmount", displayAmount) }

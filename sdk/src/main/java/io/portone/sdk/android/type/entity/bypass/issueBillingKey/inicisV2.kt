@@ -15,7 +15,7 @@ data class InicisV2IssueBillingKeyBypass(
     /**
      * 개인/법인카드 선택 옵션
      */
-    val carduse: InicisV2CardUse?
+    val carduse: InicisV2CardUse? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         carduse?.let { put("carduse", carduse.toJson()) }

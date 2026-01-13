@@ -18,31 +18,31 @@ data class PaypalV2Style(
     /**
      * 버튼 색상
      */
-    val color: PaypalV2StyleColor?,
+    val color: PaypalV2StyleColor? = null,
     /**
      * 버튼 높이
      */
-    val height: Long?,
+    val height: Long? = null,
     /**
      * 버튼 라벨
      */
-    val label: PaypalV2StyleLabel?,
+    val label: PaypalV2StyleLabel? = null,
     /**
      * 버튼 렌더링 방향
      */
-    val layout: PaypalV2StyleLayout?,
+    val layout: PaypalV2StyleLayout? = null,
     /**
      * 버튼 모양
      */
-    val shape: PaypalV2StyleShape?,
+    val shape: PaypalV2StyleShape? = null,
     /**
      * label이 installment일 때 할부 결제 되는 월
      */
-    val period: String?,
+    val period: String? = null,
     /**
      * 버튼 하위에 문구 노출 여부
      */
-    val tagline: Boolean?
+    val tagline: Boolean? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         color?.let { put("color", color.toJson()) }

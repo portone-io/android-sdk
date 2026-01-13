@@ -35,8 +35,8 @@ data class IdentityVerificationRequest(
      * 
      * 채널 키와 채널 그룹 ID 중 하나를 지정해야 합니다.
      */
-    val channelKey: String?,
-    val customer: Customer?,
+    val channelKey: String? = null,
+    val customer: Customer? = null,
     /**
      * **환경 별 제공되는 결제/본인인증 창 유형**
      * 
@@ -44,25 +44,25 @@ data class IdentityVerificationRequest(
      * - 전달되지 않았을 때 결정되는 기본 창이 다릅니다.
      * - 미입력 시, 해당 PG사의 기본 창 방식을 따릅니다.
      */
-    val windowType: WindowTypes?,
+    val windowType: WindowTypes? = null,
     /**
      * **본인인증 정보와 함께 관리하고 싶은 고객사 커스텀 JSON 데이터**
      */
-    val customData: String?,
+    val customData: String? = null,
     /**
      * **PG사 본인인증 창 호출 시 PG사로 그대로 bypass할 값들의 모음**
      */
-    val bypass: IdentityVerificationBypass?,
+    val bypass: IdentityVerificationBypass? = null,
     /**
      * **팝업 관련 필드**
      * 
      * UI가 팝업 창으로 열릴 때 적용되는 속성입니다.
      */
-    val popup: Popup?,
+    val popup: Popup? = null,
     /**
      * **결제창이 iframe 방식일 경우 결제창에 적용할 속성**
      */
-    val iframe: Iframe?
+    val iframe: Iframe? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         put("storeId", storeId)

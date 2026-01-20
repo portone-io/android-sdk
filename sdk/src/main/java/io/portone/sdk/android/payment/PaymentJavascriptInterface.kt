@@ -2,12 +2,12 @@ package io.portone.sdk.android.payment
 
 interface PaymentJavascriptInterface {
     fun fail(
-        transactionType: String?,
+        transactionType: String,
         txId: String?,
         paymentId: String?,
         code: String,
         message: String,
         pgCode: String?,
-        pgMessage: String?,
+        pgMessage: String?
     )
 }

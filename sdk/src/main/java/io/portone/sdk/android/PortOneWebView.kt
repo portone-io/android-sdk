@@ -13,26 +13,25 @@ import android.webkit.WebView
 import androidx.webkit.WebViewAssetLoader
 import io.portone.sdk.android.identityverification.IdentityVerificationCallback
 import io.portone.sdk.android.identityverification.IdentityVerificationJavascriptInterface
-import io.portone.sdk.android.identityverification.IdentityVerificationRequest
-import io.portone.sdk.android.identityverification.IdentityVerificationResponse
 import io.portone.sdk.android.issuebillingkey.IssueBillingKeyCallback
 import io.portone.sdk.android.issuebillingkey.IssueBillingKeyJavascriptInterface
-import io.portone.sdk.android.issuebillingkey.IssueBillingKeyRequest
-import io.portone.sdk.android.issuebillingkey.IssueBillingKeyResponse
 import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayCallback
 import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayJavascriptInterface
-import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayRequest
-import io.portone.sdk.android.issuebillingkeyandpay.IssueBillingKeyAndPayResponse
 import io.portone.sdk.android.issuebillingkeyui.LoadIssueBillingKeyUIJavascriptInterface
-import io.portone.sdk.android.issuebillingkeyui.LoadIssueBillingKeyUIRequest
 import io.portone.sdk.android.payment.PaymentCallback
 import io.portone.sdk.android.payment.PaymentJavascriptInterface
-import io.portone.sdk.android.payment.PaymentRequest
-import io.portone.sdk.android.payment.PaymentResponse
 import io.portone.sdk.android.paymentui.LoadPaymentUIJavascriptInterface
-import io.portone.sdk.android.paymentui.LoadPaymentUIRequest
-import kotlinx.serialization.encodeToString
 import java.net.URISyntaxException
+import io.portone.sdk.android.type.response.IdentityVerificationResponse
+import io.portone.sdk.android.type.request.IdentityVerificationRequest
+import io.portone.sdk.android.type.response.IssueBillingKeyResponse
+import io.portone.sdk.android.type.request.IssueBillingKeyRequest
+import io.portone.sdk.android.type.request.LoadIssueBillingKeyUIRequest
+import io.portone.sdk.android.type.request.IssueBillingKeyAndPayRequest
+import io.portone.sdk.android.type.response.IssueBillingKeyAndPayResponse
+import io.portone.sdk.android.type.request.PaymentRequest
+import io.portone.sdk.android.type.response.PaymentResponse
+import io.portone.sdk.android.type.request.LoadPaymentUIRequest
 
 @SuppressLint("SetJavaScriptEnabled")
 class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(context, attrs) {
@@ -61,9 +60,11 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 if (url == defaultUrl) {
                     view?.evaluateJavascript(
                         StringBuilder().append("javascript:PortOne.requestPayment(")
-                            .append("${encodingformat.encodeToString(paymentRequest.toInternal())})")
+                            .append(paymentRequest.toJson().toMutableMap().apply { 
+                                this["redirectUrl"] = PortOne.REDIRECT_URL 
+                            }.toJsonString()).append(")")
                             .append(".catch(function(error){")
-                            .append("Portone.fail(error.transactionType, error.txId, error.paymentId, error.code, error.message)")
+                            .append("Portone.fail(error.transactionType, error.txId, error.paymentId, error.code, error.message, error.pgCode, error.pgMessage)")
                             .append("})")
                             .toString(),
                         null
@@ -93,9 +94,11 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                         }
 
                         "portone" -> {
-                            when (val result = handlePaymentResponse(url)) {
-                                is PaymentResponse.Fail -> paymentCallback.onFail(result)
-                                is PaymentResponse.Success -> paymentCallback.onSuccess(result)
+                            val result = handlePaymentResponse(url)
+                            if (result.code == null) {
+                                paymentCallback.onSuccess(result);
+                            } else {
+                                paymentCallback.onFail(result);
                             }
                             true
                         }
@@ -115,22 +118,22 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
         addJavascriptInterface(object : PaymentJavascriptInterface {
             @JavascriptInterface
             override fun fail(
-                transactionType: String?,
+                transactionType: String,
                 txId: String?,
                 paymentId: String?,
                 code: String,
                 message: String,
                 pgCode: String?,
-                pgMessage: String?,
+                pgMessage: String?
             ) {
-                val fail = PaymentResponse.Fail(
-                    transactionType?.let { TransactionType.valueOf(it) },
-                    txId,
-                    paymentId,
-                    code,
-                    message,
-                    pgCode,
-                    pgMessage,
+                val fail = PaymentResponse(
+                    transactionType = transactionType,
+                    txId = txId.orEmpty(),
+                    paymentId = paymentId.orEmpty(),
+                    code = code,
+                    message = message,
+                    pgCode = pgCode,
+                    pgMessage = pgMessage
                 )
                 paymentCallback.onFail(fail)
             }
@@ -149,9 +152,11 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 if (url == defaultUrl) {
                     view?.evaluateJavascript(
                         StringBuilder().append("javascript:PortOne.requestIssueBillingKey(")
-                            .append("${encodingformat.encodeToString(issueBillingKeyRequest.toInternal())})")
+                            .append(issueBillingKeyRequest.toJson().toMutableMap().apply { 
+                                this["redirectUrl"] = PortOne.REDIRECT_URL 
+                            }.toJsonString()).append(")")
                             .append(".catch(function(error){")
-                            .append("Portone.fail(error.transactionType, error.billingKey, error.code, error.message)")
+                            .append("Portone.fail(error.transactionType, error.billingKey, error.code, error.message, error.pgCode, error.pgMessage)")
                             .append("})")
                             .toString(),
                         null
@@ -181,14 +186,11 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                         }
 
                         "portone" -> {
-                            when (val result = handleIssueBillingKeyResponse(url)) {
-                                is IssueBillingKeyResponse.Fail -> issueBillingKeyCallback.onFail(
-                                    result
-                                )
-
-                                is IssueBillingKeyResponse.Success -> issueBillingKeyCallback.onSuccess(
-                                    result
-                                )
+                            val result = handleIssueBillingKeyResponse(url)
+                            if (result.code == null) {
+                                issueBillingKeyCallback.onSuccess(result);
+                            } else {
+                                issueBillingKeyCallback.onFail(result);
                             }
                             true
                         }
@@ -218,20 +220,20 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
         addJavascriptInterface(object : IssueBillingKeyJavascriptInterface {
             @JavascriptInterface
             override fun fail(
-                transactionType: String?,
+                transactionType: String,
                 billingKey: String?,
                 code: String,
                 message: String,
                 pgCode: String?,
                 pgMessage: String?
             ) {
-                val fail = IssueBillingKeyResponse.Fail(
-                    transactionType?.let { TransactionType.valueOf(it) },
-                    billingKey,
-                    code,
-                    message,
-                    pgCode,
-                    pgMessage,
+                val fail = IssueBillingKeyResponse(
+                    transactionType = transactionType,
+                    billingKey = billingKey.orEmpty(),
+                    code = code,
+                    message = message,
+                    pgCode = pgCode,
+                    pgMessage = pgMessage
                 )
                 issueBillingKeyCallback.onFail(fail)
             }
@@ -250,9 +252,11 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 if (url == defaultUrl) {
                     view?.evaluateJavascript(
                         StringBuilder().append("javascript:PortOne.requestIdentityVerification(")
-                            .append("${encodingformat.encodeToString(identityVerificationRequest.toInternal())})")
+                            .append(identityVerificationRequest.toJson().toMutableMap().apply { 
+                                this["redirectUrl"] = PortOne.REDIRECT_URL 
+                            }.toJsonString()).append(")")
                             .append(".catch(function(error){")
-                            .append("Portone.fail(error.transactionType, error.identityVerificationTxId, error.code, error.message)")
+                            .append("Portone.fail(error.transactionType, error.identityVerificationTxId, error.identityVerificationId, error.code, error.message, error.pgCode, error.pgMessage)")
                             .append("})")
                             .toString(),
                         null
@@ -282,14 +286,11 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                         }
 
                         "portone" -> {
-                            when (val result = handleIdentityVerificationResponse(url)) {
-                                is IdentityVerificationResponse.Fail -> identityVerificationCallback.onFail(
-                                    result
-                                )
-
-                                is IdentityVerificationResponse.Success -> identityVerificationCallback.onSuccess(
-                                    result
-                                )
+                            val result = handleIdentityVerificationResponse(url)
+                            if (result.code == null) {
+                                identityVerificationCallback.onFail(result);
+                            } else {
+                                identityVerificationCallback.onSuccess(result);
                             }
                             true
                         }
@@ -309,20 +310,22 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
         addJavascriptInterface(object : IdentityVerificationJavascriptInterface {
             @JavascriptInterface
             override fun fail(
-                transactionType: String?,
+                transactionType: String,
                 identityVerificationTxId: String?,
+                identityVerificationId: String?,
                 code: String,
                 message: String,
                 pgCode: String?,
                 pgMessage: String?
             ) {
-                val fail = IdentityVerificationResponse.Fail(
-                    transactionType?.let { TransactionType.valueOf(it) },
-                    identityVerificationTxId,
-                    code,
-                    message,
-                    pgCode,
-                    pgMessage,
+                val fail = IdentityVerificationResponse(
+                    transactionType = transactionType,
+                    identityVerificationId = identityVerificationId.orEmpty(),
+                    identityVerificationTxId = identityVerificationTxId.orEmpty(),
+                    code = code,
+                    message = message,
+                    pgCode = pgCode,
+                    pgMessage = pgMessage
                 )
                 identityVerificationCallback.onFail(fail)
             }
@@ -341,9 +344,11 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 if (url == defaultUrl) {
                     view?.evaluateJavascript(
                         StringBuilder().append("javascript:PortOne.requestIssueBillingKeyAndPay(")
-                            .append("${encodingformat.encodeToString(issueBillingKeyAndPayRequest.toInternal())})")
+                            .append(issueBillingKeyAndPayRequest.toJson().toMutableMap().apply { 
+                                this["redirectUrl"] = PortOne.REDIRECT_URL 
+                            }.toJsonString()).append(")")
                             .append(".catch(function(error){")
-                            .append("Portone.fail(error.transactionType, error.txId, error.paymentId, error.billingKey, error.code, error.message)")
+                            .append("Portone.fail(error.transactionType, error.txId, error.paymentId, error.billingKey, error.code, error.message, error.pgCode, error.pgMessage)")
                             .append("})")
                             .toString(),
                         null
@@ -373,14 +378,11 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                         }
 
                         "portone" -> {
-                            when (val result = handleIssueBillingKeyAndPayResponse(url)) {
-                                is IssueBillingKeyAndPayResponse.Fail -> issueBillingKeyAndPayCallback.onFail(
-                                    result
-                                )
-
-                                is IssueBillingKeyAndPayResponse.Success -> issueBillingKeyAndPayCallback.onSuccess(
-                                    result
-                                )
+                            val result = handleIssueBillingKeyAndPayResponse(url)
+                            if (result.code == null) {
+                                issueBillingKeyAndPayCallback.onSuccess(result);
+                            } else {
+                                issueBillingKeyAndPayCallback.onFail(result);
                             }
                             true
                         }
@@ -400,7 +402,7 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
         addJavascriptInterface(object : IssueBillingKeyAndPayJavascriptInterface {
             @JavascriptInterface
             override fun fail(
-                transactionType: String?,
+                transactionType: String,
                 txId: String?,
                 paymentId: String?,
                 billingKey: String?,
@@ -409,15 +411,15 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 pgCode: String?,
                 pgMessage: String?
             ) {
-                val fail = IssueBillingKeyAndPayResponse.Fail(
-                    transactionType?.let { TransactionType.valueOf(it) },
-                    txId,
-                    paymentId,
-                    billingKey,
-                    code,
-                    message,
-                    pgCode,
-                    pgMessage
+                val fail = IssueBillingKeyAndPayResponse(
+                    transactionType = transactionType,
+                    txId = txId.orEmpty(),
+                    paymentId = paymentId.orEmpty(),
+                    billingKey = billingKey.orEmpty(),
+                    code = code,
+                    message = message,
+                    pgCode = pgCode,
+                    pgMessage = pgMessage
                 )
                 issueBillingKeyAndPayCallback.onFail(fail)
             }
@@ -436,11 +438,13 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 if (url == loadUIUrl) {
                     view?.evaluateJavascript(
                         StringBuilder().append("javascript:PortOne.loadPaymentUI(")
-                            .append("${encodingformat.encodeToString(loadPaymentUIRequest.toInternal())},{")
+                            .append(loadPaymentUIRequest.toJson().toMutableMap().apply { 
+                                this["redirectUrl"] = PortOne.REDIRECT_URL 
+                            }.toJsonString()).append(",{")
                             .append("onPaymentSuccess: (response) => { Portone.success(response.transactionType, response.txId, response.paymentId) },")
-                            .append("onPaymentFail: (error) => { Portone.fail(error.transactionType, error.txId, error.paymentId, error.code, error.message)}})")
+                            .append("onPaymentFail: (error) => { Portone.fail(error.transactionType, error.txId, error.paymentId, error.code, error.message, error.pgCode, error.pgMessage)}})")
                             .append(".catch(function(error){")
-                            .append("Portone.fail(error.transactionType, error.txId, error.paymentId, error.code, error.message)")
+                            .append("Portone.fail(error.transactionType, error.txId, error.paymentId, error.code, error.message, error.pgCode, error.pgMessage)")
                             .append("})")
                             .toString(),
                         null
@@ -460,14 +464,11 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                         }
 
                         "portone" -> {
-                            when (val result = handlePaymentResponse(url)) {
-                                is PaymentResponse.Fail -> paymentCallback.onFail(
-                                    result
-                                )
-
-                                is PaymentResponse.Success -> paymentCallback.onSuccess(
-                                    result
-                                )
+                            val result = handlePaymentResponse(url)
+                            if (result.code == null) {
+                                paymentCallback.onSuccess(result);
+                            } else {
+                                paymentCallback.onFail(result);
                             }
                             true
                         }
@@ -487,22 +488,22 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
         addJavascriptInterface(object : LoadPaymentUIJavascriptInterface {
             @JavascriptInterface
             override fun fail(
-                transactionType: String?,
+                transactionType: String,
                 txId: String?,
                 paymentId: String?,
                 code: String,
                 message: String,
                 pgCode: String?,
-                pgMessage: String?,
+                pgMessage: String?
             ) {
-                val fail = PaymentResponse.Fail(
-                    transactionType?.let { TransactionType.valueOf(it) },
-                    txId,
-                    paymentId,
-                    code,
-                    message,
-                    pgCode,
-                    pgMessage,
+                val fail = PaymentResponse(
+                    transactionType = transactionType,
+                    txId = txId.orEmpty(),
+                    paymentId = paymentId.orEmpty(),
+                    code = code,
+                    message = message,
+                    pgCode = pgCode,
+                    pgMessage = pgMessage
                 )
                 paymentCallback.onFail(fail)
             }
@@ -513,10 +514,14 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 txId: String,
                 paymentId: String,
             ) {
-                val success = PaymentResponse.Success(
-                    transactionType.let { TransactionType.valueOf(it) },
-                    txId,
-                    paymentId,
+                val success = PaymentResponse(
+                    transactionType = transactionType,
+                    txId = txId,
+                    paymentId = paymentId,
+                    code = null,
+                    message = null,
+                    pgCode = null,
+                    pgMessage = null
                 )
                 paymentCallback.onSuccess(success)
             }
@@ -536,11 +541,13 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 if (url == loadUIUrl) {
                     view?.evaluateJavascript(
                         StringBuilder().append("javascript:PortOne.loadIssueBillingKeyUI(")
-                            .append("${encodingformat.encodeToString(loadIssueBillingKeyUIRequest.toInternal())},{")
+                            .append(loadIssueBillingKeyUIRequest.toJson().toMutableMap().apply { 
+                                this["redirectUrl"] = PortOne.REDIRECT_URL 
+                            }.toJsonString()).append(",{")
                             .append("onIssueBillingKeySuccess: (response) => { Portone.success(response.transactionType, response.billingKey) },")
-                            .append("onIssueBillingKeyFail: (error) => { Portone.fail(error.transactionType, error.billingKey, error.code, error.message)}})")
+                            .append("onIssueBillingKeyFail: (error) => { Portone.fail(error.transactionType, error.billingKey, error.code, error.message, error.pgCode, error.pgMessage)}})")
                             .append(".catch(function(error){")
-                            .append("Portone.fail(error.transactionType, error.billingKey, error.code, error.message)")
+                            .append("Portone.fail(error.transactionType, error.billingKey, error.code, error.message, error.pgCode, error.pgMessage)")
                             .append("})")
                             .toString(),
                         null
@@ -560,14 +567,11 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                         }
 
                         "portone" -> {
-                            when (val result = handleIssueBillingKeyResponse(url)) {
-                                is IssueBillingKeyResponse.Fail -> issueBillingKeyCallback.onFail(
-                                    result
-                                )
-
-                                is IssueBillingKeyResponse.Success -> issueBillingKeyCallback.onSuccess(
-                                    result
-                                )
+                            val result = handleIssueBillingKeyResponse(url)
+                            if (result.code == null) {
+                                issueBillingKeyCallback.onSuccess(result);
+                            } else {
+                                issueBillingKeyCallback.onFail(result);
                             }
                             true
                         }
@@ -587,18 +591,20 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
         addJavascriptInterface(object : LoadIssueBillingKeyUIJavascriptInterface {
             @JavascriptInterface
             override fun fail(
-                transactionType: String?,
+                transactionType: String,
                 billingKey: String?,
                 code: String,
-                message: String
+                message: String,
+                pgCode: String?,
+                pgMessage: String?
             ) {
-                val fail = IssueBillingKeyResponse.Fail(
-                    transactionType?.let { TransactionType.valueOf(it) },
-                    billingKey,
-                    code,
-                    message,
-                    pgCode = null,
-                    pgMessage = null,
+                val fail = IssueBillingKeyResponse(
+                    transactionType = transactionType,
+                    billingKey = billingKey.orEmpty(),
+                    code = code,
+                    message = message,
+                    pgCode = pgCode,
+                    pgMessage = pgMessage
                 )
                 issueBillingKeyCallback.onFail(fail)
             }
@@ -608,9 +614,13 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                 transactionType: String,
                 billingKey: String,
             ) {
-                val success = IssueBillingKeyResponse.Success(
-                    transactionType.let { TransactionType.valueOf(it) },
-                    billingKey,
+                val success = IssueBillingKeyResponse(
+                    transactionType = transactionType,
+                    billingKey = billingKey,
+                    code = null,
+                    message = null,
+                    pgCode = null,
+                    pgMessage = null
                 )
                 issueBillingKeyCallback.onSuccess(success)
             }
@@ -620,140 +630,69 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
     }
 
     private fun handlePaymentResponse(responseUrl: Uri): PaymentResponse {
-        return if (responseUrl.getQueryParameter(PaymentResponse.CODE) != null) {
-            PaymentResponse.Fail(
-                transactionType = TransactionType.valueOf(
-                    responseUrl.getQueryParameter(
-                        PaymentResponse.TRANSACTION_TYPE
-                    ).orEmpty()
-                ),
-                txId = responseUrl.getQueryParameter(PaymentResponse.TX_ID).orEmpty(),
-                paymentId = responseUrl.getQueryParameter(PaymentResponse.PAYMENT_ID).orEmpty(),
-                code = responseUrl.getQueryParameter(PaymentResponse.CODE).orEmpty(),
-                message = responseUrl.getQueryParameter(PaymentResponse.MESSAGE).orEmpty(),
-                pgCode = responseUrl.getQueryParameter(PaymentResponse.PG_CODE).orEmpty(),
-                pgMessage = responseUrl.getQueryParameter(PaymentResponse.PG_MESSAGE).orEmpty()
-            )
-        } else {
-            PaymentResponse.Success(
-                transactionType = TransactionType.valueOf(
-                    responseUrl.getQueryParameter(
-                        PaymentResponse.TRANSACTION_TYPE
-                    ).orEmpty()
-                ),
-                txId = responseUrl.getQueryParameter(PaymentResponse.TX_ID).orEmpty(),
-                paymentId = responseUrl.getQueryParameter(PaymentResponse.PAYMENT_ID).orEmpty()
-            )
-        }
-
+        return PaymentResponse(
+            transactionType = responseUrl.getQueryParameter(
+                "transactionType"
+            ).orEmpty(),
+            txId = responseUrl.getQueryParameter("txId").orEmpty(),
+            paymentId = responseUrl.getQueryParameter("paymentId").orEmpty(),
+            code = responseUrl.getQueryParameter("code"),
+            message = responseUrl.getQueryParameter("message"),
+            pgCode = responseUrl.getQueryParameter("pgCode"),
+            pgMessage = responseUrl.getQueryParameter("pgMessage")
+        )
     }
 
     private fun handleIssueBillingKeyResponse(responseUrl: Uri): IssueBillingKeyResponse {
-        return if (responseUrl.getQueryParameter(IssueBillingKeyResponse.CODE) != null) {
-            IssueBillingKeyResponse.Fail(
-                transactionType = TransactionType.valueOf(
-                    responseUrl.getQueryParameter(
-                        IssueBillingKeyResponse.TRANSACTION_TYPE
-                    ).orEmpty()
-                ),
-                billingKey = responseUrl.getQueryParameter(IssueBillingKeyResponse.BILLING_KEY)
-                    .orEmpty(),
-                code = responseUrl.getQueryParameter(IssueBillingKeyResponse.CODE).orEmpty(),
-                message = responseUrl.getQueryParameter(IssueBillingKeyResponse.MESSAGE).orEmpty(),
-                pgCode = responseUrl.getQueryParameter(IssueBillingKeyResponse.PG_CODE).orEmpty(),
-                pgMessage = responseUrl.getQueryParameter(IssueBillingKeyResponse.PG_MESSAGE)
-                    .orEmpty(),
-            )
-        } else {
-            IssueBillingKeyResponse.Success(
-                transactionType = TransactionType.valueOf(
-                    responseUrl.getQueryParameter(
-                        IssueBillingKeyResponse.TRANSACTION_TYPE
-                    ).orEmpty()
-                ),
-                billingKey = responseUrl.getQueryParameter(IssueBillingKeyResponse.BILLING_KEY)
-                    .orEmpty(),
-            )
-        }
-
+        return IssueBillingKeyResponse(
+            transactionType = responseUrl.getQueryParameter(
+                "transactionType"
+            ).orEmpty(),
+            billingKey = responseUrl.getQueryParameter("billingKey")
+                .orEmpty(),
+            code = responseUrl.getQueryParameter("code"),
+            message = responseUrl.getQueryParameter("message"),
+            pgCode = responseUrl.getQueryParameter("pgCode"),
+            pgMessage = responseUrl.getQueryParameter("pgMessage")
+        )
     }
 
     private fun handleIdentityVerificationResponse(responseUrl: Uri): IdentityVerificationResponse {
-        return if (responseUrl.getQueryParameter(IdentityVerificationResponse.CODE) != null) {
-            IdentityVerificationResponse.Fail(
-                transactionType = TransactionType.valueOf(
-                    responseUrl.getQueryParameter(
-                        IssueBillingKeyResponse.TRANSACTION_TYPE
-                    ).orEmpty()
-                ),
-                identityVerificationTxId = responseUrl.getQueryParameter(
-                    IdentityVerificationResponse.IDENTITY_VERIFICATION_TX_ID
-                )
-                    .orEmpty(),
-                code = responseUrl.getQueryParameter(IdentityVerificationResponse.CODE).orEmpty(),
-                message = responseUrl.getQueryParameter(IdentityVerificationResponse.MESSAGE)
-                    .orEmpty(),
-                pgCode = responseUrl.getQueryParameter(IdentityVerificationResponse.PG_CODE)
-                    .orEmpty(),
-                pgMessage = responseUrl.getQueryParameter(IdentityVerificationResponse.PG_MESSAGE)
-                    .orEmpty(),
+        return IdentityVerificationResponse(
+            transactionType = responseUrl.getQueryParameter(
+                "transactionType"
+            ).orEmpty(),
+            identityVerificationId = responseUrl.getQueryParameter(
+                "identityVerificationId"
             )
-        } else {
-            IdentityVerificationResponse.Success(
-                transactionType = TransactionType.valueOf(
-                    responseUrl.getQueryParameter(
-                        IdentityVerificationResponse.TRANSACTION_TYPE
-                    ).orEmpty()
-                ),
-                identityVerificationTxId = responseUrl.getQueryParameter(
-                    IdentityVerificationResponse.IDENTITY_VERIFICATION_TX_ID
-                )
-                    .orEmpty(),
-                identityVerificationId = responseUrl.getQueryParameter(IdentityVerificationResponse.IDENTITY_VERIFICATION_ID)
-                    .orEmpty(),
+                .orEmpty(),
+            identityVerificationTxId = responseUrl.getQueryParameter(
+                "identityVerificationTxId"
             )
-        }
-
+                .orEmpty(),
+            code = responseUrl.getQueryParameter("code"),
+            message = responseUrl.getQueryParameter("message"),
+            pgCode = responseUrl.getQueryParameter("pgCode"),
+            pgMessage = responseUrl.getQueryParameter("pgMessage")
+        )
     }
 
     private fun handleIssueBillingKeyAndPayResponse(responseUrl: Uri): IssueBillingKeyAndPayResponse {
-        return if (responseUrl.getQueryParameter(IssueBillingKeyAndPayResponse.CODE) != null) {
-            IssueBillingKeyAndPayResponse.Fail(
-                transactionType = TransactionType.valueOf(
-                    responseUrl.getQueryParameter(
-                        IssueBillingKeyAndPayResponse.TRANSACTION_TYPE
-                    ).orEmpty()
-                ),
-                billingKey = responseUrl.getQueryParameter(IssueBillingKeyAndPayResponse.BILLING_KEY)
-                    .orEmpty(),
-                paymentId = responseUrl.getQueryParameter(IssueBillingKeyAndPayResponse.PAYMENT_ID)
-                    .orEmpty(),
-                txId = responseUrl.getQueryParameter(IssueBillingKeyAndPayResponse.TX_ID)
-                    .orEmpty(),
-                code = responseUrl.getQueryParameter(IssueBillingKeyAndPayResponse.CODE).orEmpty(),
-                message = responseUrl.getQueryParameter(IssueBillingKeyAndPayResponse.MESSAGE)
-                    .orEmpty(),
-                pgCode = responseUrl.getQueryParameter(IssueBillingKeyAndPayResponse.PG_CODE)
-                    .orEmpty(),
-                pgMessage = responseUrl.getQueryParameter(IssueBillingKeyAndPayResponse.PG_MESSAGE)
-                    .orEmpty(),
-            )
-        } else {
-            IssueBillingKeyAndPayResponse.Success(
-                transactionType = TransactionType.valueOf(
-                    responseUrl.getQueryParameter(
-                        IssueBillingKeyAndPayResponse.TRANSACTION_TYPE
-                    ).orEmpty()
-                ),
-                billingKey = responseUrl.getQueryParameter(IssueBillingKeyAndPayResponse.BILLING_KEY)
-                    .orEmpty(),
-                paymentId = responseUrl.getQueryParameter(IssueBillingKeyAndPayResponse.PAYMENT_ID)
-                    .orEmpty(),
-                txId = responseUrl.getQueryParameter(IssueBillingKeyAndPayResponse.TX_ID)
-                    .orEmpty(),
-            )
-        }
-
+        return IssueBillingKeyAndPayResponse(
+            transactionType = responseUrl.getQueryParameter(
+                "transactionType"
+            ).orEmpty(),
+            txId = responseUrl.getQueryParameter("txId")
+                .orEmpty(),
+            paymentId = responseUrl.getQueryParameter("paymentId")
+                .orEmpty(),
+            billingKey = responseUrl.getQueryParameter("billingKey")
+                .orEmpty(),
+            code = responseUrl.getQueryParameter("code"),
+            message = responseUrl.getQueryParameter("message"),
+            pgCode = responseUrl.getQueryParameter("pgCode"),
+            pgMessage = responseUrl.getQueryParameter("pgMessage")
+        )
     }
 
     private fun Context.startSchemeIntent(url: String): Boolean {

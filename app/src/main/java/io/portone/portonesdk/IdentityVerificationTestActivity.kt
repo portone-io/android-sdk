@@ -9,35 +9,27 @@ import io.portone.portonesdk.adapter.CardCompanyAdapter
 import io.portone.portonesdk.databinding.ActivityIdentityVerificationTestBinding
 import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.identityverification.IdentityVerificationCallback
-import io.portone.sdk.android.identityverification.IdentityVerificationRequest
-import io.portone.sdk.android.identityverification.IdentityVerificationResponse
-import io.portone.sdk.android.type.Address
-import io.portone.sdk.android.type.Amount
-import io.portone.sdk.android.type.BirthDate
-import io.portone.sdk.android.type.CardCompany
-import io.portone.sdk.android.type.Country
-import io.portone.sdk.android.type.Currency
-import io.portone.sdk.android.type.Customer
-import io.portone.sdk.android.type.Gender
-import io.portone.sdk.android.type.PaymentMethod
-import kotlinx.serialization.json.Json
+import io.portone.sdk.android.type.request.IdentityVerificationRequest
+import io.portone.sdk.android.type.response.IdentityVerificationResponse
+import io.portone.sdk.android.type.entity.Address
+import io.portone.sdk.android.type.entity.CardCompany
+import io.portone.sdk.android.type.entity.Country
+import io.portone.sdk.android.type.entity.Currency
+import io.portone.sdk.android.type.entity.Customer
+import io.portone.sdk.android.type.entity.Gender
+import io.portone.sdk.android.type.entity.PaymentPayMethod
 
 class IdentityVerificationTestActivity : BaseActivity<ActivityIdentityVerificationTestBinding>() {
     private val identityVerificationActivityResultLauncher =
-        PortOne.registerForIdentityVerificationActivity(this, callback = object :
-            IdentityVerificationCallback {
-            override fun onSuccess(response: IdentityVerificationResponse.Success) {
-                AlertDialog.Builder(this@IdentityVerificationTestActivity)
-                    .setTitle("본인인증 성공")
-                    .setMessage(response.toString())
-                    .show()
+        PortOne.registerForIdentityVerificationActivity(this, callback = object : IdentityVerificationCallback {
+            override fun onSuccess(response: IdentityVerificationResponse) {
+                AlertDialog.Builder(this@IdentityVerificationTestActivity).setTitle("본인인증 성공")
+                    .setMessage(response.toString()).show()
             }
 
-            override fun onFail(response: IdentityVerificationResponse.Fail) {
-                AlertDialog.Builder(this@IdentityVerificationTestActivity)
-                    .setTitle("본인인증 실패")
-                    .setMessage(response.toString())
-                    .show()
+            override fun onFail(response: IdentityVerificationResponse) {
+                AlertDialog.Builder(this@IdentityVerificationTestActivity).setTitle("본인인증 실패")
+                    .setMessage(response.toString()).show()
             }
 
         })
@@ -49,15 +41,17 @@ class IdentityVerificationTestActivity : BaseActivity<ActivityIdentityVerificati
         binding.btnIdentityVerification.setOnClickListener {
             try {
                 PortOne.requestIdentityVerification(
-                    this,
-                    request = IdentityVerificationRequest(
+                    this, request = IdentityVerificationRequest(
                         storeId = binding.etStoreId.text.toString(),
                         identityVerificationId = binding.etIdentityVerificationId.text.toString(),
                         channelKey = binding.etChannelKey.text.toString(),
                         customer = customer(),
-                        bypass = if (!binding.etBypass.text.isNullOrEmpty()) binding.etBypass.text.toString() else null
-                    ),
-                    resultLauncher = identityVerificationActivityResultLauncher
+                        bypass = null, // TODO
+                        windowType = null,
+                        customData = null,
+                        popup = null,
+                        iframe = null
+                    ), resultLauncher = identityVerificationActivityResultLauncher
                 )
             } catch (e: Exception) {
                 Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
@@ -71,16 +65,17 @@ class IdentityVerificationTestActivity : BaseActivity<ActivityIdentityVerificati
 
     private fun customer(): Customer {
         return Customer(
-            id = if (!binding.etCustomerId.text.isNullOrEmpty()) {
+            customerId = if (!binding.etCustomerId.text.isNullOrEmpty()) {
                 binding.etCustomerId.text.toString()
             } else null,
-            name = if (!binding.etCustomerFullName.text.isNullOrEmpty()) {
-                Customer.Name.Full(binding.etCustomerFullName.text.toString())
-            } else if (!binding.etCustomerFirstName.text.isNullOrEmpty() || !binding.etCustomerLastName.text.isNullOrEmpty()) {
-                Customer.Name.Separated(
-                    firstName = binding.tvCustomerFirstName.text.toString(),
-                    lastName = binding.tvCustomerLastName.text.toString(),
-                )
+            fullName = if (!binding.etCustomerFullName.text.isNullOrEmpty()) {
+                binding.etCustomerFullName.text.toString()
+            } else null,
+            firstName = if (!binding.etCustomerFirstName.text.isNullOrEmpty()) {
+                binding.tvCustomerFirstName.text.toString()
+            } else null,
+            lastName = if (!binding.etCustomerLastName.text.isNullOrEmpty()) {
+                binding.tvCustomerLastName.text.toString()
             } else null,
             phoneNumber = if (!binding.etCustomerPhoneNumber.text.isNullOrEmpty()) {
                 binding.etCustomerPhoneNumber.text.toString()
@@ -97,30 +92,24 @@ class IdentityVerificationTestActivity : BaseActivity<ActivityIdentityVerificati
                     addressLine2 = binding.etCustomerAddressLine2.text.toString(),
                     city = binding.etCustomerCity.text.toString(),
                     province = binding.etCustomerProvince.text.toString(),
-                    zipcode = binding.etCustomerZipcode.text.toString(),
                 )
             } else null,
+            zipcode = if (!binding.etCustomerZipcode.text.isNullOrEmpty()) binding.etCustomerZipcode.text.toString() else null,
             gender = if (binding.spinnerGender.selectedItemPosition != 0) {
                 Gender.valueOf(binding.spinnerGender.selectedItem.toString())
             } else null,
-            birthDate = BirthDate(
-                birthYear = if (!binding.etCustomerBirthYear.text.isNullOrEmpty()) binding.etCustomerBirthYear.text.toString()
-                    .toInt() else null,
-                birthMonth = if (!binding.etCustomerBirthMonth.text.isNullOrEmpty()) binding.etCustomerBirthMonth.text.toString()
-                    .toInt() else null,
-                birthDay = if (!binding.etCustomerBirthDay.text.isNullOrEmpty()) binding.etCustomerBirthDay.text.toString()
-                    .toInt() else null
-            )
-
-
+            birthYear = if (!binding.etCustomerBirthYear.text.isNullOrEmpty()) binding.etCustomerBirthYear.text.toString() else null,
+            birthMonth = if (!binding.etCustomerBirthMonth.text.isNullOrEmpty()) binding.etCustomerBirthMonth.text.toString() else null,
+            birthDay = if (!binding.etCustomerBirthDay.text.isNullOrEmpty()) binding.etCustomerBirthDay.text.toString() else null,
+            firstNameKana = null,
+            lastNameKana = null
         )
     }
+
     private fun setSpinners() {
         val genderSpinner = binding.spinnerGender
         ArrayAdapter.createFromResource(
-            this,
-            R.array.gender_array,
-            android.R.layout.simple_spinner_item
+            this, R.array.gender_array, android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             genderSpinner.adapter = adapter
@@ -128,9 +117,7 @@ class IdentityVerificationTestActivity : BaseActivity<ActivityIdentityVerificati
 
         val countrySpinner = binding.spinnerCountry
         ArrayAdapter.createFromResource(
-            this,
-            R.array.country_array,
-            android.R.layout.simple_spinner_item
+            this, R.array.country_array, android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             countrySpinner.adapter = adapter

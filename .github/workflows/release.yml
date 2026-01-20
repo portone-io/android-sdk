@@ -1,0 +1,103 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  changesets:
+    name: Release
+    runs-on: ubuntu-latest
+    outputs:
+      hasChangesets: ${{ steps.changesets-action.outputs.hasChangesets }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Create Release Pull Request
+        id: changesets-action
+        uses: changesets/action@v1
+        with:
+          version: pnpm run version
+          commit: "ci: release"
+          title: "ci: release"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  version:
+    runs-on: ubuntu-latest
+    needs: changesets
+    if: needs.changesets.outputs.hasChangesets == 'false'
+    outputs:
+      version: ${{ steps.version-check.outputs.version }}
+      version-changed: ${{ steps.version-check.outputs.changed }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Check version changes
+        id: version-check
+        uses: EndBug/version-check@v2
+        with:
+          diff-search: true
+          file-name: package.json
+
+  build:
+    runs-on: ubuntu-latest
+    needs: version
+    if: needs.version.outputs.version-changed == 'true'
+    outputs:
+      version: ${{ needs.version.outputs.version }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build SDK
+        run: ./gradlew :sdk:assembleRelease
+
+  publish:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: build
+    if: needs.build.outputs.version
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Create GitHub Release and Tag
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          name: v${{ needs.build.outputs.version }}
+          tag_name: ${{ needs.build.outputs.version }}
+          draft: false
+          generate_release_notes: true

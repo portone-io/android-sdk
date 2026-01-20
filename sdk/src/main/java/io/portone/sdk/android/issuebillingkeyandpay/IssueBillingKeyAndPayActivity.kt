@@ -8,6 +8,8 @@ import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.PortOneWebView
 import io.portone.sdk.android.R
 import io.portone.sdk.android.util.applyInsets
+import io.portone.sdk.android.type.request.IssueBillingKeyAndPayRequest
+import io.portone.sdk.android.type.response.IssueBillingKeyAndPayResponse
 
 class IssueBillingKeyAndPayActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +27,7 @@ class IssueBillingKeyAndPayActivity : AppCompatActivity() {
             webView.requestIssueBillingKeyAndPay(
                 issueBillingKeyAndPayRequest,
                 object : IssueBillingKeyAndPayCallback {
-                    override fun onSuccess(response: IssueBillingKeyAndPayResponse.Success) {
+                    override fun onSuccess(response: IssueBillingKeyAndPayResponse) {
                         setResult(
                             PortOne.SUCCESS_CODE,
                             Intent().putExtra(PortOne.RESPONSE, response)
@@ -33,7 +35,7 @@ class IssueBillingKeyAndPayActivity : AppCompatActivity() {
                         finish()
                     }
 
-                    override fun onFail(response: IssueBillingKeyAndPayResponse.Fail) {
+                    override fun onFail(response: IssueBillingKeyAndPayResponse) {
                         setResult(PortOne.FAIL_CODE, Intent().putExtra(PortOne.RESPONSE, response))
                         finish()
                     }

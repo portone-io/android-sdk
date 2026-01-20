@@ -1,9 +1,10 @@
 package io.portone.sdk.android.identityverification
 
 import io.portone.sdk.android.Callback
+import io.portone.sdk.android.type.response.IdentityVerificationResponse
 
 interface IdentityVerificationCallback :
-    Callback<IdentityVerificationResponse.Success, IdentityVerificationResponse.Fail> {
-    override fun onSuccess(response: IdentityVerificationResponse.Success)
-    override fun onFail(response: IdentityVerificationResponse.Fail)
+    Callback<IdentityVerificationResponse, IdentityVerificationResponse> {
+    override fun onSuccess(response: IdentityVerificationResponse)
+    override fun onFail(response: IdentityVerificationResponse)
 }

@@ -2,11 +2,11 @@ package io.portone.sdk.android.issuebillingkey
 
 interface IssueBillingKeyJavascriptInterface {
     fun fail(
-        transactionType: String?,
+        transactionType: String,
         billingKey: String?,
         code: String,
         message: String,
         pgCode: String?,
-        pgMessage: String?,
+        pgMessage: String?
     )
 }

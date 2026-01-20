@@ -10,11 +10,11 @@ import android.widget.Spinner
 import androidx.recyclerview.widget.RecyclerView
 import io.portone.portonesdk.R
 import io.portone.portonesdk.databinding.ItemFreeInstallmentPlanBinding
-import io.portone.sdk.android.type.CardCompany
-import io.portone.sdk.android.type.Installment
+import io.portone.sdk.android.type.entity.CardCompany
+import io.portone.sdk.android.type.entity.FreeInstallmentPlan
 
 class FreeInstallmentPlanAdapter(
-    private val freeInstallmentPlans: MutableList<Installment.FreeInstallmentPlan> = mutableListOf()
+    private val freeInstallmentPlans: MutableList<FreeInstallmentPlan> = mutableListOf()
 ) : RecyclerView.Adapter<FreeInstallmentPlanViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -30,7 +30,7 @@ class FreeInstallmentPlanAdapter(
             freeInstallmentPlans.removeAt(position)
             notifyDataSetChanged()
         }
-        val freeInstallmentPlanChangedListener = { freeInstallmentPlan: Installment.FreeInstallmentPlan ->
+        val freeInstallmentPlanChangedListener = { freeInstallmentPlan: FreeInstallmentPlan ->
             freeInstallmentPlans[position] = freeInstallmentPlan
         }
         holder.bind(freeInstallmentPlans[position],freeInstallmentPlanChangedListener, deleteClickListener)
@@ -38,7 +38,7 @@ class FreeInstallmentPlanAdapter(
     }
 
     fun getItems() = freeInstallmentPlans
-    fun addItems(freeInstallmentPlan: Installment.FreeInstallmentPlan) {
+    fun addItems(freeInstallmentPlan: FreeInstallmentPlan) {
         freeInstallmentPlans.add(freeInstallmentPlan)
         notifyItemInserted(itemCount)
     }
@@ -51,8 +51,8 @@ class FreeInstallmentPlanViewHolder(
     private val binding: ItemFreeInstallmentPlanBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(
-        freeInstallmentPlan: Installment.FreeInstallmentPlan,
-        freeInstallmentPlanChangeListener: (Installment.FreeInstallmentPlan) -> Unit,
+        freeInstallmentPlan: FreeInstallmentPlan,
+        freeInstallmentPlanChangeListener: (FreeInstallmentPlan) -> Unit,
         deleteClickListener: () -> Unit
     ) {
         val cardCompanySpinner = binding.spinnerCardCompany
@@ -69,9 +69,9 @@ class FreeInstallmentPlanViewHolder(
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 if (binding.spinnerCardCompany.selectedItem.toString() != "미선택") {
                     freeInstallmentPlanChangeListener.invoke(
-                        Installment.FreeInstallmentPlan(
-                            months = binding.etMonths.text.toString().split(",").map { it.toInt() },
-                            cardCompany = CardCompany.valueOf(binding.spinnerCardCompany.selectedItem.toString())
+                        FreeInstallmentPlan(
+                            cardCompany = CardCompany.valueOf(binding.spinnerCardCompany.selectedItem.toString()),
+                            months = binding.etMonths.text.toString().split(",").map { it.toLong() }
                         )
                     )
                 }

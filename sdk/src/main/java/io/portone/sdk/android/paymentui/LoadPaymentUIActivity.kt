@@ -9,8 +9,9 @@ import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.PortOneWebView
 import io.portone.sdk.android.R
 import io.portone.sdk.android.payment.PaymentCallback
-import io.portone.sdk.android.payment.PaymentResponse
 import io.portone.sdk.android.util.applyInsets
+import io.portone.sdk.android.type.response.PaymentResponse
+import io.portone.sdk.android.type.request.LoadPaymentUIRequest
 
 @SuppressLint("SetJavaScriptEnabled")
 class LoadPaymentUIActivity : AppCompatActivity() {
@@ -28,12 +29,12 @@ class LoadPaymentUIActivity : AppCompatActivity() {
         val webView = findViewById<PortOneWebView>(R.id.web_view_load_payment_ui)
         if (loadPaymentUIRequest != null) {
             webView.loadPaymentUI(loadPaymentUIRequest, object : PaymentCallback {
-                override fun onSuccess(response: PaymentResponse.Success) {
+                override fun onSuccess(response: PaymentResponse) {
                     setResult(PortOne.SUCCESS_CODE, Intent().putExtra(PortOne.RESPONSE, response))
                     finish()
                 }
 
-                override fun onFail(response: PaymentResponse.Fail) {
+                override fun onFail(response: PaymentResponse) {
                     setResult(PortOne.FAIL_CODE, Intent().putExtra(PortOne.RESPONSE, response))
                     finish()
                 }

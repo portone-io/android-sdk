@@ -12,14 +12,18 @@ import kotlinx.parcelize.Parcelize
 /**
  * **기간 범위**
  */
+private typealias _OfferPeriodRangeFrom = OfferPeriodRangeFrom
+private typealias _OfferPeriodRangeTo = OfferPeriodRangeTo
+private typealias _OfferPeriodRangeFromTo = OfferPeriodRangeFromTo
+
 @Parcelize
 sealed class OfferPeriodRange : Parcelable {
     @Parcelize
-    data class OfferPeriodRangeFrom(val value: OfferPeriodRangeFrom) : OfferPeriodRange()
+    data class OfferPeriodRangeFrom(val value: _OfferPeriodRangeFrom) : OfferPeriodRange()
     @Parcelize
-    data class OfferPeriodRangeTo(val value: OfferPeriodRangeTo) : OfferPeriodRange()
+    data class OfferPeriodRangeTo(val value: _OfferPeriodRangeTo) : OfferPeriodRange()
     @Parcelize
-    data class OfferPeriodRangeFromTo(val value: OfferPeriodRangeFromTo) : OfferPeriodRange()
+    data class OfferPeriodRangeFromTo(val value: _OfferPeriodRangeFromTo) : OfferPeriodRange()
 
     fun toJson(): Any = when (this) {
         is OfferPeriodRangeFrom -> value.toJson()

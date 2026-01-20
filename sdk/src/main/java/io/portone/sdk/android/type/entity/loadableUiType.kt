@@ -8,12 +8,15 @@ import io.portone.sdk.android.type.entity.IssueBillingKeyUIType
 import io.portone.sdk.android.type.entity.PaymentUIType
 import kotlinx.parcelize.Parcelize
 
+private typealias _PaymentUIType = PaymentUIType
+private typealias _IssueBillingKeyUIType = IssueBillingKeyUIType
+
 @Parcelize
 sealed class LoadableUIType : Parcelable {
     @Parcelize
-    data class PaymentUIType(val value: PaymentUIType) : LoadableUIType()
+    data class PaymentUIType(val value: _PaymentUIType) : LoadableUIType()
     @Parcelize
-    data class IssueBillingKeyUIType(val value: IssueBillingKeyUIType) : LoadableUIType()
+    data class IssueBillingKeyUIType(val value: _IssueBillingKeyUIType) : LoadableUIType()
 
     fun toJson(): Any = when (this) {
         is PaymentUIType -> value.toJson()

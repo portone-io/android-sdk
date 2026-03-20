@@ -3,6 +3,7 @@ package io.portone.sdk.android.issuebillingkeyui
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.PortOneWebView
@@ -25,6 +26,18 @@ class LoadIssueBillingKeyUIActivity : AppCompatActivity() {
 
         }
         val webView = findViewById<PortOneWebView>(R.id.web_view_load_issue_billing_key_ui)
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (webView.canGoBack()) {
+                    webView.goBack()
+                } else {
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
+
         if (loadIssueBillingKeyUIRequest != null) {
             webView.loadIssueBillingKeyUI(loadIssueBillingKeyUIRequest, object :
                 IssueBillingKeyCallback {

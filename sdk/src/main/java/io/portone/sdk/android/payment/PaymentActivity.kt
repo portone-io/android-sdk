@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import io.portone.sdk.android.PortOne
 import io.portone.sdk.android.PortOneWebView
@@ -26,6 +27,18 @@ class PaymentActivity : AppCompatActivity() {
 
         }
         val webView = findViewById<PortOneWebView>(R.id.web_view_payment)
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (webView.canGoBack()) {
+                    webView.goBack()
+                } else {
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
+
         if (paymentRequest != null) {
             webView.requestPayment(paymentRequest, object : PaymentCallback {
                 override fun onSuccess(response: PaymentResponse) {

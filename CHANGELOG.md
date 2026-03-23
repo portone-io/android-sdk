@@ -1,5 +1,11 @@
 # android-sdk
 
+## 0.2.1
+
+### Patch Changes
+
+- [#20](https://github.com/portone-io/android-sdk/pull/20) [`058cb94`](https://github.com/portone-io/android-sdk/commit/058cb94ef5861ec8e8c88354bed13b252fdb7edd) Thanks [@youjmen](https://github.com/youjmen)! - webview backpress improve
+
 ## 0.2.0
 
 ### Minor Changes

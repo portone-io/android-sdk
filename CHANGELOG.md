@@ -1,5 +1,11 @@
 # android-sdk
 
+## 0.2.2
+
+### Patch Changes
+
+- [`9d64ee9`](https://github.com/portone-io/android-sdk/commit/9d64ee9c967411f1e38a23e91dad158d17e480d9) Thanks [@finalchild](https://github.com/finalchild)! - fix: identity verification callback
+
 ## 0.2.1
 
 ### Patch Changes

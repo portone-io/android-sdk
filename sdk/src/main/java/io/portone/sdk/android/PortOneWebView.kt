@@ -288,9 +288,9 @@ class PortOneWebView(context: Context, attrs: AttributeSet? = null) : WebView(co
                         "portone" -> {
                             val result = handleIdentityVerificationResponse(url)
                             if (result.code == null) {
-                                identityVerificationCallback.onFail(result);
-                            } else {
                                 identityVerificationCallback.onSuccess(result);
+                            } else {
+                                identityVerificationCallback.onFail(result);
                             }
                             true
                         }

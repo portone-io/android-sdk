@@ -5,7 +5,6 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "codegen": "rimraf sdk/src/main/java/io/portone/sdk/android/type && portone-client-sdk-generator generate --schema schema/browser-sdk.yml --generator kotlin sdk/src/main/java/io/portone/sdk/android/type",
     "version": "changeset version && node scripts/sync-versions.js"
   },
   "keywords": [],
@@ -15,8 +14,6 @@
   "type": "module",
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.1",
-    "@changesets/cli": "^2.29.5",
-    "@portone/client-sdk-generator": "0.2.0-beta.1",
-    "rimraf": "^6.0.1"
+    "@changesets/cli": "^2.29.5"
   }
 }

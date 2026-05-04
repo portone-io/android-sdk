@@ -4,6 +4,7 @@
 package io.portone.sdk.android.type.entity.bypass.payment
 
 import android.os.Parcelable
+import io.portone.sdk.android.type.entity.bypass.payment.KsnetSndKakaopayType
 import io.portone.sdk.android.type.entity.bypass.payment.KsnetSndQpayType
 import kotlinx.parcelize.Parcelize
 
@@ -19,10 +20,15 @@ data class KsnetPaymentBypass(
     /**
      * **KSNET 간편결제 다이렉트 여부**
      */
-    val easyPayDirect: Boolean? = null
+    val easyPayDirect: Boolean? = null,
+    /**
+     * 카드 결제창에서 카카오페이 결제시 허용할 결제수단
+     */
+    val sndKakaopayType: KsnetSndKakaopayType? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         sndQpayType?.let { put("sndQpayType", sndQpayType.toJson()) }
         easyPayDirect?.let { put("easyPayDirect", easyPayDirect) }
+        sndKakaopayType?.let { put("sndKakaopayType", sndKakaopayType.toJson()) }
     }
 }

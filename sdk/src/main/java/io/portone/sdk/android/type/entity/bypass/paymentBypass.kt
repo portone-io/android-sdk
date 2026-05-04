@@ -17,11 +17,13 @@ import io.portone.sdk.android.type.entity.bypass.payment.MobiliansV2Bypass
 import io.portone.sdk.android.type.entity.bypass.payment.NaverpayPaymentBypass
 import io.portone.sdk.android.type.entity.bypass.payment.NiceV2PaymentBypass
 import io.portone.sdk.android.type.entity.bypass.payment.PayletterGlobalBypass
+import io.portone.sdk.android.type.entity.bypass.payment.PaymentwallBypass
 import io.portone.sdk.android.type.entity.bypass.payment.PaypalV2PaymentBypass
 import io.portone.sdk.android.type.entity.bypass.payment.SmartroV2PaymentBypass
 import io.portone.sdk.android.type.entity.bypass.payment.TossBrandpayPaymentBypass
 import io.portone.sdk.android.type.entity.bypass.payment.TosspayV2PaymentBypass
 import io.portone.sdk.android.type.entity.bypass.payment.TosspaymentsPaymentBypass
+import io.portone.sdk.android.type.entity.bypass.payment.TripleABypass
 import io.portone.sdk.android.type.entity.bypass.payment.WelcomePaymentBypass
 import kotlinx.parcelize.Parcelize
 
@@ -107,7 +109,15 @@ data class PaymentBypass(
     /**
      * 모빌리언스 V2 bypass 파라미터
      */
-    val mobiliansV2: MobiliansV2Bypass? = null
+    val mobiliansV2: MobiliansV2Bypass? = null,
+    /**
+     * Triple-A bypass 파라미터
+     */
+    val tripleA: TripleABypass? = null,
+    /**
+     * Paymentwall bypass 파라미터
+     */
+    val paymentwall: PaymentwallBypass? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         tosspayments?.let { put("tosspayments", tosspayments.toJson()) }
@@ -129,5 +139,7 @@ data class PaymentBypass(
         inicisJp?.let { put("inicis_jp", inicisJp.toJson()) }
         payletterGlobal?.let { put("payletter_global", payletterGlobal.toJson()) }
         mobiliansV2?.let { put("mobilians_v2", mobiliansV2.toJson()) }
+        tripleA?.let { put("triple_a", tripleA.toJson()) }
+        paymentwall?.let { put("paymentwall", paymentwall.toJson()) }
     }
 }

@@ -111,7 +111,7 @@ data class LoadPaymentUIRequest(
     /**
      * **UI 언어**
      * 
-     * KG이니시스, 스마트로, KSNET, 웰컴페이먼츠 (PC), 한국결제네트웍스, 엑심베이에서 설정 가능하며, PG마다 지원하는 언어 목록은 차이가 있습니다.
+     * KG이니시스, 스마트로, KSNET, 웰컴페이먼츠 (PC), 한국결제네트웍스, 엑심베이, Triple-A, 페이먼트월에서 설정 가능하며, PG마다 지원하는 언어 목록은 차이가 있습니다.
      */
     val locale: Locale? = null,
     /**

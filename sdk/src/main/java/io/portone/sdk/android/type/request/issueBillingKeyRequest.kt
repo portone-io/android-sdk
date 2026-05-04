@@ -73,9 +73,19 @@ data class IssueBillingKeyRequest(
      */
     val windowType: WindowTypes? = null,
     /**
+     * **결과 리턴 방식을 리디렉션으로 강제**
+     * 
+     * `true`로 설정하면 원래 프로미스로 resolve 되었을 상황에서도
+     * `redirectUrl`로 쿼리 파라미터와 함께 리디렉션합니다.
+     * 
+     * - `redirectUrl`이 없으면 기존처럼 프로미스로 반환합니다.
+     * - 빌링키 발급 시작 전 발생하는 에러는 리디렉션하지 않습니다.
+     */
+    val forceRedirect: Boolean? = null,
+    /**
      * **UI 언어**
      * 
-     * KG이니시스, 스마트로, KSNET, 웰컴페이먼츠 (PC), 한국결제네트웍스, 엑심베이에서 설정 가능하며, PG마다 지원하는 언어 목록은 차이가 있습니다.
+     * KG이니시스, 스마트로, KSNET, 웰컴페이먼츠 (PC), 한국결제네트웍스, 엑심베이, Triple-A, 페이먼트월에서 설정 가능하며, PG마다 지원하는 언어 목록은 차이가 있습니다.
      */
     val locale: Locale? = null,
     /**
@@ -163,6 +173,7 @@ data class IssueBillingKeyRequest(
         issueId?.let { put("issueId", issueId) }
         customer?.let { put("customer", customer.toJson()) }
         windowType?.let { put("windowType", windowType.toJson()) }
+        forceRedirect?.let { put("forceRedirect", forceRedirect) }
         locale?.let { put("locale", locale.toJson()) }
         customData?.let { put("customData", customData) }
         offerPeriod?.let { put("offerPeriod", offerPeriod.toJson()) }

@@ -46,7 +46,11 @@ enum class PaymentPayMethod {
     /**
      * 편의점 결제
      */
-    CONVENIENCE_STORE;
+    CONVENIENCE_STORE,
+    /**
+     * 알리페이 플러스
+     */
+    ALIPAY_PLUS;
 
     fun toJson(): String = name
 }

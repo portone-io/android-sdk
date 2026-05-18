@@ -19,6 +19,7 @@ import io.portone.sdk.android.type.entity.StoreDetails
 import io.portone.sdk.android.type.entity.WindowTypes
 import io.portone.sdk.android.type.entity.bypass.PaymentBypass
 import io.portone.sdk.android.type.request.PaymentRequestUnionAlipay
+import io.portone.sdk.android.type.request.PaymentRequestUnionAlipayPlus
 import io.portone.sdk.android.type.request.PaymentRequestUnionCard
 import io.portone.sdk.android.type.request.PaymentRequestUnionConvenienceStore
 import io.portone.sdk.android.type.request.PaymentRequestUnionEasyPay
@@ -50,6 +51,10 @@ data class PaymentRequest(
      * **주문명**
      */
     val orderName: String,
+    /**
+     * **주문 상세 내용**
+     */
+    val orderDetail: String? = null,
     /**
      * **결제 금액**
      * 
@@ -120,6 +125,16 @@ data class PaymentRequest(
      */
     val windowType: WindowTypes? = null,
     /**
+     * **결과 리턴 방식을 리디렉션으로 강제**
+     * 
+     * `true`로 설정하면 원래 프로미스로 resolve 되었을 상황에서도
+     * `redirectUrl`로 쿼리 파라미터와 함께 리디렉션합니다.
+     * 
+     * - `redirectUrl`이 없으면 기존처럼 프로미스로 반환합니다.
+     * - 결제 시작 전 발생하는 에러는 리디렉션하지 않습니다.
+     */
+    val forceRedirect: Boolean? = null,
+    /**
      * **웹훅 수신 URL**
      * 
      * 포트원 관리자 콘솔에 설정한 웹훅 URL 대신 사용할 웹훅 URL을 결제시마다 설정할 수 있습니다.
@@ -165,7 +180,7 @@ data class PaymentRequest(
     /**
      * **UI 언어**
      * 
-     * KG이니시스, 스마트로, KSNET, 웰컴페이먼츠 (PC), 한국결제네트웍스, 엑심베이에서 설정 가능하며, PG마다 지원하는 언어 목록은 차이가 있습니다.
+     * KG이니시스, 스마트로, KSNET, 웰컴페이먼츠 (PC), 한국결제네트웍스, 엑심베이, Triple-A, 페이먼트월에서 설정 가능하며, PG마다 지원하는 언어 목록은 차이가 있습니다.
      */
     val locale: Locale? = null,
     /**
@@ -280,12 +295,14 @@ data class PaymentRequest(
     val easyPay: PaymentRequestUnionEasyPay? = null,
     val paypal: PaymentRequestUnionPaypal? = null,
     val alipay: PaymentRequestUnionAlipay? = null,
-    val convenienceStore: PaymentRequestUnionConvenienceStore? = null
+    val convenienceStore: PaymentRequestUnionConvenienceStore? = null,
+    val alipayPlus: PaymentRequestUnionAlipayPlus? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         put("storeId", storeId)
         put("paymentId", paymentId)
         put("orderName", orderName)
+        orderDetail?.let { put("orderDetail", orderDetail) }
         put("totalAmount", totalAmount)
         put("currency", currency.toJson())
         put("payMethod", payMethod.toJson())
@@ -295,6 +312,7 @@ data class PaymentRequest(
         vatAmount?.let { put("vatAmount", vatAmount) }
         customer?.let { put("customer", customer.toJson()) }
         windowType?.let { put("windowType", windowType.toJson()) }
+        forceRedirect?.let { put("forceRedirect", forceRedirect) }
         noticeUrls?.let { put("noticeUrls", noticeUrls) }
         confirmUrl?.let { put("confirmUrl", confirmUrl) }
         appScheme?.let { put("appScheme", appScheme) }
@@ -321,5 +339,6 @@ data class PaymentRequest(
         paypal?.let { put("paypal", paypal.toJson()) }
         alipay?.let { put("alipay", alipay.toJson()) }
         convenienceStore?.let { put("convenienceStore", convenienceStore.toJson()) }
+        alipayPlus?.let { put("alipayPlus", alipayPlus.toJson()) }
     }
 }

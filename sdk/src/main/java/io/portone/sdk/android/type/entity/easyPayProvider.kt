@@ -177,7 +177,91 @@ enum class EasyPayProvider {
      * 
      * - KG이니시스 JPPG 일본결제
      */
-    MERPAY;
+    MERPAY,
+    /**
+     * Alipay
+     * 
+     * - KICC V2 알리페이 플러스
+     */
+    ALIPAY,
+    /**
+     * Alipay (HK)
+     * 
+     * - KICC V2 알리페이 플러스
+     */
+    ALIPAY_HK,
+    /**
+     * TrueMoney
+     * 
+     * - KICC V2 알리페이 플러스
+     */
+    TRUE_MONEY,
+    /**
+     * Touch'n Go eWallet
+     * 
+     * - KICC V2 알리페이 플러스
+     */
+    TOUCH_N_GO,
+    /**
+     * GCash
+     * 
+     * - KICC V2 알리페이 플러스
+     */
+    GCASH,
+    /**
+     * DANA
+     * 
+     * - KICC V2 알리페이 플러스
+     */
+    DANA,
+    /**
+     * Rabbit LINE Pay
+     * 
+     * - KICC V2 알리페이 플러스
+     */
+    RABBIT_LINE_PAY,
+    /**
+     * BPI (Bank of the Philippine Islands)
+     * 
+     * - KICC V2 알리페이 플러스
+     */
+    BPI,
+    /**
+     * Boost
+     * 
+     * - KICC V2 알리페이 플러스
+     */
+    BOOST,
+    /**
+     * BillEase
+     * 
+     * - KICC V2 알리페이 플러스
+     */
+    BILL_EASE,
+    /**
+     * Tinaba
+     * 
+     * - KICC V2 알리페이 플러스
+     */
+    TINABA,
+    /**
+     * MPay
+     * 
+     * - KICC V2 알리페이 플러스
+     */
+    MPAY,
+    /**
+     * Kredivo
+     * 
+     * - KICC V2 알리페이 플러스
+     */
+    KREDIVO,
+    /**
+     * WeChat Pay
+     * 
+     * - KICC V2 알리페이 플러스
+     */
+    WECHAT;
 
     fun toJson(): String = name
 }

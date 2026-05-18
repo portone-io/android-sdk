@@ -13,7 +13,7 @@ data class Customer(
     /**
      * **구매자 ID**
      * 
-     * 스마트로, KG이니시스 SBPS 일본결제에서 사용합니다.
+     * 스마트로, KG이니시스 SBPS 일본결제, Triple-A에서 사용합니다.
      * 
      * 토스페이먼츠와 스마트로의 빌링키 발급에서 사용합니다.
      */
@@ -38,8 +38,6 @@ data class Customer(
     val lastName: String? = null,
     /**
      * **구매자 휴대전화 번호**
-     * 
-     * 숫자만 입력합니다.
      */
     val phoneNumber: String? = null,
     /**

@@ -46,6 +46,16 @@ data class IdentityVerificationRequest(
      */
     val windowType: WindowTypes? = null,
     /**
+     * **결과 리턴 방식을 리디렉션으로 강제**
+     * 
+     * `true`로 설정하면 원래 프로미스로 resolve 되었을 상황에서도
+     * `redirectUrl`로 쿼리 파라미터와 함께 리디렉션합니다.
+     * 
+     * - `redirectUrl`이 없으면 기존처럼 프로미스로 반환합니다.
+     * - 본인인증 시작 전 발생하는 에러는 리디렉션하지 않습니다.
+     */
+    val forceRedirect: Boolean? = null,
+    /**
      * **본인인증 정보와 함께 관리하고 싶은 고객사 커스텀 JSON 데이터**
      */
     val customData: String? = null,
@@ -70,6 +80,7 @@ data class IdentityVerificationRequest(
         channelKey?.let { put("channelKey", channelKey) }
         customer?.let { put("customer", customer.toJson()) }
         windowType?.let { put("windowType", windowType.toJson()) }
+        forceRedirect?.let { put("forceRedirect", forceRedirect) }
         customData?.let { put("customData", customData) }
         bypass?.let { put("bypass", bypass.toJson()) }
         popup?.let { put("popup", popup.toJson()) }

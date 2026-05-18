@@ -1,0 +1,56 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  validate:
+    name: Build, Lint & Test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e
+
+      - name: Lint SDK
+        run: ./gradlew :sdk:lintRelease
+
+      - name: Run unit tests
+        run: ./gradlew :sdk:testDebugUnitTest
+
+      - name: Build SDK
+        run: ./gradlew :sdk:assembleRelease
+
+      - name: Build sample app
+        run: ./gradlew :app:assembleDebug
+
+      - name: Upload reports
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: validation-reports
+          path: |
+            sdk/build/reports/
+            app/build/reports/
+          if-no-files-found: ignore
+          retention-days: 7

@@ -1,5 +1,11 @@
 # android-sdk
 
+## 0.2.3
+
+### Patch Changes
+
+- [#27](https://github.com/portone-io/android-sdk/pull/27) [`1f66984`](https://github.com/portone-io/android-sdk/commit/1f669841ead71aaba75db3e156c3759322b67a5c) Thanks [@CirnoV](https://github.com/CirnoV)! - `@portone/browser-sdk` v0.1.7 릴리즈에 따라 타입을 동기화합니다.
+
 ## 0.2.2
 
 ### Patch Changes

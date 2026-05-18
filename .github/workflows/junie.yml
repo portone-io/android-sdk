@@ -1,9 +1,7 @@
 name: Junie
 run-name: Junie run ${{ inputs.run_id }}
 
-permissions:
-  contents: write
-  pull-requests: write
+permissions: {}
 
 on:
   workflow_dispatch:
@@ -17,6 +15,9 @@ on:
 
 jobs:
   call-workflow-passing-data:
-    uses: jetbrains-junie/junie-workflows/.github/workflows/ej-issue.yml@main
+    permissions:
+      contents: write # Required to let Junie commit repository updates.
+      pull-requests: write # Required to let Junie update pull requests.
+    uses: jetbrains-junie/junie-workflows/.github/workflows/ej-issue.yml@b4f71597a0a5aaa196d1191efe33f6f77517f792
     with:
       workflow_params: ${{ inputs.workflow_params }}

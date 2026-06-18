@@ -4,6 +4,7 @@
 package io.portone.sdk.android.type.entity.bypass.payment
 
 import android.os.Parcelable
+import io.portone.sdk.android.type.entity.bypass.payment.TosspaymentsPaypal
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -18,10 +19,15 @@ data class TosspaymentsPaymentBypass(
     /**
      * 해외 카드로만 결제가 가능하도록 할 지 여부
      */
-    val useInternationalCardOnly: Boolean? = null
+    val useInternationalCardOnly: Boolean? = null,
+    /**
+     * 판매자 보호/위험 관리 파라미터
+     */
+    val paypal: TosspaymentsPaypal? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         discountCode?.let { put("discountCode", discountCode) }
         useInternationalCardOnly?.let { put("useInternationalCardOnly", useInternationalCardOnly) }
+        paypal?.let { put("paypal", paypal.toJson()) }
     }
 }

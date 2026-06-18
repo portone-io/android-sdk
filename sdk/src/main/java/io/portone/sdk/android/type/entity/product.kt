@@ -48,7 +48,11 @@ data class Product(
     /**
      * **상품 판매 URL**
      */
-    val link: String? = null
+    val link: String? = null,
+    /**
+     * **상품 설명**
+     */
+    val description: String? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         put("id", id)
@@ -58,5 +62,6 @@ data class Product(
         put("quantity", quantity)
         tag?.let { put("tag", tag) }
         link?.let { put("link", link) }
+        description?.let { put("description", description) }
     }
 }

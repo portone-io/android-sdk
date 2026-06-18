@@ -102,8 +102,15 @@ enum class EasyPayProvider {
      * - 나이스페이먼츠
      * - KG이니시스
      * - NHN KCP
+     * - 헥토파이낸셜 해외결제
      */
     APPLEPAY,
+    /**
+     * 구글페이
+     * 
+     * - 헥토파이낸셜 해외결제
+     */
+    GOOGLE_PAY,
     /**
      * LG페이
      * 
@@ -146,6 +153,7 @@ enum class EasyPayProvider {
      * PayPay
      * 
      * - KG이니시스 JPPG/SBPS 일본결제
+     * - 헥토파이낸셜 해외결제
      */
     PAYPAY,
     /**
@@ -158,6 +166,7 @@ enum class EasyPayProvider {
      * 라쿠텐페이
      * 
      * - KG이니시스 JPPG 일본결제
+     * - 헥토파이낸셜 해외결제
      */
     RAKUTENPAY,
     /**
@@ -170,12 +179,14 @@ enum class EasyPayProvider {
      * auPAY
      * 
      * - KG이니시스 JPPG 일본결제
+     * - 헥토파이낸셜 해외결제
      */
     AUPAY,
     /**
      * Merpay
      * 
      * - KG이니시스 JPPG 일본결제
+     * - 헥토파이낸셜 해외결제
      */
     MERPAY,
     /**
@@ -261,7 +272,13 @@ enum class EasyPayProvider {
      * 
      * - KICC V2 알리페이 플러스
      */
-    WECHAT;
+    WECHAT,
+    /**
+     * 페이팔
+     * 
+     * - 토스페이먼츠
+     */
+    PAYPAL;
 
     fun toJson(): String = name
 }

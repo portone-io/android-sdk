@@ -259,6 +259,10 @@ data class PaymentRequest(
      */
     val promotionId: String? = null,
     /**
+     * **Merpay 상품 카테고리 ID**
+     */
+    val merpayCategoryId: String? = null,
+    /**
      * **팝업 관련 필드**
      * 
      * UI가 팝업 창으로 열릴 때 적용되는 속성입니다.
@@ -327,6 +331,7 @@ data class PaymentRequest(
         storeDetails?.let { put("storeDetails", storeDetails.toJson()) }
         shippingAddress?.let { put("shippingAddress", shippingAddress.toJson()) }
         promotionId?.let { put("promotionId", promotionId) }
+        merpayCategoryId?.let { put("merpayCategoryId", merpayCategoryId) }
         popup?.let { put("popup", popup.toJson()) }
         iframe?.let { put("iframe", iframe.toJson()) }
         bypass?.let { put("bypass", bypass.toJson()) }

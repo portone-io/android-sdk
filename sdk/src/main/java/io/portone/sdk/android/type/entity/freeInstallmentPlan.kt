@@ -5,6 +5,7 @@ package io.portone.sdk.android.type.entity
 
 import android.os.Parcelable
 import io.portone.sdk.android.type.entity.CardCompany
+import io.portone.sdk.android.type.entity.FreeInstallmentPlanPgProvider
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -43,12 +44,17 @@ data class FreeInstallmentPlan(
      */
     val cardCompany: CardCompany,
     /**
+     * **무이자 할부를 적용할 PG사 구분코드**
+     */
+    val pgProvider: FreeInstallmentPlanPgProvider? = null,
+    /**
      * **무이자 할부를 제공하는 개월 수**
      */
     val months: List<Long>
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         put("cardCompany", cardCompany.toJson())
+        pgProvider?.let { put("pgProvider", pgProvider.toJson()) }
         put("months", months)
     }
 }

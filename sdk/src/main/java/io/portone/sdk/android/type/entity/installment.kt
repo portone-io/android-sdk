@@ -57,6 +57,9 @@ import kotlinx.parcelize.Parcelize
 data class Installment(
     /**
      * **무이자 할부 설정**
+     * 
+     * 상점 부담 무이자 할부를 이용하려면 PG사와 사전 협의가 필요합니다.
+     * 요청에 상점 부담 무이자 필드를 직접 설정해야 하는지 PG사에 확인해 주세요.
      */
     val freeInstallmentPlans: List<FreeInstallmentPlan>? = null,
     /**

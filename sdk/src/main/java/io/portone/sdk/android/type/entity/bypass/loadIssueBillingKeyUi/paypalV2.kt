@@ -18,6 +18,18 @@ data class PaypalV2LoadIssueBillingKeyUIBypass(
      * 페이팔 빌링키 발급 UI 호출 시 필요한 파라미터
      */
     val style: PaypalV2Style? = null,
+    /**
+     * 허용할 결제 수단 (예: "paylater,venmo")
+     * 
+     * 전달할 수 있는 값은 https://developer.paypal.com/sdk/js/v5/configuration#enable-funding 을 참고하세요.
+     */
+    val enableFunding: String? = null,
+    /**
+     * 차단할 결제 수단 (예: "credit,paylater")
+     * 
+     * 전달할 수 있는 값은 https://developer.paypal.com/sdk/js/v5/configuration#disable-funding 을 참고하세요.
+     */
+    val disableFunding: String? = null,
     val shippingAddress: PaypalV2ShippingAddress? = null,
     /**
      * STC 파라미터
@@ -26,6 +38,8 @@ data class PaypalV2LoadIssueBillingKeyUIBypass(
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         style?.let { put("style", style.toJson()) }
+        enableFunding?.let { put("enable-funding", enableFunding) }
+        disableFunding?.let { put("disable-funding", disableFunding) }
         shippingAddress?.let { put("shipping_address", shippingAddress.toJson()) }
         additionalData?.let { put("additional_data", additionalData.map { it.toJson() }) }
     }

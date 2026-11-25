@@ -5,9 +5,9 @@ package io.portone.sdk.android.type.entity.bypass
 
 import android.os.Parcelable
 import io.portone.sdk.android.type.entity.bypass.issueBillingKeyAndPay.EximbayV2IssueBillingKeyAndPayBypass
-import io.portone.sdk.android.type.entity.bypass.issueBillingKeyAndPay.GalaxiaIssueBillingKeyAndPayBypass
 import io.portone.sdk.android.type.entity.bypass.issueBillingKeyAndPay.PayletterGlobalIssueBillingKeyAndPayBypass
 import io.portone.sdk.android.type.entity.bypass.issueBillingKeyAndPay.WelcomeIssueBillingKeyAndPayBypass
+import io.portone.sdk.android.type.request.SubscriptionRegistrationBypass
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -23,16 +23,11 @@ data class IssueBillingKeyAndPayBypass(
     /**
      * **엑심베이 bypass 파라미터**
      */
-    val eximbayV2: EximbayV2IssueBillingKeyAndPayBypass? = null,
-    /**
-     * **갤럭시아 bypass 파라미터**
-     */
-    val galaxia: GalaxiaIssueBillingKeyAndPayBypass? = null
+    val eximbayV2: EximbayV2IssueBillingKeyAndPayBypass? = null
 ) : Parcelable {
     fun toJson(): Map<String, Any> = buildMap {
         welcome?.let { put("welcome", welcome.toJson()) }
         payletterGlobal?.let { put("payletter_global", payletterGlobal.toJson()) }
         eximbayV2?.let { put("eximbay_v2", eximbayV2.toJson()) }
-        galaxia?.let { put("galaxia", galaxia.toJson()) }
     }
 }

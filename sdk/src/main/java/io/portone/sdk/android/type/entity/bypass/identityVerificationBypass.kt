@@ -30,6 +30,6 @@ data class IdentityVerificationBypass(
     fun toJson(): Map<String, Any> = buildMap {
         danal?.let { put("danal", danal.toJson()) }
         inicisUnified?.let { put("inicisUnified", inicisUnified.toJson()) }
-        kcpV2?.let { put("kcpV2", kcpV2.toJson()) }
+        kcpV2?.let { put("kcp_v2", kcpV2.toJson()) }
     }
 }

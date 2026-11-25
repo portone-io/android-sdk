@@ -54,7 +54,7 @@ data class IssueBillingKeyRequest(
     /**
      * 빌링키 발급 수단
      */
-    val billingKeyMethod: BillingKeyMethod,
+    val billingKeyMethod: BillingKeyMethod? = null,
     /**
      * 빌링키 발급 주문 명
      */
@@ -168,7 +168,7 @@ data class IssueBillingKeyRequest(
         currency?.let { put("currency", currency.toJson()) }
         put("storeId", storeId)
         channelKey?.let { put("channelKey", channelKey) }
-        put("billingKeyMethod", billingKeyMethod.toJson())
+        billingKeyMethod?.let { put("billingKeyMethod", billingKeyMethod.toJson()) }
         issueName?.let { put("issueName", issueName) }
         issueId?.let { put("issueId", issueId) }
         customer?.let { put("customer", customer.toJson()) }

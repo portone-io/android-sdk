@@ -10,6 +10,7 @@ package io.portone.sdk.android.type.entity
  * - ISSUE\_BILLING\_KEY: 빌링키 발급
  * - IDENTITY\_VERIFICATION: 본인 인증
  * - ISSUE\_BILLING\_KEY\_AND\_PAY: 빌링키 발급과 동시에 결제
+ * - SUBSCRIPTION\_REGISTRATION: 구독 등록
  */
 enum class TransactionType {
     /**
@@ -27,7 +28,11 @@ enum class TransactionType {
     /**
      * 빌링키 발급 및 초회결제
      */
-    ISSUE_BILLING_KEY_AND_PAY;
+    ISSUE_BILLING_KEY_AND_PAY,
+    /**
+     * 구독 등록
+     */
+    SUBSCRIPTION_REGISTRATION;
 
     fun toJson(): String = name
 }

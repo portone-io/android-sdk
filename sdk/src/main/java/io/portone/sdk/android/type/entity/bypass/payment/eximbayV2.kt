@@ -7,6 +7,7 @@ import android.os.Parcelable
 import io.portone.sdk.android.type.entity.bypass.payment.EximbayV2BillTo
 import io.portone.sdk.android.type.entity.bypass.payment.EximbayV2Merchant
 import io.portone.sdk.android.type.entity.bypass.payment.EximbayV2Payment
+import io.portone.sdk.android.type.entity.bypass.payment.EximbayV2Paypal
 import io.portone.sdk.android.type.entity.bypass.payment.EximbayV2Settings
 import io.portone.sdk.android.type.entity.bypass.payment.EximbayV2ShipTo
 import io.portone.sdk.android.type.entity.bypass.payment.EximbayV2Surcharge
@@ -43,6 +44,10 @@ data class EximbayV2Bypass(
      */
     val billTo: EximbayV2BillTo? = null,
     /**
+     * 페이팔 정보
+     */
+    val paypal: EximbayV2Paypal? = null,
+    /**
      * 설정 정보
      */
     val settings: EximbayV2Settings? = null
@@ -54,6 +59,7 @@ data class EximbayV2Bypass(
         surcharge?.let { put("surcharge", surcharge.map { it.toJson() }) }
         shipTo?.let { put("ship_to", shipTo.toJson()) }
         billTo?.let { put("bill_to", billTo.toJson()) }
+        paypal?.let { put("paypal", paypal.toJson()) }
         settings?.let { put("settings", settings.toJson()) }
     }
 }

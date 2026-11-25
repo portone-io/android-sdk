@@ -5,7 +5,6 @@ package io.portone.sdk.android.type.entity.bypass
 
 import android.os.Parcelable
 import io.portone.sdk.android.type.entity.bypass.payment.EximbayV2Bypass
-import io.portone.sdk.android.type.entity.bypass.payment.GalaxiaPaymentBypass
 import io.portone.sdk.android.type.entity.bypass.payment.HyphenBypass
 import io.portone.sdk.android.type.entity.bypass.payment.InicisJpBypass
 import io.portone.sdk.android.type.entity.bypass.payment.InicisV2Bypass
@@ -16,6 +15,7 @@ import io.portone.sdk.android.type.entity.bypass.payment.KsnetPaymentBypass
 import io.portone.sdk.android.type.entity.bypass.payment.MobiliansV2Bypass
 import io.portone.sdk.android.type.entity.bypass.payment.NaverpayPaymentBypass
 import io.portone.sdk.android.type.entity.bypass.payment.NiceV2PaymentBypass
+import io.portone.sdk.android.type.entity.bypass.payment.PayletterBypass
 import io.portone.sdk.android.type.entity.bypass.payment.PayletterGlobalBypass
 import io.portone.sdk.android.type.entity.bypass.payment.PaymentwallBypass
 import io.portone.sdk.android.type.entity.bypass.payment.PaypalV2PaymentBypass
@@ -95,10 +95,6 @@ data class PaymentBypass(
      */
     val eximbayV2: EximbayV2Bypass? = null,
     /**
-     * 갤럭시아 bypass 파라미터
-     */
-    val galaxia: GalaxiaPaymentBypass? = null,
-    /**
      * 이니시스 일본 bypass 파라미터
      */
     val inicisJp: InicisJpBypass? = null,
@@ -106,6 +102,10 @@ data class PaymentBypass(
      * 페이레터 해외결제 bypass 파라미터
      */
     val payletterGlobal: PayletterGlobalBypass? = null,
+    /**
+     * 페이레터 국내결제 bypass 파라미터
+     */
+    val payletter: PayletterBypass? = null,
     /**
      * 모빌리언스 V2 bypass 파라미터
      */
@@ -135,9 +135,9 @@ data class PaymentBypass(
         tossBrandpay?.let { put("toss_brandpay", tossBrandpay.toJson()) }
         hyphen?.let { put("hyphen", hyphen.toJson()) }
         eximbayV2?.let { put("eximbay_v2", eximbayV2.toJson()) }
-        galaxia?.let { put("galaxia", galaxia.toJson()) }
         inicisJp?.let { put("inicis_jp", inicisJp.toJson()) }
         payletterGlobal?.let { put("payletter_global", payletterGlobal.toJson()) }
+        payletter?.let { put("payletter", payletter.toJson()) }
         mobiliansV2?.let { put("mobilians_v2", mobiliansV2.toJson()) }
         tripleA?.let { put("triple_a", tripleA.toJson()) }
         paymentwall?.let { put("paymentwall", paymentwall.toJson()) }

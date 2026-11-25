@@ -4,7 +4,6 @@
 package io.portone.sdk.android.type.entity.bypass
 
 import android.os.Parcelable
-import io.portone.sdk.android.type.entity.bypass.issueBillingKey.GalaxiaIssueBillingKeyBypass
 import io.portone.sdk.android.type.entity.bypass.issueBillingKey.InicisV2IssueBillingKeyBypass
 import io.portone.sdk.android.type.entity.bypass.issueBillingKey.KcpV2IssueBillingKeyBypass
 import io.portone.sdk.android.type.entity.bypass.issueBillingKey.NaverpayIssueBillingKeyBypass
@@ -12,6 +11,7 @@ import io.portone.sdk.android.type.entity.bypass.issueBillingKey.SmartroV2IssueB
 import io.portone.sdk.android.type.entity.bypass.issueBillingKey.TosspayV2IssueBillingKeyBypass
 import io.portone.sdk.android.type.entity.bypass.issueBillingKey.WelcomeIssueBillingKeyBypass
 import io.portone.sdk.android.type.entity.bypass.payment.KakaopayPaymentBypass
+import io.portone.sdk.android.type.request.SubscriptionRegistrationBypass
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -33,10 +33,6 @@ data class IssueBillingKeyBypass(
      */
     val welcome: WelcomeIssueBillingKeyBypass? = null,
     /**
-     * **갤럭시아 bypass 파라미터**
-     */
-    val galaxia: GalaxiaIssueBillingKeyBypass? = null,
-    /**
      * **네이버페이 bypass 파라미터**
      */
     val naverpay: NaverpayIssueBillingKeyBypass? = null,
@@ -54,7 +50,6 @@ data class IssueBillingKeyBypass(
         kcpV2?.let { put("kcp_v2", kcpV2.toJson()) }
         smartroV2?.let { put("smartro_v2", smartroV2.toJson()) }
         welcome?.let { put("welcome", welcome.toJson()) }
-        galaxia?.let { put("galaxia", galaxia.toJson()) }
         naverpay?.let { put("naverpay", naverpay.toJson()) }
         kakaopay?.let { put("kakaopay", kakaopay.toJson()) }
         tosspayV2?.let { put("tosspay_v2", tosspayV2.toJson()) }
